@@ -21,7 +21,10 @@ fun ArmsUI(modifier: Modifier = Modifier) {
 
         Row {
             Text(text = stringResource(R.string.sub_title2), modifier = Modifier.weight(1f))
-            Text(text = stringResource(R.string.sub_title3), modifier = Modifier.padding(start = 16.dp))
+            Text(
+                text = stringResource(R.string.sub_title3),
+                modifier = Modifier.padding(start = 16.dp)
+            )
         }
     }
 }
