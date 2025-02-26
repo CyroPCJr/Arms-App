@@ -1,14 +1,22 @@
 <resources>
-    <string name="app_name">ArmsApp</string>
-    <string name="title">NÓS
-    CONSTRUÍMOS
-    MARCAS</string>
-    <string name="sub_title">ORIGINAIS E PROTEGIDAS
-COM DESIGN DE VERDADE</string>
-    <string name="sub_title2">TRANSFORME
-    SUA HISTÓRIA</string>
-    <string name="sub_title3">EM UM PROJETO
-    MEMORÁVEL.</string>
+    <string name="app_name">Arms App</string>
+    <string name="title">NÓS,\nCONSTRUÍMOS\nMARCAS</string>
+    <string name="sub_title">ORIGINAIS E PROTEGIDAS \nCOM DESIGN DE VERDADE</string>
+    <string name="sub_title2">TRANSFORME SUA HISTÓRIA</string>
+    <string name="sub_title3">EM UM PROJETO MEMORÁVEL.</string>
+    <string name="sub_title4">VAMOS\nCONSTRUIR\nSUA\nMARCA</string>
+    <string name="sub_title5">COM A MELHOR ESTRATÉGIA\nPARA O SEU NEGÓCIO.</string>
+    <string name="sub_title6">SEU PREJETO\nSAI DO PAPEL</string>
+    <string name="sub_title7">DE FORMA,\nEXCLUSIVA.</string>
+    <string name="sub_title8">FAÇA A\nDIFERENÇA.</string>
+    <string name="sub_title9">DEIXE UMA\nMARCA.</string>
 
+    <string name="btn_click_for_more">SAIBA COMO</string>
+    <string name="btn_more_projects">MAIS PROJETOS</string>
 
+    <string name="botton_bar_home">Principal</string>
+    <string name="botton_bar_we_are">Somos</string>
+    <string name="botton_bar_we_do">Fazemos</string>
+    <string name="botton_bar_speak">Falamos</string>
+    <string name="botton_bar_contact">Contato</string>
 </resources>
