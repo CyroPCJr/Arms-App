@@ -13,10 +13,16 @@
 
     <string name="btn_click_for_more">SAIBA COMO</string>
     <string name="btn_more_projects">MAIS PROJETOS</string>
+    <string name="btn_check_all_projects">CONFERIR TODOS</string>
 
     <string name="botton_bar_home">Principal</string>
     <string name="botton_bar_we_are">Somos</string>
     <string name="botton_bar_we_do">Fazemos</string>
     <string name="botton_bar_speak">Falamos</string>
     <string name="botton_bar_contact">Contato</string>
+
+    <string name="we_speak_message1">TENDÊNCIAS,\nBRANDING E\nDESIGN</string>
+    <string name="we_speak_message2">LEIA, LEIA, LEIA…</string>
+    <string name="we_speak_message3">COM A MELHOR ESTRATÉGIA\nPARA O SEU PERFIL.</string>
+
 </resources>

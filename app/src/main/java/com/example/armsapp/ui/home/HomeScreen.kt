@@ -34,6 +34,7 @@ import com.example.armsapp.R
 import com.example.armsapp.data.listProjects
 import com.example.armsapp.model.Project
 import com.example.armsapp.ui.components.BorderTexts
+import com.example.armsapp.ui.components.CardLayout
 import com.example.armsapp.ui.components.ExoPlayerView
 import com.example.armsapp.ui.components.LoadImages
 import com.example.armsapp.ui.theme.ArmsAppTheme
@@ -130,7 +131,7 @@ private fun ButtonNavigation(
         Spacer(Modifier.size(ButtonDefaults.IconSpacing))
         Icon(
             Icons.AutoMirrored.Filled.ArrowForward,
-            contentDescription = "Localized description",
+            contentDescription = null,
             modifier = Modifier.size(ButtonDefaults.IconSize)
         )
     }
@@ -139,43 +140,7 @@ private fun ButtonNavigation(
 @Composable
 fun ProjectCardList(projectList: List<Project>) {
     for (project in projectList) {
-        ProjectCardLayout(project)
-    }
-}
-
-@Composable
-fun ProjectCardLayout(
-    project: Project,
-    modifier: Modifier = Modifier,
-) {
-    Card(
-        modifier = modifier
-            .padding(8.dp)
-            .shadow(
-                elevation = 15.dp,
-                shape = RectangleShape,
-                ambientColor = MaterialTheme.colorScheme.primary,
-                spotColor = MaterialTheme.colorScheme.primary,
-            ),
-        shape = RectangleShape,
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer,
-            contentColor = contentColor
-        )
-    ) {
-        LoadImages(project.urlImage)
-        Row(modifier = modifier) {
-            Text(
-                text = project.name,
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(start = 20.dp)
-            )
-            Text(
-                text = project.type,
-                modifier = Modifier.padding(end = 20.dp)
-            )
-        }
+        CardLayout(project)
     }
 }
 
@@ -187,13 +152,7 @@ private fun HomeScreenPreview() {
     }
 }
 
-@Preview
-@Composable
-fun ProjectCardLayoutPreview(modifier: Modifier = Modifier) {
-    ArmsAppTheme {
-        ProjectCardLayout(listProjects[0])
-    }
-}
+
 
 @Preview
 @Composable

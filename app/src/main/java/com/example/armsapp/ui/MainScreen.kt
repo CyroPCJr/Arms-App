@@ -31,6 +31,7 @@ import com.example.armsapp.R
 import com.example.armsapp.model.BottomBarNavItem
 import com.example.armsapp.ui.home.HomeScreen
 import com.example.armsapp.ui.theme.ArmsAppTheme
+import com.example.armsapp.ui.wespeak.WeSpeakScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -93,7 +94,6 @@ fun ArmsTopAppBar(
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
 ) {
-
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -121,6 +121,9 @@ fun NavigationHost(
         composable(route = BottomBarNavItem.HomeScreen.route)
         {
             HomeScreen(contentPaddingValues = contentPaddingValues)
+        }
+        composable(route = BottomBarNavItem.SpeakScreen.route) {
+            WeSpeakScreen(contentPaddingValues = contentPaddingValues)
         }
 
     }
