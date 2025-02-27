@@ -80,6 +80,13 @@ fun ButtonNavigation(
     }
 }
 
+@Composable
+fun ProjectCardLayoutList(projectList: List<Project>) {
+    projectList.forEach { project ->
+        CardLayout(project)
+    }
+}
+
 @Preview
 @Composable
 fun ProjectCardLayoutPreview() {
@@ -102,7 +109,7 @@ private fun ButtonNavigationPreview() {
     ArmsAppTheme {
         ButtonNavigation(textButton = R.string.btn_more_projects) { }
     }
-    
+
 }
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
@@ -111,5 +118,12 @@ private fun ButtonNavigationPreviewDarkMode() {
     ArmsAppTheme {
         ButtonNavigation(textButton = R.string.btn_more_projects) { }
     }
+}
 
+@Preview
+@Composable
+private fun ProjectCardListPreview() {
+    ArmsAppTheme {
+        ProjectCardLayoutList(listProjects)
+    }
 }

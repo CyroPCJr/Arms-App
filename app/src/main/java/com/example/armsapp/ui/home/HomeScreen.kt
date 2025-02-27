@@ -4,7 +4,6 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -15,33 +14,30 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.ListItemDefaults.contentColor
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.armsapp.BuildConfig
 import com.example.armsapp.R
 import com.example.armsapp.data.listProjects
-import com.example.armsapp.model.Project
+import com.example.armsapp.model.BottomBarNavItem
 import com.example.armsapp.ui.components.BorderTexts
-import com.example.armsapp.ui.components.CardLayout
 import com.example.armsapp.ui.components.ExoPlayerView
 import com.example.armsapp.ui.components.LoadImages
+import com.example.armsapp.ui.components.ProjectCardLayoutList
 import com.example.armsapp.ui.theme.ArmsAppTheme
 import com.example.armsapp.ui.viewmodels.ArmsUIViewModel
 
 @Composable
 fun HomeScreen(
+    onClickWeDoScreen : ()->Unit,
+    onClickWeAreScreen : ()->Unit,
     contentPaddingValues: PaddingValues = PaddingValues(),
     modifier: Modifier = Modifier,
 ) {
@@ -65,8 +61,10 @@ fun HomeScreen(
             modifier = Modifier.padding(top = 10.dp, bottom = 10.dp),
         )
 
-        ExoPlayerView(BuildConfig.urlsReelsProject,
-            modifier = Modifier.padding(start = 8.dp, end = 8.dp))
+        ExoPlayerView(
+            BuildConfig.urlsReelsProject,
+            modifier = Modifier.padding(start = 8.dp, end = 8.dp)
+        )
 
         BorderTexts(
             textLeft = stringResource(R.string.sub_title2),
@@ -74,10 +72,10 @@ fun HomeScreen(
             modifier = modifier.padding(top = 10.dp, bottom = 10.dp)
         )
 
-        ProjectCardList(listProjects.dropLast(4))
+        ProjectCardLayoutList(listProjects.dropLast(4))
 
         ButtonNavigation(R.string.btn_more_projects) {
-            /* TODO: onClick action navigate to 'Fazemos'*/
+            onClickWeDoScreen()
         }
 
         Text(
@@ -94,7 +92,7 @@ fun HomeScreen(
         )
 
         ButtonNavigation(R.string.btn_click_for_more) {
-            /* TODO: onClick action navigate to 'Somos'*/
+            onClickWeAreScreen()
         }
 
 
@@ -137,27 +135,13 @@ private fun ButtonNavigation(
     }
 }
 
-@Composable
-fun ProjectCardList(projectList: List<Project>) {
-    for (project in projectList) {
-        CardLayout(project)
-    }
-}
-
 @Preview
 @Composable
 private fun HomeScreenPreview() {
     ArmsAppTheme {
-        HomeScreen()
+        HomeScreen({}, {})
     }
 }
 
 
 
-@Preview
-@Composable
-private fun ProjectCardListPreview() {
-    ArmsAppTheme {
-        ProjectCardList(listProjects)
-    }
-}

@@ -8,7 +8,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -26,12 +25,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.armsapp.R
 import com.example.armsapp.model.BottomBarNavItem
 import com.example.armsapp.ui.home.HomeScreen
 import com.example.armsapp.ui.theme.ArmsAppTheme
+import com.example.armsapp.ui.wedo.WeDoScreen
 import com.example.armsapp.ui.wespeak.WeSpeakScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -120,10 +119,21 @@ fun NavigationHost(
     ) {
         composable(route = BottomBarNavItem.HomeScreen.route)
         {
-            HomeScreen(contentPaddingValues = contentPaddingValues)
+            HomeScreen(onClickWeDoScreen = {
+                //TODO: "atualizar o index aqui do BottomBar"
+                navController.navigate(BottomBarNavItem.WeDoScreen.route)
+
+                                           },
+                onClickWeAreScreen = { /*TODO:*/},
+                contentPaddingValues = contentPaddingValues)
         }
+
         composable(route = BottomBarNavItem.SpeakScreen.route) {
             WeSpeakScreen(contentPaddingValues = contentPaddingValues)
+        }
+
+        composable(route = BottomBarNavItem.WeDoScreen.route) {
+            WeDoScreen(contentPaddingValues = contentPaddingValues)
         }
 
     }
