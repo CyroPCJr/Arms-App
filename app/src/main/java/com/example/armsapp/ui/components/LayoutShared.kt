@@ -70,7 +70,8 @@ fun ButtonNavigation(
     onClick: () -> Unit,
 ) {
     Button(onClick = onClick) {
-        Text(text = stringResource(textButton))
+        Text(text = stringResource(textButton),
+            color = MaterialTheme.colorScheme.onBackground)
         Spacer(Modifier.size(ButtonDefaults.IconSpacing))
         Icon(
             Icons.AutoMirrored.Filled.ArrowForward,
