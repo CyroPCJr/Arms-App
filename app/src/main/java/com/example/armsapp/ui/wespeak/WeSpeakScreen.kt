@@ -27,6 +27,8 @@ import com.example.armsapp.ui.theme.ArmsAppTheme
 
 @Composable
 fun WeSpeakScreen(
+    onClickWeDoScreen : ()->Unit,
+    onClickWeAreScreen : ()->Unit,
     contentPaddingValues: PaddingValues = PaddingValues(),
     modifier: Modifier = Modifier,
 ) {
@@ -75,7 +77,7 @@ fun WeSpeakScreen(
                 .align(alignment = Alignment.CenterHorizontally)
         ) {
             ButtonNavigation(textButton = R.string.btn_check_all_projects) {
-
+                onClickWeDoScreen()
             }
         }
 
@@ -105,7 +107,7 @@ fun WeSpeakScreen(
                 .padding(end = 8.dp)
         ) {
             ButtonNavigation(textButton = R.string.btn_click_for_more) {
-
+                onClickWeAreScreen()
             }
         }
 
@@ -117,7 +119,7 @@ fun WeSpeakScreen(
 @Composable
 fun PreviewWeSpeakScreen() {
     ArmsAppTheme {
-        WeSpeakScreen()
+        WeSpeakScreen({}, {})
     }
 }
 
@@ -125,6 +127,6 @@ fun PreviewWeSpeakScreen() {
 @Composable
 fun PreviewModeWeSpeakScreenDark() {
     ArmsAppTheme(darkTheme = true) {
-        WeSpeakScreen()
+        WeSpeakScreen({}, {})
     }
 }

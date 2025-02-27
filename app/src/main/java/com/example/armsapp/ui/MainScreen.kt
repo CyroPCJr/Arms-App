@@ -81,7 +81,11 @@ fun MainScreen() {
 
                 }
             }) { innerPadding ->
-            NavigationHost(navController = navController, contentPaddingValues = innerPadding)
+            NavigationHost(
+                navController = navController,
+                onChangeIndexNavBarNavItem = { selectedItemIndex = it },
+                contentPaddingValues = innerPadding
+            )
         }
     }
 }
@@ -109,6 +113,7 @@ fun ArmsTopAppBar(
 @Composable
 fun NavigationHost(
     navController: NavHostController,
+    onChangeIndexNavBarNavItem: (Int) -> Unit,
     contentPaddingValues: PaddingValues = PaddingValues(),
     modifier: Modifier = Modifier,
 ) {
@@ -119,21 +124,37 @@ fun NavigationHost(
     ) {
         composable(route = BottomBarNavItem.HomeScreen.route)
         {
-            HomeScreen(onClickWeDoScreen = {
-                //TODO: "atualizar o index aqui do BottomBar"
-                navController.navigate(BottomBarNavItem.WeDoScreen.route)
+            HomeScreen(
+                onClickWeDoScreen = {
+                    onChangeIndexNavBarNavItem(BottomBarNavItem.WeDoScreen.id)
+                    navController.navigate(BottomBarNavItem.WeDoScreen.route)
 
-                                           },
-                onClickWeAreScreen = { /*TODO:*/},
-                contentPaddingValues = contentPaddingValues)
+                },
+                onClickWeAreScreen = { /*TODO:*/ },
+                contentPaddingValues = contentPaddingValues
+            )
         }
 
         composable(route = BottomBarNavItem.SpeakScreen.route) {
-            WeSpeakScreen(contentPaddingValues = contentPaddingValues)
+            WeSpeakScreen(
+                onClickWeDoScreen = {
+                    onChangeIndexNavBarNavItem(BottomBarNavItem.WeDoScreen.id)
+                    navController.navigate(BottomBarNavItem.WeDoScreen.route)
+                },
+                onClickWeAreScreen = {
+                    /*TODO:*/
+                },
+                contentPaddingValues = contentPaddingValues
+            )
         }
 
         composable(route = BottomBarNavItem.WeDoScreen.route) {
-            WeDoScreen(contentPaddingValues = contentPaddingValues)
+            WeDoScreen(
+                onClickWeAreScreen = {
+                    /*TODO:*/
+                },
+                contentPaddingValues = contentPaddingValues
+            )
         }
 
     }

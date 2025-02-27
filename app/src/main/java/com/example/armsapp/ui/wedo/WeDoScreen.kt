@@ -30,6 +30,7 @@ import com.example.armsapp.ui.viewmodels.ArmsUIViewModel
 
 @Composable
 fun WeDoScreen(
+    onClickWeAreScreen: () -> Unit,
     contentPaddingValues: PaddingValues = PaddingValues(),
     modifier: Modifier = Modifier,
 ) {
@@ -97,6 +98,7 @@ fun WeDoScreen(
         ) {
             ButtonNavigation(R.string.btn_check_consult) {
                 /* TODO: onClick action navigate to 'Somos'*/
+                onClickWeAreScreen()
             }
         }
 
@@ -115,7 +117,7 @@ fun WeDoScreen(
 @Composable
 fun PreviewWeDoScreen() {
     ArmsAppTheme {
-        WeDoScreen()
+        WeDoScreen({})
     }
 }
 
@@ -123,6 +125,6 @@ fun PreviewWeDoScreen() {
 @Composable
 fun PreviewWeDoScreenDark() {
     ArmsAppTheme(darkTheme = true) {
-        WeDoScreen()
+        WeDoScreen({})
     }
 }
