@@ -1,4 +1,4 @@
-package com.example.armsapp.ui.wespeak
+package com.example.armsapp.ui.wedo
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,14 +21,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.armsapp.R
 import com.example.armsapp.data.listProjects
+import com.example.armsapp.ui.components.BorderTexts
 import com.example.armsapp.ui.components.ButtonNavigation
-import com.example.armsapp.ui.components.CardLayout
+import com.example.armsapp.ui.components.LoadImages
+import com.example.armsapp.ui.components.ProjectCardLayoutList
 import com.example.armsapp.ui.theme.ArmsAppTheme
+import com.example.armsapp.ui.viewmodels.ArmsUIViewModel
 
 @Composable
-fun WeSpeakScreen(
-    onClickWeDoScreen : ()->Unit,
-    onClickWeAreScreen : ()->Unit,
+fun WeDoScreen(
+    onClickWeAreScreen: () -> Unit,
     contentPaddingValues: PaddingValues = PaddingValues(),
     modifier: Modifier = Modifier,
 ) {
@@ -42,7 +44,7 @@ fun WeSpeakScreen(
         horizontalAlignment = Alignment.Start
     ) {
         Text(
-            text = stringResource(R.string.we_speak_message1),
+            text = stringResource(R.string.we_do_message1),
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onBackground,
@@ -53,80 +55,76 @@ fun WeSpeakScreen(
                     bottom = dimensionResource(R.dimen.padding_vertical),
                     start = 8.dp
                 )
-
         )
-
-        Text(
-            text = stringResource(R.string.we_speak_message2),
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Light,
-            color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier
-                .align(alignment = Alignment.Start)
-                .padding(
-                    top = dimensionResource(R.dimen.padding_vertical),
-                    bottom = dimensionResource(R.dimen.padding_vertical),
-                    start = 8.dp
-                )
-        )
-
-        CardLayout(listProjects[5])
-
         Row(
             modifier = Modifier
-                .align(alignment = Alignment.CenterHorizontally)
+                .align(alignment = Alignment.End)
+                .padding(end = 8.dp)
         ) {
-            ButtonNavigation(textButton = R.string.btn_check_all_projects) {
-                onClickWeDoScreen()
-            }
+            Text(
+                text = stringResource(R.string.we_do_message2),
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Light,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier
+                    //.align(alignment = Alignment.Start)
+                    .padding(
+                        top = dimensionResource(R.dimen.padding_vertical),
+                        bottom = dimensionResource(R.dimen.padding_vertical),
+                        start = 8.dp
+                    )
+            )
         }
+
+        ProjectCardLayoutList(projectList = listProjects)
 
         Text(
             text = stringResource(R.string.sub_title4),
-            fontSize = 30.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier
                 .align(alignment = Alignment.Start)
                 .padding(start = 8.dp)
         )
         Text(
             text = stringResource(R.string.sub_title5),
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Light,
-            color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier
                 .align(alignment = Alignment.End)
                 .padding(end = 8.dp)
         )
-
 
         Row(
             modifier = Modifier
                 .align(alignment = Alignment.End)
                 .padding(end = 8.dp)
         ) {
-            ButtonNavigation(textButton = R.string.btn_click_for_more) {
+            ButtonNavigation(R.string.btn_check_consult) {
+                /* TODO: onClick action navigate to 'Somos'*/
                 onClickWeAreScreen()
             }
         }
 
-    }
+        LoadImages(ArmsUIViewModel.URL_LOGO_IMAGE, modifier = modifier)
 
+        BorderTexts(
+            textLeft = stringResource(R.string.sub_title8),
+            textRight = stringResource(R.string.sub_title9),
+            modifier = modifier
+        )
+
+    }
 }
 
-@Preview(showBackground = true)
+@Preview(name = "We Do Screen Body", showBackground = true)
 @Composable
-fun PreviewWeSpeakScreen() {
+fun PreviewWeDoScreen() {
     ArmsAppTheme {
-        WeSpeakScreen({}, {})
+        WeDoScreen({})
     }
 }
 
-@Preview(showBackground = false)
+@Preview(name = "We Do Screen in Dark Mode", showBackground = false)
 @Composable
-fun PreviewModeWeSpeakScreenDark() {
+fun PreviewWeDoScreenDark() {
     ArmsAppTheme(darkTheme = true) {
-        WeSpeakScreen({}, {})
+        WeDoScreen({})
     }
 }

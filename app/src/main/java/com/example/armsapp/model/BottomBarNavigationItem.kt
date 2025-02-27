@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.armsapp.R
 
 sealed class BottomBarNavItem(
-    private val id: Int,
+    val id: Int,
     val route: String,
     @StringRes val label: Int,
     val selectedIcon: ImageVector,
