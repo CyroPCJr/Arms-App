@@ -28,6 +28,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.armsapp.R
 import com.example.armsapp.model.BottomBarNavItem
+import com.example.armsapp.ui.contact.ContactScreen
 import com.example.armsapp.ui.home.HomeScreen
 import com.example.armsapp.ui.theme.ArmsAppTheme
 import com.example.armsapp.ui.wedo.WeDoScreen
@@ -156,6 +157,25 @@ fun NavigationHost(
                 contentPaddingValues = contentPaddingValues
             )
         }
+
+        composable(route = BottomBarNavItem.ContactScreen.route) {
+            ContactScreen(onClickWeAreScreen =  {
+                /*TODO:*/
+            },
+                onClickWeDoScreen = {
+                    onChangeIndexNavBarNavItem(BottomBarNavItem.WeDoScreen.id)
+                    navController.navigate(BottomBarNavItem.WeDoScreen.route)
+                },
+                onClickWeSpeakScreen = {
+                    onChangeIndexNavBarNavItem(BottomBarNavItem.SpeakScreen.id)
+                    navController.navigate(BottomBarNavItem.SpeakScreen.route)
+                },
+                onClickSendEmail = {
+                    /*TODO: WIP*/
+                },
+                contentPaddingValues = contentPaddingValues)
+        }
+
 
     }
 }
