@@ -1,5 +1,6 @@
 package com.example.armsapp.ui.components
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import coil3.compose.AsyncImage
@@ -12,7 +13,7 @@ fun LoadImages(
     AsyncImage(
         model = urlsContent,
         contentDescription = null,
-        modifier = modifier
+        modifier = modifier.fillMaxWidth()
     )
 }
 
