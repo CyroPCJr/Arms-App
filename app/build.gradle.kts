@@ -25,18 +25,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField(
-                "String",
-                "urlsReelsSketch",
-                "\"https://arms.com.br/wp-content/uploads/2024/12/gero_sketch_logo.mp4\""
-            )
-            buildConfigField(
-                "String",
-                "urlsReelsProject",
-                "\"https://arms.com.br/wp-content/uploads/2024/12/logos_site.mp4\""
-            )
         }
-
 
         debug {
             isMinifyEnabled = false
@@ -44,18 +33,17 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField(
-                "String",
-                "urlsReelsSketch",
-                "\"https://arms.com.br/wp-content/uploads/2024/12/gero_sketch_logo.mp4\""
-            )
-            buildConfigField(
-                "String",
-                "urlsReelsProject",
-                "\"https://arms.com.br/wp-content/uploads/2024/12/logos_site.mp4\""
-            )
         }
     }
+
+    buildTypes.forEach {
+        it.buildConfigField(
+            "String",
+            "armsBaseUrl",
+            project.property("armsBaseUrl").toString()
+        )
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

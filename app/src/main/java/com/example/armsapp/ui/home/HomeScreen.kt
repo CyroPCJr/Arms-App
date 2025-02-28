@@ -22,22 +22,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.example.armsapp.BuildConfig
 import com.example.armsapp.R
 import com.example.armsapp.data.listProjects
-import com.example.armsapp.model.BottomBarNavItem
+import com.example.armsapp.model.EndPoints
 import com.example.armsapp.ui.components.BorderTexts
 import com.example.armsapp.ui.components.ExoPlayerView
 import com.example.armsapp.ui.components.LoadImages
 import com.example.armsapp.ui.components.ProjectCardLayoutList
 import com.example.armsapp.ui.theme.ArmsAppTheme
-import com.example.armsapp.ui.viewmodels.ArmsUIViewModel
 
 @Composable
 fun HomeScreen(
-    onClickWeDoScreen : ()->Unit,
-    onClickWeAreScreen : ()->Unit,
+    onClickWeDoScreen: () -> Unit,
+    onClickWeAreScreen: () -> Unit,
     contentPaddingValues: PaddingValues = PaddingValues(),
     modifier: Modifier = Modifier,
 ) {
@@ -62,7 +59,7 @@ fun HomeScreen(
         )
 
         ExoPlayerView(
-            BuildConfig.urlsReelsProject,
+            EndPoints.PROJECT_REELS,
             modifier = Modifier.padding(start = 8.dp, end = 8.dp)
         )
 
@@ -95,8 +92,7 @@ fun HomeScreen(
             onClickWeAreScreen()
         }
 
-
-        LoadImages(ArmsUIViewModel.URL_LOGO_IMAGE, modifier = modifier)
+        LoadImages(EndPoints.CEO_PICTURE, modifier = modifier)
 
         BorderTexts(
             textLeft = stringResource(R.string.sub_title6),
@@ -105,10 +101,9 @@ fun HomeScreen(
         )
 
         ExoPlayerView(
-            BuildConfig.urlsReelsSketch,
+            EndPoints.SKETCH_REELS,
             modifier = Modifier.padding(start = 8.dp, end = 8.dp)
         )
-
 
         BorderTexts(
             textLeft = stringResource(R.string.sub_title8),

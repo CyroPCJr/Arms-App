@@ -29,5 +29,13 @@
     <string name="we_do_message1">PROJETOS\nORIGINAIS.</string>
     <string name="we_do_message2">E PROTEGIDOS\nCOM DESIGN\nDE VERDADE.</string>
 
+    <string name="contact_all_right">ALLRIGHT RESERVED - ARMS 2024</string>
+    <string name="contact_email">hello@arms.com.br</string>
+    <string name="contact_phone">11 96404.4711</string>
+    <string name="contact_stay_tune">FIQUE POR DENTRO</string>
+    <string name="contact_your_best_email">SEU MELHOR E-MAIL</string>
+    <string name="contact_send_email">Enviar</string>
+
+
 
 </resources>
