@@ -21,12 +21,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.armsapp.R
 import com.example.armsapp.data.listProjects
+import com.example.armsapp.model.EndPoints
 import com.example.armsapp.ui.components.BorderTexts
 import com.example.armsapp.ui.components.ButtonNavigation
 import com.example.armsapp.ui.components.LoadImages
 import com.example.armsapp.ui.components.ProjectCardLayoutList
 import com.example.armsapp.ui.theme.ArmsAppTheme
-import com.example.armsapp.ui.viewmodels.ArmsUIViewModel
 
 @Composable
 fun WeDoScreen(
@@ -102,7 +102,7 @@ fun WeDoScreen(
             }
         }
 
-        LoadImages(ArmsUIViewModel.URL_LOGO_IMAGE, modifier = modifier)
+        LoadImages(EndPoints.CEO_PICTURE, modifier = modifier)
 
         BorderTexts(
             textLeft = stringResource(R.string.sub_title8),

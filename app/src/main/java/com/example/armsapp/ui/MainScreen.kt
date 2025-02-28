@@ -1,5 +1,6 @@
 package com.example.armsapp.ui
 
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +21,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
@@ -159,21 +161,13 @@ fun NavigationHost(
         }
 
         composable(route = BottomBarNavItem.ContactScreen.route) {
-            ContactScreen(onClickWeAreScreen =  {
-                /*TODO:*/
-            },
-                onClickWeDoScreen = {
-                    onChangeIndexNavBarNavItem(BottomBarNavItem.WeDoScreen.id)
-                    navController.navigate(BottomBarNavItem.WeDoScreen.route)
-                },
-                onClickWeSpeakScreen = {
-                    onChangeIndexNavBarNavItem(BottomBarNavItem.SpeakScreen.id)
-                    navController.navigate(BottomBarNavItem.SpeakScreen.route)
-                },
+            val context = LocalContext.current
+            ContactScreen(
                 onClickSendEmail = {
-                    /*TODO: WIP*/
+                    Toast.makeText(context, "email sent", Toast.LENGTH_LONG).show()
                 },
-                contentPaddingValues = contentPaddingValues)
+                contentPaddingValues = contentPaddingValues
+            )
         }
 
 

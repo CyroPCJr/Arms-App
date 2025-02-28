@@ -1,6 +1,5 @@
 package com.example.armsapp.ui.contact
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -12,10 +11,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -28,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -37,14 +36,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.armsapp.R
-import com.example.armsapp.ui.components.ButtonNavigation
+import com.example.armsapp.model.EndPoints
 import com.example.armsapp.ui.theme.ArmsAppTheme
 
 @Composable
 fun ContactScreen(
-    onClickWeAreScreen: () -> Unit,
-    onClickWeDoScreen: () -> Unit,
-    onClickWeSpeakScreen: () -> Unit,
     onClickSendEmail: () -> Unit,
     contentPaddingValues: PaddingValues = PaddingValues(),
     modifier: Modifier = Modifier,
@@ -74,14 +70,6 @@ fun ContactScreen(
 
         HorizontalDivider(thickness = 1.dp, color = Color.Gray)
 
-        val checkIconDarkMode =
-            if (isSystemInDarkTheme()) R.drawable.ic_arms_inverted else R.drawable.ic_arms
-
-        Icon(
-            imageVector = ImageVector.vectorResource(checkIconDarkMode),
-            contentDescription = null
-        )
-
         Column(
             horizontalAlignment = Alignment.Start
         ) {
@@ -89,35 +77,71 @@ fun ContactScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
+
                 Column {
+                    Row {
+                        val uriHandler = LocalUriHandler.current
+                        IconButton(onClick = {
+                            uriHandler.openUri(uri = EndPoints.WHATSAPP)
+                        }) {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(R.drawable.whatsapp_logo),
+                                contentDescription = null
+                            )
+                        }
+                        IconButton(onClick = {
+                            uriHandler.openUri(uri = EndPoints.INSTAGRAM)
+                        }) {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(R.drawable.instagram_logo),
+                                contentDescription = null
+                            )
+                        }
+
+                        IconButton(onClick = {
+                            uriHandler.openUri(uri = EndPoints.BEHANCE)
+                        }) {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(R.drawable.behance_logo),
+                                contentDescription = null
+                            )
+                        }
+
+                        IconButton(onClick = {
+                            uriHandler.openUri(uri = EndPoints.TELEGRAM)
+                        }) {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(R.drawable.telegram_logo),
+                                contentDescription = null
+                            )
+                        }
+                    }
+
                     Text(
-                        text = "ALLRIGHT RESERVED - ARMS 2024",
+                        text = stringResource(R.string.contact_all_right),
                         color = MaterialTheme.colorScheme.onBackground
                     )
-                    Text(text = "hello@arms.com.br", color = MaterialTheme.colorScheme.onBackground)
-                    Text(text = "11 96404.4711", color = MaterialTheme.colorScheme.onBackground)
-                }
-                Column {
-                    ButtonNavigation(textButton = R.string.botton_bar_we_are) {
-                        onClickWeAreScreen()
-                    }
-                    ButtonNavigation(textButton = R.string.botton_bar_we_do) {
-                        onClickWeDoScreen()
-                    }
-                    ButtonNavigation(textButton = R.string.botton_bar_speak) {
-                        onClickWeSpeakScreen()
-                    }
+                    Text(
+                        text = stringResource(R.string.contact_email),
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                    Text(
+                        text = stringResource(R.string.contact_phone),
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+
                 }
             }
 
-            //TODO: Trocar os hardcode string por string resources
             Text(
-                text = "FIQUE POR DENTRO",
+                text = stringResource(R.string.contact_stay_tune),
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onBackground
             )
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 10.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 var email by remember { mutableStateOf("") }
@@ -126,7 +150,7 @@ fun ContactScreen(
                     onValueChange = { email = it },
                     singleLine = true,
                     placeholder = {
-                        Text(text = "SEU MELHOR E-MAIL")
+                        Text(text = stringResource(R.string.contact_your_best_email))
                     },
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Email,
@@ -137,11 +161,6 @@ fun ContactScreen(
                     }),
                     modifier = Modifier.weight(1f)
                 )
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                    contentDescription = "Enviar",
-                    tint = MaterialTheme.colorScheme.onBackground
-                )
             }
         }
     }
@@ -151,7 +170,7 @@ fun ContactScreen(
 @Composable
 private fun ContactScreenPreview() {
     ArmsAppTheme(darkTheme = false) {
-        ContactScreen({}, {}, {}, {})
+        ContactScreen({})
     }
 }
 
@@ -159,6 +178,6 @@ private fun ContactScreenPreview() {
 @Composable
 private fun ContactScreenPreviewDark() {
     ArmsAppTheme(darkTheme = true) {
-        ContactScreen({}, {}, {}, {})
+        ContactScreen({})
     }
 }
