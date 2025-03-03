@@ -62,6 +62,7 @@ fun WeAreScreen(
             .fillMaxSize()
             .verticalScroll(state = scrollState)
             .padding(contentPaddingValues)
+            .padding(start = 10.dp, end = 10.dp),
     ) {
         Column {
             Text(
@@ -149,7 +150,7 @@ fun CardInfoExpandable(
                 )
             )
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(top = 4.dp)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null,
@@ -203,7 +204,13 @@ fun LoadTeamCard(
     modifier: Modifier = Modifier,
 ) {
     val uriHandler = LocalUriHandler.current
-    Card(modifier = modifier.fillMaxWidth()) {
+    Card(
+        shape = RoundedCornerShape(4.dp),
+        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 8.dp),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(all = 10.dp)
+    ) {
         LoadImages(urlsContent = urlImage)
         Column(modifier = Modifier.fillMaxWidth()) {
             Spacer(modifier = Modifier.height(20.dp))
@@ -216,7 +223,7 @@ fun LoadTeamCard(
                 modifier = Modifier.clickable {
                     uriHandler.openUri(uri = instagramUri)
                 })
-            Spacer(modifier = Modifier.height(20.dp))
+            //Spacer(modifier = Modifier.height(20.dp))
         }
     }
 

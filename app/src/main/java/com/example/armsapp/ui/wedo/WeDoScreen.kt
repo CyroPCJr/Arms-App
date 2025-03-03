@@ -67,7 +67,6 @@ fun WeDoScreen(
                 fontWeight = FontWeight.Light,
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier
-                    //.align(alignment = Alignment.Start)
                     .padding(
                         top = dimensionResource(R.dimen.padding_vertical),
                         bottom = dimensionResource(R.dimen.padding_vertical),
