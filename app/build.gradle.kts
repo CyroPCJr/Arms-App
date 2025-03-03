@@ -25,19 +25,25 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("String", "urlsReels", "\"https://arms.com.br/wp-content/uploads/2024/11/arms_reels_actplan.mp4/\"")
-            buildConfigField("String", "urlsReelsLogo", "\"https://arms.com.br/wp-content/uploads/2024/11/gero_logo.mp4/\"")
         }
+
         debug {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("String", "urlsReels", "\"https://arms.com.br/wp-content/uploads/2024/11/arms_reels_actplan.mp4/\"")
-            buildConfigField("String", "urlsReelsLogo", "\"https://arms.com.br/wp-content/uploads/2024/11/gero_logo.mp4/\"")
         }
     }
+
+    buildTypes.forEach {
+        it.buildConfigField(
+            "String",
+            "armsBaseUrl",
+            project.property("armsBaseUrl").toString()
+        )
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -53,22 +59,32 @@ android {
 
 dependencies {
 
+    val composeBom = platform(libs.androidx.compose.bom)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-   implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
+    implementation(composeBom)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.navigation)
+    implementation(libs.androidx.icons.extended)
+    // Exoplayer
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.ui)
+    // Coil
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+    //kotlin-reflect
+    implementation(libs.kotlin.reflect)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(composeBom)
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)

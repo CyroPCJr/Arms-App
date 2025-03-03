@@ -1,14 +1,76 @@
 <resources>
-    <string name="app_name">ArmsApp</string>
-    <string name="title">NÓS
-    CONSTRUÍMOS
-    MARCAS</string>
-    <string name="sub_title">ORIGINAIS E PROTEGIDAS
-COM DESIGN DE VERDADE</string>
-    <string name="sub_title2">TRANSFORME
-    SUA HISTÓRIA</string>
-    <string name="sub_title3">EM UM PROJETO
-    MEMORÁVEL.</string>
+    <string name="app_name">Arms App</string>
+    <string name="title">NÓS,\nCONSTRUÍMOS\nMARCAS</string>
+    <string name="sub_title">ORIGINAIS E PROTEGIDAS \nCOM DESIGN DE VERDADE</string>
+    <string name="sub_title2">TRANSFORME SUA HISTÓRIA</string>
+    <string name="sub_title3">EM UM PROJETO MEMORÁVEL.</string>
+    <string name="sub_title4">VAMOS\nCONSTRUIR\nSUA\nMARCA</string>
+    <string name="sub_title5">COM A MELHOR ESTRATÉGIA\nPARA O SEU NEGÓCIO.</string>
+    <string name="sub_title6">SEU PREJETO\nSAI DO PAPEL</string>
+    <string name="sub_title7">DE FORMA,\nEXCLUSIVA.</string>
+    <string name="sub_title8">FAÇA A\nDIFERENÇA.</string>
+    <string name="sub_title9">DEIXE UMA\nMARCA.</string>
 
+    <string name="btn_click_for_more">SAIBA COMO</string>
+    <string name="btn_more_projects">MAIS PROJETOS</string>
+    <string name="btn_check_all_projects">CONFERIR TODOS</string>
+    <string name="btn_check_consult">CONSULTE</string>
+    <string name="btn_lets_make_your_dream">VAMOS MATERIALIZAR SEU SONHO</string>
+
+    <string name="botton_bar_home">Principal</string>
+    <string name="botton_bar_we_are">Somos</string>
+    <string name="botton_bar_we_do">Fazemos</string>
+    <string name="botton_bar_speak">Falamos</string>
+    <string name="botton_bar_contact">Contato</string>
+
+    <string name="we_speak_message1">TENDÊNCIAS,\nBRANDING E\nDESIGN</string>
+    <string name="we_speak_message2">LEIA, LEIA, LEIA…</string>
+    <string name="we_speak_message3">COM A MELHOR ESTRATÉGIA\nPARA O SEU PERFIL.</string>
+
+    <string name="we_do_message1">PROJETOS\nORIGINAIS.</string>
+    <string name="we_do_message2">E PROTEGIDOS\nCOM DESIGN\nDE VERDADE.</string>
+
+    <string name="contact_all_right">ALLRIGHT RESERVED - ARMS 2024</string>
+    <string name="contact_email">hello@arms.com.br</string>
+    <string name="contact_phone">11 96404.4711</string>
+    <string name="contact_stay_tune">FIQUE POR DENTRO</string>
+    <string name="contact_your_best_email">SEU MELHOR E-MAIL</string>
+    <string name="contact_send_email">Enviar</string>
+
+    <string name="we_are_title">ESPECIALISTAS\nEM CUIDAR\nDE MARCAS</string>
+    <string name="we_are_sub_title">O DNA DA SUA EMPRESA\nDE DENTRO PRA FORA</string>
+
+    <string name="arms_we_are_title_diagnostic">DIAGNÓSTICO E ESTRATÉGIA</string>
+    <string name="arms_we_are_description_diagnostic">Onde estamos? Onde queremos chegar?\n
+Avaliamos desde a adequação de sua identidade visual, até o posicionamento e a cultura da empresa, contribuindo para o amadurecimento da gestão corporativa através de um olhar estratégico e metodológico sobre as principais necessidades da marca.</string>
+    <string name="arms_we_are_title_naming">NAMING</string>
+    <string name="arms_we_are_description_naming">A partir de estudos, pesquisas, validações e técnicas de criação, conseguimos chegar no melhor nome com disponibilidade de registro (INPI) para o seu negócio. Quebramos tabu e desvendamos mitos. Você fará parte de todo processo.</string>
+    <string name="arms_we_are_title_logo">LOGOTIPO</string>
+    <string name="arms_we_are_description_logo">Do logo ao tipo! Extraímos a essência da sua empresa da melhor "forma" possível.
+Lapidamos e polimos sua marca ou esculpimos uma novinha do zero. O design e a tipografia estão enraizados em nossas mãos.</string>
+    <string name="arms_we_are_title_visual">ID. VISUAL</string>
+    <string name="arms_we_are_description_visual">Identidade visual é o conjunto de elementos gráficos que objetivam comunicar ao público a ideia, os valores, o propósito e a missão de uma empresa, produto ou serviço. Alguns elementos da identidade visual são: nome, slogan, cores, tipografia, embalagens e outras peças de divulgação.</string>
+    <string name="arms_we_are_title_communication">COMUNICAÇÃO VISUAL E VERBAL</string>
+    <string name="arms_we_are_description_communication">VISUAL - São os processos de transmissão e recepção de informações por meio de recursos visuais. Embora possa ser combinada com a linguagem escrita ou sonora, a comunicação visual não precisa de qualquer texto ou som para trocar mensagens.\n
+VERBAL - Refere-se a todas as formas de comunicação baseadas na fala entre duas ou mais pessoas. Isso inclui palavras ditas, mensagens escritas e linguagem de sinais, assim como todas as informações codificadas que representam um determinado sistema de linguagem.</string>
+    <string name="arms_we_are_title_mkt">MKT DIGITAL</string>
+    <string name="arms_we_are_description_mkt">Uma estratégia de crescimento que busca testar hipóteses e, assim, descobrir quais planos de ação trazem os melhores resultados para as empresas.\n
+Entre os benefícios da metodologia, destacam-se: melhora da experiência dos clientes, alcance mais rápido de resultados e otimização do uso dos recursos.</string>
+    <string name="arms_we_are_title_photos">FOTO/VIDEO</string>
+    <string name="arms_we_are_description_photos">- Roteirização - Captação de imagens aéreas ( drone ) - Captação de imagens terrestres - Captação de áudio - Direção de fotografia ( iluminação ) - Direção de cena - Direção de arte - Produção - Locução - Trilha sonora - Edição de vídeo ( montagem / coloração / motion graphics / exportação )</string>
+
+    <string name="we_are_sub_title2">SEU TIME\nEXPERT\nEM BRANDING</string>
+    <string name="we_are_sub_title3">ADORAMOS OUVIR HISTÓRIAS\nE AMAMOS FAZER PARTE DELAS</string>
+
+    <string name="we_are_team_rogerio">ROGÉRIO FORTI</string>
+    <string name="we_are_team_rogerio_job">DIRETOR DE CRIAÇÃO</string>
+    <string name="we_are_team_jean">JEAN NOVAES</string>
+    <string name="we_are_team_jean_job">DIRETOR AUDIOVISUAL</string>
+    <string name="we_are_team_andrea">ANDREA SIMÃO</string>
+    <string name="we_are_team_andrea_job">ASSESSORA CONTÁBIL</string>
+    <string name="we_are_team_mayara">MAYARA FIGUEIREDO</string>
+    <string name="we_are_team_mayara_job">ADVOGADA ESPECIALISTA EM REGISTRO DE MARCAS</string>
+    <string name="we_are_team_sidney">SÍDNEY BRETANHA</string>
+    <string name="we_are_team_sidney_job">REDATOR, LICENCIADO EM LETRAS, ESCRITOR, DRAMATURGO E ATOR</string>
 
 </resources>
