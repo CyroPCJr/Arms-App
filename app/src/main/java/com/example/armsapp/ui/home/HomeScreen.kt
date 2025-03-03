@@ -4,6 +4,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -15,13 +16,17 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.armsapp.R
 import com.example.armsapp.data.listProjects
 import com.example.armsapp.model.EndPoints
@@ -44,18 +49,25 @@ fun HomeScreen(
         modifier = modifier
             .fillMaxSize()
             .padding(contentPaddingValues)
+            .padding(start = 10.dp, end = 10.dp)
             .verticalScroll(state = scrollState),
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = stringResource(R.string.title),
-            modifier = Modifier.padding(top = 10.dp, bottom = 10.dp),
+            fontSize = 40.sp,
+            fontWeight = FontWeight.Black,
+            color = MaterialTheme.colorScheme.onBackground,
+            lineHeight = 42.sp,
+            textAlign = TextAlign.Center,
         )
 
         Text(
             text = stringResource(R.string.sub_title),
-            modifier = Modifier.padding(top = 10.dp, bottom = 10.dp),
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Light,
+            color = MaterialTheme.colorScheme.onBackground,
         )
 
         ExoPlayerView(
@@ -63,11 +75,21 @@ fun HomeScreen(
             modifier = Modifier.padding(start = 8.dp, end = 8.dp)
         )
 
-        BorderTexts(
-            textLeft = stringResource(R.string.sub_title2),
-            textRight = stringResource(R.string.sub_title3),
-            modifier = modifier.padding(top = 10.dp, bottom = 10.dp)
-        )
+        Row {
+            Text(
+                text = stringResource(R.string.sub_title2),
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Light,
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.weight(1f)
+            )
+            Text(
+                text = stringResource(R.string.sub_title3),
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Light,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+        }
 
         ProjectCardLayoutList(listProjects.dropLast(4))
 
@@ -77,15 +99,19 @@ fun HomeScreen(
 
         Text(
             text = stringResource(R.string.sub_title4),
-            modifier = Modifier
-                .align(alignment = Alignment.Start)
-                .padding(start = 8.dp)
+            fontSize = 40.sp,
+            fontWeight = FontWeight.Black,
+            color = MaterialTheme.colorScheme.onBackground,
+            lineHeight = 42.sp,
+            textAlign = TextAlign.Start,
+            modifier = Modifier.align(alignment = Alignment.Start)
         )
         Text(
             text = stringResource(R.string.sub_title5),
-            modifier = Modifier
-                .align(alignment = Alignment.End)
-                .padding(end = 8.dp)
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Light,
+            color = MaterialTheme.colorScheme.onBackground,
+            modifier = Modifier.align(alignment = Alignment.End)
         )
 
         ButtonNavigation(R.string.btn_click_for_more) {
@@ -130,7 +156,7 @@ private fun ButtonNavigation(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun HomeScreenPreview() {
     ArmsAppTheme {

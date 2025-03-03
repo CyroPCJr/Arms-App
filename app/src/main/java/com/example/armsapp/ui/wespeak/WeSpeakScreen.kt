@@ -27,8 +27,8 @@ import com.example.armsapp.ui.theme.ArmsAppTheme
 
 @Composable
 fun WeSpeakScreen(
-    onClickWeDoScreen : ()->Unit,
-    onClickWeAreScreen : ()->Unit,
+    onClickWeDoScreen: () -> Unit,
+    onClickWeAreScreen: () -> Unit,
     contentPaddingValues: PaddingValues = PaddingValues(),
     modifier: Modifier = Modifier,
 ) {

@@ -67,7 +67,6 @@ fun WeDoScreen(
                 fontWeight = FontWeight.Light,
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier
-                    //.align(alignment = Alignment.Start)
                     .padding(
                         top = dimensionResource(R.dimen.padding_vertical),
                         bottom = dimensionResource(R.dimen.padding_vertical),
@@ -97,7 +96,6 @@ fun WeDoScreen(
                 .padding(end = 8.dp)
         ) {
             ButtonNavigation(R.string.btn_check_consult) {
-                /* TODO: onClick action navigate to 'Somos'*/
                 onClickWeAreScreen()
             }
         }

@@ -33,6 +33,7 @@ import com.example.armsapp.model.BottomBarNavItem
 import com.example.armsapp.ui.contact.ContactScreen
 import com.example.armsapp.ui.home.HomeScreen
 import com.example.armsapp.ui.theme.ArmsAppTheme
+import com.example.armsapp.ui.weare.WeAreScreen
 import com.example.armsapp.ui.wedo.WeDoScreen
 import com.example.armsapp.ui.wespeak.WeSpeakScreen
 
@@ -133,7 +134,10 @@ fun NavigationHost(
                     navController.navigate(BottomBarNavItem.WeDoScreen.route)
 
                 },
-                onClickWeAreScreen = { /*TODO:*/ },
+                onClickWeAreScreen = {
+                    onChangeIndexNavBarNavItem(BottomBarNavItem.WeAreScreen.id)
+                    navController.navigate(BottomBarNavItem.WeAreScreen.route)
+                },
                 contentPaddingValues = contentPaddingValues
             )
         }
@@ -145,7 +149,8 @@ fun NavigationHost(
                     navController.navigate(BottomBarNavItem.WeDoScreen.route)
                 },
                 onClickWeAreScreen = {
-                    /*TODO:*/
+                    onChangeIndexNavBarNavItem(BottomBarNavItem.WeAreScreen.id)
+                    navController.navigate(BottomBarNavItem.WeAreScreen.route)
                 },
                 contentPaddingValues = contentPaddingValues
             )
@@ -154,7 +159,8 @@ fun NavigationHost(
         composable(route = BottomBarNavItem.WeDoScreen.route) {
             WeDoScreen(
                 onClickWeAreScreen = {
-                    /*TODO:*/
+                    onChangeIndexNavBarNavItem(BottomBarNavItem.WeAreScreen.id)
+                    navController.navigate(BottomBarNavItem.WeAreScreen.route)
                 },
                 contentPaddingValues = contentPaddingValues
             )
@@ -165,6 +171,16 @@ fun NavigationHost(
             ContactScreen(
                 onClickSendEmail = {
                     Toast.makeText(context, "email sent", Toast.LENGTH_LONG).show()
+                },
+                contentPaddingValues = contentPaddingValues
+            )
+        }
+
+        composable(route = BottomBarNavItem.WeAreScreen.route) {
+            WeAreScreen(
+                onClickWeDoScreen = {
+                    onChangeIndexNavBarNavItem(BottomBarNavItem.WeDoScreen.id)
+                    navController.navigate(BottomBarNavItem.WeDoScreen.route)
                 },
                 contentPaddingValues = contentPaddingValues
             )
