@@ -97,7 +97,6 @@ fun WeDoScreen(
                 .padding(end = 8.dp)
         ) {
             ButtonNavigation(R.string.btn_check_consult) {
-                /* TODO: onClick action navigate to 'Somos'*/
                 onClickWeAreScreen()
             }
         }
