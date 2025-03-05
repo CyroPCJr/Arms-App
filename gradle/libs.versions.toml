@@ -1,18 +1,18 @@
 [versions]
-agp = "8.8.2"
+agp = "8.9.0"
 kotlin = "2.1.10"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
-activityCompose = "1.10.0"
+activityCompose = "1.10.1"
 composeBom = "2025.02.00"
 exoPlayer = "1.5.1"
 coilCompose = "3.1.0"
-navigation = "2.8.7"
+navigation = "2.8.8"
 iconsExtended = "1.7.8"
-kotlinReflect = "1.9.24"
+kotlinReflect = "2.0.21"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
