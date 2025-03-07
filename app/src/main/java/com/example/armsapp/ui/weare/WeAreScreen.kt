@@ -52,9 +52,9 @@ import com.example.armsapp.ui.theme.ArmsAppTheme
 
 @Composable
 fun WeAreScreen(
+    modifier: Modifier = Modifier,
     onClickWeDoScreen: () -> Unit,
     contentPaddingValues: PaddingValues = PaddingValues(),
-    modifier: Modifier = Modifier,
 ) {
     val scrollState = rememberScrollState()
     Column(
@@ -193,7 +193,6 @@ fun CardInfoExpandable(
     }
 }
 
-
 @Composable
 fun LoadTeamCard(
     name: String,
@@ -248,7 +247,7 @@ private fun LoadTeamCardPreview() {
 @Composable
 private fun BrandingScreenPreview() {
     ArmsAppTheme {
-        WeAreScreen({})
+        WeAreScreen(onClickWeDoScreen = {})
     }
 }
 

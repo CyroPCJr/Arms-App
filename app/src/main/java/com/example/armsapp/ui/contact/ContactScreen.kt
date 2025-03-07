@@ -41,9 +41,9 @@ import com.example.armsapp.ui.theme.ArmsAppTheme
 
 @Composable
 fun ContactScreen(
+    modifier: Modifier = Modifier,
     onClickSendEmail: () -> Unit,
     contentPaddingValues: PaddingValues = PaddingValues(),
-    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
@@ -170,7 +170,7 @@ fun ContactScreen(
 @Composable
 private fun ContactScreenPreview() {
     ArmsAppTheme(darkTheme = false) {
-        ContactScreen({})
+        ContactScreen(onClickSendEmail = {})
     }
 }
 
@@ -178,6 +178,6 @@ private fun ContactScreenPreview() {
 @Composable
 private fun ContactScreenPreviewDark() {
     ArmsAppTheme(darkTheme = true) {
-        ContactScreen({})
+        ContactScreen(onClickSendEmail = {})
     }
 }
