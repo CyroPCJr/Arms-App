@@ -38,10 +38,10 @@ import com.example.armsapp.ui.theme.ArmsAppTheme
 
 @Composable
 fun HomeScreen(
+    modifier: Modifier = Modifier,
     onClickWeDoScreen: () -> Unit,
     onClickWeAreScreen: () -> Unit,
     contentPaddingValues: PaddingValues = PaddingValues(),
-    modifier: Modifier = Modifier,
 ) {
     val scrollState = rememberScrollState()
 
@@ -160,7 +160,7 @@ private fun ButtonNavigation(
 @Composable
 private fun HomeScreenPreview() {
     ArmsAppTheme {
-        HomeScreen({}, {})
+        HomeScreen(onClickWeDoScreen = {}, onClickWeAreScreen = {})
     }
 }
 

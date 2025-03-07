@@ -116,10 +116,10 @@ fun ArmsTopAppBar(
 
 @Composable
 fun NavigationHost(
+    modifier: Modifier = Modifier,
     navController: NavHostController,
     onChangeIndexNavBarNavItem: (Int) -> Unit,
     contentPaddingValues: PaddingValues = PaddingValues(),
-    modifier: Modifier = Modifier,
 ) {
     NavHost(
         navController = navController,
