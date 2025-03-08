@@ -38,9 +38,9 @@ import com.example.armsapp.ui.theme.ArmsAppTheme
 
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier,
     onClickWeDoScreen: () -> Unit,
     onClickWeAreScreen: () -> Unit,
+    modifier: Modifier = Modifier,
     contentPaddingValues: PaddingValues = PaddingValues(),
 ) {
     val scrollState = rememberScrollState()
@@ -118,7 +118,7 @@ fun HomeScreen(
             onClickWeAreScreen()
         }
 
-        LoadImages(EndPoints.CEO_PICTURE, modifier = modifier)
+        LoadImages(urlsContent = EndPoints.CEO_PICTURE)
 
         BorderTexts(
             textLeft = stringResource(R.string.sub_title6),

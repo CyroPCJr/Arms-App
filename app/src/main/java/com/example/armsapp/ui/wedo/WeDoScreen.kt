@@ -30,8 +30,8 @@ import com.example.armsapp.ui.theme.ArmsAppTheme
 
 @Composable
 fun WeDoScreen(
-    modifier: Modifier = Modifier,
     onClickWeAreScreen: () -> Unit,
+    modifier: Modifier = Modifier,
     contentPaddingValues: PaddingValues = PaddingValues(),
 ) {
     val scrollState = rememberScrollState()
@@ -100,7 +100,7 @@ fun WeDoScreen(
             }
         }
 
-        LoadImages(EndPoints.CEO_PICTURE, modifier = modifier)
+        LoadImages(urlsContent = EndPoints.CEO_PICTURE)
 
         BorderTexts(
             textLeft = stringResource(R.string.sub_title8),
