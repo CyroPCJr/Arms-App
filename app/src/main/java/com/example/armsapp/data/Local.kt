@@ -3,6 +3,7 @@ package com.example.armsapp.data
 import com.example.armsapp.R
 import com.example.armsapp.model.ArmsTeam
 import com.example.armsapp.model.ArmsWeAre
+import com.example.armsapp.model.BottomBarNavItem
 import com.example.armsapp.model.EndPoints
 import com.example.armsapp.model.Project
 
@@ -121,4 +122,12 @@ val listArmsTeam = listOf(
         instagramUri = EndPoints.INSTAGRAM_BASE + "/sbretanha/",
         imageUrl = EndPoints.TEAM_SIDNEY
     ),
+)
+
+val topLevelRoutes = listOf(
+    BottomBarNavItem.HomeScreen,
+    BottomBarNavItem.WeDoScreen,
+    BottomBarNavItem.WeAreScreen,
+    BottomBarNavItem.SpeakScreen,
+    BottomBarNavItem.ContactScreen,
 )

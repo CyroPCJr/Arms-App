@@ -27,10 +27,10 @@ import com.example.armsapp.ui.theme.ArmsAppTheme
 
 @Composable
 fun WeSpeakScreen(
+    modifier: Modifier = Modifier,
     onClickWeDoScreen: () -> Unit,
     onClickWeAreScreen: () -> Unit,
     contentPaddingValues: PaddingValues = PaddingValues(),
-    modifier: Modifier = Modifier,
 ) {
     val scrollState = rememberScrollState()
     Column(
@@ -119,7 +119,7 @@ fun WeSpeakScreen(
 @Composable
 fun PreviewWeSpeakScreen() {
     ArmsAppTheme {
-        WeSpeakScreen({}, {})
+        WeSpeakScreen(onClickWeDoScreen = {}, onClickWeAreScreen = {})
     }
 }
 
@@ -127,6 +127,6 @@ fun PreviewWeSpeakScreen() {
 @Composable
 fun PreviewModeWeSpeakScreenDark() {
     ArmsAppTheme(darkTheme = true) {
-        WeSpeakScreen({}, {})
+        WeSpeakScreen(onClickWeDoScreen = {}, onClickWeAreScreen = {})
     }
 }

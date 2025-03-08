@@ -40,8 +40,8 @@ import com.example.armsapp.ui.theme.ArmsAppTheme
 fun HomeScreen(
     onClickWeDoScreen: () -> Unit,
     onClickWeAreScreen: () -> Unit,
-    contentPaddingValues: PaddingValues = PaddingValues(),
     modifier: Modifier = Modifier,
+    contentPaddingValues: PaddingValues = PaddingValues(),
 ) {
     val scrollState = rememberScrollState()
 
@@ -118,7 +118,7 @@ fun HomeScreen(
             onClickWeAreScreen()
         }
 
-        LoadImages(EndPoints.CEO_PICTURE, modifier = modifier)
+        LoadImages(imageUrl = EndPoints.CEO_PICTURE)
 
         BorderTexts(
             textLeft = stringResource(R.string.sub_title6),
@@ -160,7 +160,7 @@ private fun ButtonNavigation(
 @Composable
 private fun HomeScreenPreview() {
     ArmsAppTheme {
-        HomeScreen({}, {})
+        HomeScreen(onClickWeDoScreen = {}, onClickWeAreScreen = {})
     }
 }
 

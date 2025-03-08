@@ -23,11 +23,6 @@ sealed class BottomBarNavItem(
     val unselectedIcon: ImageVector,
 ) {
 
-    companion object {
-        val entries =
-            BottomBarNavItem::class::sealedSubclasses.get().sortedBy { it.objectInstance!!.id }
-    }
-
     data object HomeScreen : BottomBarNavItem(
         id = 0,
         route = "Principal",
