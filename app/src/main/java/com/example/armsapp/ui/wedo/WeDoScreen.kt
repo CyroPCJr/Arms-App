@@ -100,7 +100,7 @@ fun WeDoScreen(
             }
         }
 
-        LoadImages(urlsContent = EndPoints.CEO_PICTURE)
+        LoadImages(imageUrl = EndPoints.CEO_PICTURE)
 
         BorderTexts(
             textLeft = stringResource(R.string.sub_title8),

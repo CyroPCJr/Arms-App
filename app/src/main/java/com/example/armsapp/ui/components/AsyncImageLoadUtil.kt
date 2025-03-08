@@ -1,27 +1,26 @@
 package com.example.armsapp.ui.components
 
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
-import coil3.compose.SubcomposeAsyncImage
-import coil3.request.ImageRequest
-import coil3.request.crossfade
+import androidx.compose.ui.res.painterResource
+import coil3.compose.AsyncImage
+import com.example.armsapp.R
 
 @Composable
 fun LoadImages(
-    urlsContent: String,
+    imageUrl: String,
 ) {
-    SubcomposeAsyncImage(
-        model = ImageRequest.Builder(context = LocalContext.current)
-            .data(data = urlsContent)
-            .crossfade(true)
-            .build(),
+    AsyncImage(
+        model = imageUrl,
         contentDescription = null,
-        loading = { CircularProgressIndicator() },
-        contentScale = ContentScale.FillWidth,
-        modifier = Modifier.fillMaxWidth()
+        error = painterResource(R.drawable.ic_broken_image),
+        placeholder = painterResource(R.drawable.ic_load_image),
+        contentScale = ContentScale.Fit,
+        modifier = Modifier
+            .fillMaxWidth()
+            .aspectRatio(ratio = 1080f / 920f)
     )
 }
