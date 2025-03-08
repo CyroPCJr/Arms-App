@@ -41,8 +41,8 @@ import com.example.armsapp.ui.theme.ArmsAppTheme
 
 @Composable
 fun ContactScreen(
-    modifier: Modifier = Modifier,
     onClickSendEmail: () -> Unit,
+    modifier: Modifier = Modifier,
     contentPaddingValues: PaddingValues = PaddingValues(),
 ) {
     Column(

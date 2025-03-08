@@ -47,7 +47,7 @@ fun CardLayout(
             uriHandler.openUri(uri = project.linkPage)
         }
     ) {
-        LoadImages(project.urlImage)
+        LoadImages(urlsContent = project.urlImage)
         Row {
             Text(
                 text = project.name,
