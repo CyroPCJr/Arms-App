@@ -27,10 +27,10 @@ android {
 
     signingConfigs {
         create("upload") {
-            keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
-            storeFile = file(keystoreProperties["storeFile"] as String)
-            storePassword = keystoreProperties["storePassword"] as String
+            keyAlias = keystoreProperties["keyAlias"] as? String ?: System.getenv("KEY_ALIAS")
+            keyPassword = keystoreProperties["keyPassword"] as? String ?: System.getenv("KEY_PASSWORD")
+            storeFile = keystoreProperties["storeFile"]?.let { file(it as String) } ?: System.getenv("STORE_FILE")?.let { file(it) }
+            storePassword = keystoreProperties["storePassword"] as? String ?: System.getenv("STORE_PASSWORD")
         }
     }
 
