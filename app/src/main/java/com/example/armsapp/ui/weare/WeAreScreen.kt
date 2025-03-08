@@ -211,7 +211,7 @@ fun LoadTeamCard(
             .padding(all = 10.dp)
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            LoadImages(urlsContent = urlImage)
+            LoadImages(imageUrl = urlImage)
             Spacer(modifier = Modifier.height(20.dp))
             Text(text = name, fontSize = 24.sp, color = MaterialTheme.colorScheme.onBackground)
             Text(text = jobPosition, fontSize = 16.sp, color = MaterialTheme.colorScheme.secondary)

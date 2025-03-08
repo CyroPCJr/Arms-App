@@ -2,8 +2,10 @@ package com.example.armsapp.ui.components
 
 import android.content.res.Configuration
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -47,7 +49,7 @@ fun CardLayout(
             uriHandler.openUri(uri = project.linkPage)
         }
     ) {
-        LoadImages(urlsContent = project.urlImage)
+        LoadImages(imageUrl = project.urlImage)
         Row {
             Text(
                 text = project.name,
