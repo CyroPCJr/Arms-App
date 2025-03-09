@@ -38,17 +38,17 @@ jobs:
         env:
           STORE_FILE_BASE64: ${{ secrets.STORE_FILE_BASE64 }}
           KEYSTORE_PATH: app/keystore/keystore.jks
-          run: |
-            # Create keystore directory if it doesn't exist
-            mkdir -p app/keystore
-            
-            # Decode the keystore file from Base64 if available
-            if [ -n "$STORE_FILE_BASE64" ]; then
-              echo "$STORE_FILE_BASE64" | base64 --decode > "$KEYSTORE_PATH"
-            else
-              echo "Warning: Keystore file not provided (STORE_FILE_BASE64 secret)."
-              echo "Build will be unsigned."
-            fi
+        run: |
+          # Create keystore directory if it doesn't exist
+          mkdir -p app/keystore
+          
+          # Decode the keystore file from Base64 if available
+          if [ -n "$STORE_FILE_BASE64" ]; then
+            echo "$STORE_FILE_BASE64" | base64 --decode > "$KEYSTORE_PATH"
+          else
+            echo "Warning: Keystore file not provided (STORE_FILE_BASE64 secret)."
+            echo "Build will be unsigned."
+          fi
 
       - name: 🔑 Grant execute permission to Gradlew
         run: chmod +x gradlew
