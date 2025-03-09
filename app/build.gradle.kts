@@ -7,12 +7,12 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
-val keystorePropertiesFile = rootProject.file("keystore.properties")
-val keystoreProperties = Properties()
-
-if (keystorePropertiesFile.exists()) {
-    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
-}
+//val keystorePropertiesFile = rootProject.file("keystore.properties")
+//val keystoreProperties = Properties()
+//
+//if (keystorePropertiesFile.exists()) {
+//    keystoreProperties.load(FileInputStream(keystorePropertiesFile))\
+//}
 
 android {
     namespace = "com.example.armsapp"
@@ -28,14 +28,14 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    signingConfigs {
-        create("upload") {
-            keyAlias = keystoreProperties["keyAlias"] as? String ?: System.getenv("KEY_ALIAS")
-            keyPassword = keystoreProperties["keyPassword"] as? String ?: System.getenv("KEY_PASSWORD")
-            storeFile = keystoreProperties["storeFile"]?.let { file(it as String) } ?: System.getenv("STORE_FILE")?.let { file(it) }
-            storePassword = keystoreProperties["storePassword"] as? String ?: System.getenv("STORE_PASSWORD")
-        }
-    }
+//    signingConfigs {
+//        create("upload") {
+//            keyAlias = keystoreProperties["keyAlias"] as? String ?: System.getenv("KEY_ALIAS")
+//            keyPassword = keystoreProperties["keyPassword"] as? String ?: System.getenv("KEY_PASSWORD")
+//            storeFile = keystoreProperties["storeFile"]?.let { file(it as String) } ?: System.getenv("STORE_FILE")?.let { file(it) }
+//            storePassword = keystoreProperties["storePassword"] as? String ?: System.getenv("STORE_PASSWORD")
+//        }
+//    }
 
     buildTypes {
         release {
@@ -46,7 +46,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName(name = "upload")
+            //signingConfig = signingConfigs.getByName(name = "upload")
         }
 
         debug {
