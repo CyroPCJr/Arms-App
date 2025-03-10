@@ -12,8 +12,6 @@ exoPlayer = "1.5.1"
 coilCompose = "3.1.0"
 navigation = "2.8.8"
 iconsExtended = "1.7.8"
-kotlinReflect = "2.0.21"
-
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -41,11 +39,7 @@ androidx-media3-ui = { group = "androidx.media3", name = "media3-ui", version.re
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coilCompose" }
 coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coilCompose" }
 
-#kotlin-reflect
-kotlin-reflect = {group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlinReflect"}
-
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-

@@ -53,8 +53,8 @@ import com.example.armsapp.ui.theme.ArmsAppTheme
 @Composable
 fun WeAreScreen(
     onClickWeDoScreen: () -> Unit,
-    contentPaddingValues: PaddingValues = PaddingValues(),
     modifier: Modifier = Modifier,
+    contentPaddingValues: PaddingValues = PaddingValues(),
 ) {
     val scrollState = rememberScrollState()
     Column(
@@ -193,7 +193,6 @@ fun CardInfoExpandable(
     }
 }
 
-
 @Composable
 fun LoadTeamCard(
     name: String,
@@ -211,8 +210,8 @@ fun LoadTeamCard(
             .fillMaxWidth()
             .padding(all = 10.dp)
     ) {
-        LoadImages(urlsContent = urlImage)
         Column(modifier = Modifier.fillMaxWidth()) {
+            LoadImages(imageUrl = urlImage)
             Spacer(modifier = Modifier.height(20.dp))
             Text(text = name, fontSize = 24.sp, color = MaterialTheme.colorScheme.onBackground)
             Text(text = jobPosition, fontSize = 16.sp, color = MaterialTheme.colorScheme.secondary)
@@ -223,7 +222,6 @@ fun LoadTeamCard(
                 modifier = Modifier.clickable {
                     uriHandler.openUri(uri = instagramUri)
                 })
-            //Spacer(modifier = Modifier.height(20.dp))
         }
     }
 
@@ -248,7 +246,7 @@ private fun LoadTeamCardPreview() {
 @Composable
 private fun BrandingScreenPreview() {
     ArmsAppTheme {
-        WeAreScreen({})
+        WeAreScreen(onClickWeDoScreen = {})
     }
 }
 

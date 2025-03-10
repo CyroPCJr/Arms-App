@@ -1,58 +1,64 @@
 name: Android CI
 
-env:
-  # The name of the main module repository
-  main_project_module: Arms-App
-
 on:
-  # Triggers the workflow on push or pull request events but only for default and protected branches
   push:
-    branches: [ dev ]
+    branches:
+      - main
+      - develop
   pull_request:
-    branches: [ dev ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    branches:
+      - main
+      - develop
 
 jobs:
   build:
+    name: Build and Test
     runs-on: ubuntu-latest
 
     steps:
-      - run: echo "### kickoff build project ${{ github.repository }} :rocket:" >> $GITHUB_STEP_SUMMARY
-      - uses: actions/checkout@v4
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
 
-      # Set Current Date As Env Variable
-      - name: Set current date as env variable
-        run: echo "date_today=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-      
-      - name: Build using stored timestamp
-        run: echo "Building at $date_today"
-
-      # Set Repository Name As Env Variable
-      - name: Set repository name as env variable
-        run: echo "repository_name=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
-
-      - name: Set Up JDK
+      - name: 🔧 Set up Java and Android SDK
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu' # See 'Supported distributions' for available options
+          distribution: 'temurin'
           java-version: '17'
-          cache: 'gradle'
 
-      - name: Change wrapper permissions
-        run: chmod +x ./gradlew
+      - name: 📀 Cache Gradle dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper/dists
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', 'app/build.gradle.kts') }}
+          restore-keys: gradle-${{ runner.os }}-
 
-      # Run Tests Build
-      - name: Run gradle tests
-        run: ./gradlew test
+      - name: 🔑 Grant execute permission to Gradlew
+        run: chmod +x gradlew
 
-      # Run Build Project
-      - name: Build gradle project
-        run: ./gradlew assembleDebug
+      - name: 📦 Generate AAB (Android App Bundle)
+        run: ./gradlew bundleRelease
 
-      - name: Upload a Build Artifact
+      - name: Assemble Release Bundle
+        run: ./gradlew assembleRelease
+
+      - name: Sign Release
+        uses: r0adkll/sign-android-release@v1
+        id: sign_app
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.STORE_FILE_BASE64 }}
+          alias: ${{ secrets.KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+        env:
+          BUILD_TOOLS_VERSION: "34.0.0"
+
+      - name: 📤 Upload APK and AAB as Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ArmsApp.apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: Build-Output
+          path: |
+            app/build/outputs/apk/release/*.apk
+            app/build/outputs/bundle/release/*.aab

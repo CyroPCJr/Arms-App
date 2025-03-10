@@ -21,6 +21,8 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = true
+            isShrinkResources = true
+            isDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -29,6 +31,8 @@ android {
 
         debug {
             isMinifyEnabled = false
+            isShrinkResources = false
+            isDebuggable = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -78,8 +82,6 @@ dependencies {
     // Coil
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
-    //kotlin-reflect
-    implementation(libs.kotlin.reflect)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

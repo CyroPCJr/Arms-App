@@ -31,8 +31,8 @@ import com.example.armsapp.ui.theme.ArmsAppTheme
 @Composable
 fun WeDoScreen(
     onClickWeAreScreen: () -> Unit,
-    contentPaddingValues: PaddingValues = PaddingValues(),
     modifier: Modifier = Modifier,
+    contentPaddingValues: PaddingValues = PaddingValues(),
 ) {
     val scrollState = rememberScrollState()
     Column(
@@ -100,7 +100,7 @@ fun WeDoScreen(
             }
         }
 
-        LoadImages(EndPoints.CEO_PICTURE, modifier = modifier)
+        LoadImages(imageUrl = EndPoints.CEO_PICTURE)
 
         BorderTexts(
             textLeft = stringResource(R.string.sub_title8),
@@ -115,7 +115,7 @@ fun WeDoScreen(
 @Composable
 fun PreviewWeDoScreen() {
     ArmsAppTheme {
-        WeDoScreen({})
+        WeDoScreen(onClickWeAreScreen = {})
     }
 }
 
@@ -123,6 +123,6 @@ fun PreviewWeDoScreen() {
 @Composable
 fun PreviewWeDoScreenDark() {
     ArmsAppTheme(darkTheme = true) {
-        WeDoScreen({})
+        WeDoScreen(onClickWeAreScreen = {})
     }
 }

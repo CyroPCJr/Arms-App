@@ -24,11 +24,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.armsapp.R
+import com.example.armsapp.data.topLevelRoutes
 import com.example.armsapp.model.BottomBarNavItem
 import com.example.armsapp.ui.contact.ContactScreen
 import com.example.armsapp.ui.home.HomeScreen
@@ -61,28 +63,33 @@ fun MainScreen() {
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     contentColor = MaterialTheme.colorScheme.primary,
                 ) {
-                    BottomBarNavItem.entries.forEachIndexed { index, item ->
-                        val itemInstance = item.objectInstance!!
+                    topLevelRoutes.forEachIndexed { index, topLevelRoute ->
                         NavigationBarItem(
                             selected = selectedItemIndex == index,
                             onClick = {
                                 selectedItemIndex = index
-                                navController.navigate(itemInstance.route)
+                                navController.navigate(topLevelRoute.route) {
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+
                             },
                             label = {
-                                Text(text = stringResource(itemInstance.label))
+                                Text(text = stringResource(topLevelRoute.label))
                             },
                             icon = {
                                 Icon(
                                     imageVector = if (index == selectedItemIndex) {
-                                        itemInstance.selectedIcon
-                                    } else itemInstance.unselectedIcon,
-                                    contentDescription = stringResource(itemInstance.label)
+                                        topLevelRoute.selectedIcon
+                                    } else topLevelRoute.unselectedIcon,
+                                    contentDescription = stringResource(topLevelRoute.label)
                                 )
                             },
                         )
                     }
-
                 }
             }) { innerPadding ->
             NavigationHost(
@@ -116,10 +123,10 @@ fun ArmsTopAppBar(
 
 @Composable
 fun NavigationHost(
+    modifier: Modifier = Modifier,
     navController: NavHostController,
     onChangeIndexNavBarNavItem: (Int) -> Unit,
     contentPaddingValues: PaddingValues = PaddingValues(),
-    modifier: Modifier = Modifier,
 ) {
     NavHost(
         navController = navController,

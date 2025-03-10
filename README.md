@@ -1,6 +1,12 @@
 # Arms-App
 
-Arms-App é um aplicativo desenvolvido em Kotlin que replica o site da empresa [Arms.com.br](https://arms.com.br/), incluindo várias telas e funcionalidades interativas. O projeto integra players de vídeo, carregamento assíncrono de imagens e funcionalidades de navegação, proporcionando uma experiência completa e fluida para os usuários.
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/CyroPCJr/Arms-App/android-ci.yml?label=Build&logo=github&style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/CyroPCJr/Arms-App?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/CyroPCJr/Arms-App?style=for-the-badge)
+![GitHub License](https://img.shields.io/github/license/CyroPCJr/Arms-App?style=for-the-badge)
+![GitHub contributors](https://img.shields.io/github/contributors/CyroPCJr/Arms-App?style=for-the-badge)
+
+**Arms-App é um aplicativo desenvolvido em Kotlin que replica o site da empresa [Arms.com.br](https://arms.com.br/), incluindo várias telas e funcionalidades interativas. O projeto integra players de vídeo, carregamento assíncrono de imagens e funcionalidades de navegação, proporcionando uma experiência completa e fluida para os usuários.**
 
 ## Funcionalidades
 
