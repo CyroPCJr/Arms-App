@@ -26,50 +26,23 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
-      - name: 📀 Cache Gradle dependencies
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: gradle-${{ runner.os }}
-
-      - name: 🔑 Prepare Keystore
-        env:
-          STORE_FILE_BASE64: ${{ secrets.STORE_FILE_BASE64 }}
-          KEYSTORE_PATH: app/keystore/keystore.jks
-        run: |
-          # Create keystore directory if it doesn't exist
-          mkdir -p app/keystore
-          
-          # Decode the keystore file from Base64 if available
-          if [ -n "$STORE_FILE_BASE64" ]; then
-            echo "$STORE_FILE_BASE64" | base64 --decode > "$KEYSTORE_PATH"
-          else
-            echo "Warning: Keystore file not provided (STORE_FILE_BASE64 secret)."
-            echo "Build will be unsigned."
-          fi
-
       - name: 🔑 Grant execute permission to Gradlew
         run: chmod +x gradlew
 
-      - name: 🚀 Build Release APK
-        run: ./gradlew assembleRelease --stacktrace
-        env:
-          SIGNING_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          SIGNING_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-          SIGNING_STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
-
-      - name: ✅ Run Tests and Lint Checks
-        run: ./gradlew test lint
-
       - name: 📦 Generate AAB (Android App Bundle)
         run: ./gradlew bundleRelease
-        env:
-          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
-          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
-          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+
+      - name: Assemble Release Bundle
+        run: ./gradlew assembleRelease
+
+      - name: Sign Release
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.STORE_FILE_BASE64 }}
+          alias: ${{ secrets.KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
 
       - name: 📤 Upload APK and AAB as Artifacts
         uses: actions/upload-artifact@v4
@@ -78,3 +51,59 @@ jobs:
           path: |
             app/build/outputs/apk/release/*.apk
             app/build/outputs/bundle/release/*.aab
+
+
+
+
+#      - name: 📀 Cache Gradle dependencies
+#        uses: actions/cache@v3
+#        with:
+#          path: |
+#            ~/.gradle/caches
+#            ~/.gradle/wrapper
+#          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+#          restore-keys: gradle-${{ runner.os }}
+#
+#      - name: 🔑 Prepare Keystore
+#        env:
+#          STORE_FILE_BASE64: ${{ secrets.STORE_FILE_BASE64 }}
+#          KEYSTORE_PATH: app/keystore/keystore.jks
+#        run: |
+#          # Create keystore directory if it doesn't exist
+#          mkdir -p app/keystore
+#
+#          # Decode the keystore file from Base64 if available
+#          if [ -n "$STORE_FILE_BASE64" ]; then
+#            echo "$STORE_FILE_BASE64" | base64 --decode > "$KEYSTORE_PATH"
+#          else
+#            echo "Warning: Keystore file not provided (STORE_FILE_BASE64 secret)."
+#            echo "Build will be unsigned."
+#          fi
+#
+#      - name: 🔑 Grant execute permission to Gradlew
+#        run: chmod +x gradlew
+#
+#      - name: 🚀 Build Release APK
+#        run: ./gradlew assembleRelease --stacktrace
+#        env:
+#          SIGNING_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+#          SIGNING_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+#          SIGNING_STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+#
+#      - name: ✅ Run Tests and Lint Checks
+#        run: ./gradlew test lint
+#
+#      - name: 📦 Generate AAB (Android App Bundle)
+#        run: ./gradlew bundleRelease
+#        env:
+#          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+#          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+#          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+#
+#      - name: 📤 Upload APK and AAB as Artifacts
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: Build-Output
+#          path: |
+#            app/build/outputs/apk/release/*.apk
+#            app/build/outputs/bundle/release/*.aab
