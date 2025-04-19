@@ -1,5 +1,6 @@
 package com.example.armsapp.ui.contact
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -18,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -36,15 +39,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.armsapp.R
-import com.example.armsapp.model.EndPoints
+import com.example.armsapp.domain.model.EndPoints
 import com.example.armsapp.ui.theme.ArmsAppTheme
 
 @Composable
 fun ContactScreen(
+    emailSent: Boolean,
     onClickSendEmail: () -> Unit,
     modifier: Modifier = Modifier,
     contentPaddingValues: PaddingValues = PaddingValues(),
 ) {
+    val context = LocalContext.current
+
+    if (emailSent) {
+        LaunchedEffect(Unit) {
+            Toast.makeText(context, "Email sent", Toast.LENGTH_LONG).show()
+        }
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -170,7 +182,7 @@ fun ContactScreen(
 @Composable
 private fun ContactScreenPreview() {
     ArmsAppTheme(darkTheme = false) {
-        ContactScreen(onClickSendEmail = {})
+        ContactScreen(emailSent = false, onClickSendEmail = {})
     }
 }
 
@@ -178,6 +190,6 @@ private fun ContactScreenPreview() {
 @Composable
 private fun ContactScreenPreviewDark() {
     ArmsAppTheme(darkTheme = true) {
-        ContactScreen(onClickSendEmail = {})
+        ContactScreen(emailSent = false, onClickSendEmail = {})
     }
 }

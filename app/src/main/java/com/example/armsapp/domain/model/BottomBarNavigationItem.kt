@@ -1,4 +1,4 @@
-package com.example.armsapp.model
+package com.example.armsapp.domain.model
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons

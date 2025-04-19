@@ -20,7 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.armsapp.R
-import com.example.armsapp.data.listProjects
+import com.example.armsapp.data.local.listProjects
 import com.example.armsapp.ui.components.ButtonNavigation
 import com.example.armsapp.ui.components.CardLayout
 import com.example.armsapp.ui.theme.ArmsAppTheme

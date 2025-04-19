@@ -1,4 +1,4 @@
-package com.example.armsapp.model
+package com.example.armsapp.domain.model
 
 import com.example.armsapp.BuildConfig
 

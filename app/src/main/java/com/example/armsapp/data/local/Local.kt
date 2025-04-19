@@ -1,11 +1,11 @@
-package com.example.armsapp.data
+package com.example.armsapp.data.local
 
 import com.example.armsapp.R
-import com.example.armsapp.model.ArmsTeam
-import com.example.armsapp.model.ArmsWeAre
-import com.example.armsapp.model.BottomBarNavItem
-import com.example.armsapp.model.EndPoints
-import com.example.armsapp.model.Project
+import com.example.armsapp.domain.model.ArmsTeam
+import com.example.armsapp.domain.model.ArmsWeAre
+import com.example.armsapp.domain.model.BottomBarNavItem
+import com.example.armsapp.domain.model.EndPoints
+import com.example.armsapp.domain.model.Project
 
 val listProjects = listOf(
     Project(
