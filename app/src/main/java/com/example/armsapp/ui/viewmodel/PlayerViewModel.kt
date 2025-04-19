@@ -1,7 +1,6 @@
-package com.example.armsapp.ui.viewmodels
+package com.example.armsapp.ui.viewmodel
 
 import android.content.Context
-import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.media3.common.MediaItem
@@ -11,6 +10,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import androidx.core.net.toUri
 
 class PlayerViewModel : ViewModel() {
 
@@ -23,7 +23,7 @@ class PlayerViewModel : ViewModel() {
         if (_playerState.value == null) {
             viewModelScope.launch {
                 val exoPlayer = ExoPlayer.Builder(context).build().also {
-                    val mediaItem = MediaItem.fromUri(Uri.parse(videoUrl))
+                    val mediaItem = MediaItem.fromUri(videoUrl.toUri())
                     it.setMediaItem(mediaItem)
                     it.prepare()
                     it.playWhenReady = true

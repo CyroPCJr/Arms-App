@@ -43,8 +43,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.armsapp.R
-import com.example.armsapp.data.listArmsTeam
-import com.example.armsapp.data.listArmsWeAre
+import com.example.armsapp.data.local.listArmsTeam
+import com.example.armsapp.data.local.listArmsWeAre
 import com.example.armsapp.ui.components.BorderTexts
 import com.example.armsapp.ui.components.ButtonNavigation
 import com.example.armsapp.ui.components.LoadImages
