@@ -1,5 +1,8 @@
 package com.example.armsapp.network.dto
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class ProjectDto(
     val id: Int,
     val urlImage: String,
