@@ -13,6 +13,11 @@ coilCompose = "3.1.0"
 navigation = "2.8.9"
 iconsExtended = "1.7.8"
 ktor = "3.1.2"
+kotlinxCoroutinesTest = "1.10.1"
+kotlinPluginSerialization = "2.1.20"
+slf4j = "2.0.12"
+room = "2.7.0"
+ksp = "2.1.20-2.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -29,6 +34,7 @@ androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+kotlinx-coroutines-test = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest"}
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-navigation = {group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation"}
 androidx-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "iconsExtended"}
@@ -46,8 +52,19 @@ ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.r
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
+ktor-clioent-mock = {group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor"}
+
+# SLF4J
+slf4j-simple = { group = "org.slf4j", name = "slf4j-simple", version.ref = "slf4j" }
+
+# Room database
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinPluginSerialization" }
+ksp-devtools = { id = "com.google.devtools.ksp", version.ref = "ksp"}

@@ -113,7 +113,7 @@ fun WeAreScreen(
                 name = stringResource(items.name),
                 jobPosition = stringResource(items.jobPosition),
                 instagramLabel = items.instagramLabel,
-                instagramUri = items.instagramUri,
+                instagramUri = items.instagramUrl,
                 urlImage = items.imageUrl
             )
         }
