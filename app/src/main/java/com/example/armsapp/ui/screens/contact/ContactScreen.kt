@@ -1,4 +1,4 @@
-package com.example.armsapp.ui.contact
+package com.example.armsapp.ui.screens.contact
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement

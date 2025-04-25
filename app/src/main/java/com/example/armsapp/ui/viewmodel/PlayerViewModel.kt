@@ -1,6 +1,7 @@
 package com.example.armsapp.ui.viewmodel
 
 import android.content.Context
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.media3.common.MediaItem
@@ -10,7 +11,6 @@ import androidx.media3.exoplayer.ExoPlayer
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import androidx.core.net.toUri
 
 class PlayerViewModel : ViewModel() {
 

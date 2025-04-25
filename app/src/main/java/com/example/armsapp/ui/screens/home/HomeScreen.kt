@@ -1,5 +1,6 @@
-package com.example.armsapp.ui.home
+package com.example.armsapp.ui.screens.home
 
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,10 +16,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -27,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.armsapp.R
 import com.example.armsapp.data.local.listProjects
 import com.example.armsapp.domain.model.EndPoints
@@ -34,16 +38,31 @@ import com.example.armsapp.ui.components.BorderTexts
 import com.example.armsapp.ui.components.ExoPlayerView
 import com.example.armsapp.ui.components.LoadImages
 import com.example.armsapp.ui.components.ProjectCardLayoutList
+import com.example.armsapp.ui.state.UiState
 import com.example.armsapp.ui.theme.ArmsAppTheme
 
 @Composable
 fun HomeScreen(
+    viewModel: HomeScreenViewModel,
     onClickWeDoScreen: () -> Unit,
     onClickWeAreScreen: () -> Unit,
     modifier: Modifier = Modifier,
     contentPaddingValues: PaddingValues = PaddingValues(),
 ) {
     val scrollState = rememberScrollState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    when (uiState) {
+        is UiState.Error -> TODO()
+        is UiState.Loading -> {
+            CircularProgressIndicator()
+        }
+
+        is UiState.Success<*> -> {
+            val projects = (uiState as UiState.Success).data
+            Log.d("HomeScreen", projects.toString())
+
+        }
+    }
 
     Column(
         modifier = modifier
@@ -160,7 +179,7 @@ private fun ButtonNavigation(
 @Composable
 private fun HomeScreenPreview() {
     ArmsAppTheme {
-        HomeScreen(onClickWeDoScreen = {}, onClickWeAreScreen = {})
+        //HomeScreen(onClickWeDoScreen = {}, onClickWeAreScreen = {})
     }
 }
 

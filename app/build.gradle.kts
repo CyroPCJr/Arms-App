@@ -93,7 +93,6 @@ dependencies {
     // Slf4j
     implementation(libs.slf4j.simple)
     // Room
-
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
@@ -101,6 +100,9 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.ktor.clioent.mock)
+
+    // Mockk
+    testImplementation(libs.mockk)
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

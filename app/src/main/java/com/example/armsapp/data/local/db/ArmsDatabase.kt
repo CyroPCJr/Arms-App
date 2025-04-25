@@ -6,11 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.armsapp.data.local.dao.ArmsTeamDao
 import com.example.armsapp.data.local.dao.ProjectDao
-import com.example.armsapp.data.local.entities.ArmsEntity
+import com.example.armsapp.data.local.entities.ArmsTeamEntity
 import com.example.armsapp.data.local.entities.ProjectEntity
 
 @Database(
-    entities = [ProjectEntity::class, ArmsEntity::class],
+    entities = [ProjectEntity::class, ArmsTeamEntity::class],
     version = 1,
     exportSchema = false
 )

@@ -88,6 +88,7 @@ val listArmsWeAre = listOf(
 
 val listArmsTeam = listOf(
     ArmsTeam(
+        id = 0,
         name = R.string.we_are_team_rogerio,
         jobPosition = R.string.we_are_team_rogerio_job,
         instagramLabel = "@studioarms",
@@ -95,6 +96,7 @@ val listArmsTeam = listOf(
         imageUrl = EndPoints.TEAM_ROGERIO
     ),
     ArmsTeam(
+        id = 1,
         name = R.string.we_are_team_jean,
         jobPosition = R.string.we_are_team_jean_job,
         instagramLabel = "@jeanovaes",
@@ -102,6 +104,7 @@ val listArmsTeam = listOf(
         imageUrl = EndPoints.TEAM_JEAN
     ),
     ArmsTeam(
+        id = 2,
         name = R.string.we_are_team_andrea,
         jobPosition = R.string.we_are_team_andrea_job,
         instagramLabel = "@andreac_simao",
@@ -109,6 +112,7 @@ val listArmsTeam = listOf(
         imageUrl = EndPoints.TEAM_ANDREA
     ),
     ArmsTeam(
+        id = 3,
         name = R.string.we_are_team_mayara,
         jobPosition = R.string.we_are_team_mayara_job,
         instagramLabel = "@mayarafigueiredo.adv",
@@ -116,6 +120,7 @@ val listArmsTeam = listOf(
         imageUrl = EndPoints.TEAM_MAYARA
     ),
     ArmsTeam(
+        id = 4,
         name = R.string.we_are_team_sidney,
         jobPosition = R.string.we_are_team_sidney_job,
         instagramLabel = "@sbretanha",
