@@ -7,15 +7,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.armsapp.domain.model.BottomBarNavItem
-import com.example.armsapp.ui.contact.ContactScreen
-import com.example.armsapp.ui.home.HomeScreen
-import com.example.armsapp.ui.weare.WeAreScreen
-import com.example.armsapp.ui.wedo.WeDoScreen
-import com.example.armsapp.ui.wespeak.WeSpeakScreen
+import com.example.armsapp.ui.screens.contact.ContactScreen
+import com.example.armsapp.ui.screens.home.HomeScreen
+import com.example.armsapp.ui.screens.home.HomeScreenViewModel
+import com.example.armsapp.ui.screens.weare.WeAreScreen
+import com.example.armsapp.ui.screens.wedo.WeDoScreen
+import com.example.armsapp.ui.screens.wespeak.WeSpeakScreen
+import com.example.armsapp.ui.viewmodel.AppViewModelProvider
 
 @Composable
 fun AppNavigationHost(
@@ -30,7 +33,10 @@ fun AppNavigationHost(
         startDestination = BottomBarNavItem.HomeScreen.route
     ) {
         composable(BottomBarNavItem.HomeScreen.route) {
+            val homeScreenViewModel: HomeScreenViewModel =
+                viewModel(factory = AppViewModelProvider.Factory)
             HomeScreen(
+                viewModel = homeScreenViewModel,
                 onClickWeDoScreen = {
                     navigateTo(navController, BottomBarNavItem.WeDoScreen.route) {
                         onChangeIndexNavBarNavItem(BottomBarNavItem.WeDoScreen.id)
