@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import com.example.armsapp.domain.model.ArmsTeam
 
 @Entity(tableName = "armsTeam")
-data class ArmsEntity(
+data class ArmsTeamEntity(
     @PrimaryKey val id: Int,
     val name: String,
     val jobPosition: String,
@@ -15,7 +15,7 @@ data class ArmsEntity(
 )
 
 //TODO: Arrumar as propriedade para String
-fun ArmsEntity.toArms() = ArmsTeam(
+fun ArmsTeamEntity.toArmsTeam() = ArmsTeam(
     id = id,
     name = name.toInt(),
     jobPosition = jobPosition.toInt(),
@@ -23,3 +23,5 @@ fun ArmsEntity.toArms() = ArmsTeam(
     instagramUrl = instagramUrl,
     imageUrl = image
 )
+
+

@@ -1,4 +1,4 @@
-package com.example.armsapp.ui.weare
+package com.example.armsapp.ui.screens.weare
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing

@@ -9,8 +9,18 @@ import coil3.disk.directory
 import coil3.memory.MemoryCache
 import coil3.request.CachePolicy
 import coil3.util.DebugLogger
+import com.example.armsapp.di.ArmsAppContainer
+import com.example.armsapp.di.DependencyContainer
 
 class ArmsApplication : Application(), SingletonImageLoader.Factory {
+
+    lateinit var container: DependencyContainer
+        private set
+
+    override fun onCreate() {
+        super.onCreate()
+        container = ArmsAppContainer.getInstance(this)
+    }
 
     override fun newImageLoader(context: PlatformContext): ImageLoader {
         val imageLoader = ImageLoader.Builder(context)
@@ -31,4 +41,5 @@ class ArmsApplication : Application(), SingletonImageLoader.Factory {
             .build()
         return imageLoader
     }
+
 }
