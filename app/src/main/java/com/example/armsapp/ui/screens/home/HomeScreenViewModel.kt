@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
 class HomeScreenViewModel(
@@ -33,13 +34,24 @@ class HomeScreenViewModel(
         }
     }
 
-    private fun refreshIfNeeded() {
+    fun refreshIfNeeded() {
         viewModelScope.launch {
             _uiState.value = UiState.Loading
             val result = offLineArmsRepo.fetchAndSaveArmsRepo()
-            result.exceptionOrNull()?.let { e ->
-                _uiState.value = UiState.Error(e.message ?: "Failed to fetch projects")
-            }
+
+            result.fold(
+                onSuccess = {
+                    val localProjects = offLineArmsRepo.getArmsRepo()
+                        .distinctUntilChanged()
+                        .firstOrNull() ?: emptyList()
+
+                    _uiState.value = UiState.Success(localProjects)
+                },
+                onFailure = { e ->
+                    _uiState.value = UiState.Error(e.message ?: "Failed to fetch projects")
+                }
+            )
         }
     }
+
 }

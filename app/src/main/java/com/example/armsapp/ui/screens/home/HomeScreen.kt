@@ -1,13 +1,14 @@
 package com.example.armsapp.ui.screens.home
 
-import android.util.Log
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -32,38 +33,67 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.armsapp.R
-import com.example.armsapp.data.local.listProjects
 import com.example.armsapp.domain.model.EndPoints
+import com.example.armsapp.domain.model.Project
 import com.example.armsapp.ui.components.BorderTexts
 import com.example.armsapp.ui.components.ExoPlayerView
 import com.example.armsapp.ui.components.LoadImages
 import com.example.armsapp.ui.components.ProjectCardLayoutList
 import com.example.armsapp.ui.state.UiState
 import com.example.armsapp.ui.theme.ArmsAppTheme
+import com.example.armsapp.ui.viewmodel.PlayerViewModel
 
 @Composable
 fun HomeScreen(
     viewModel: HomeScreenViewModel,
+    playerViewModel: PlayerViewModel,
     onClickWeDoScreen: () -> Unit,
     onClickWeAreScreen: () -> Unit,
     modifier: Modifier = Modifier,
     contentPaddingValues: PaddingValues = PaddingValues(),
 ) {
-    val scrollState = rememberScrollState()
+
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     when (uiState) {
-        is UiState.Error -> TODO()
+        is UiState.Error -> {
+            ErrorScreen(
+                message = (uiState as UiState.Error).message,
+                onRetry = viewModel::refreshIfNeeded
+            )
+        }
+
         is UiState.Loading -> {
-            CircularProgressIndicator()
+            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator()
+            }
         }
 
         is UiState.Success<*> -> {
-            val projects = (uiState as UiState.Success).data
-            Log.d("HomeScreen", projects.toString())
 
+            val projects = (uiState as UiState.Success).data
+            HomeScreenContent(
+                playerViewModel = playerViewModel,
+                projects = projects,
+                onClickWeDoScreen = onClickWeDoScreen,
+                onClickWeAreScreen = onClickWeAreScreen,
+                contentPaddingValues = contentPaddingValues,
+                modifier = modifier
+            )
         }
     }
 
+}
+
+@Composable
+fun HomeScreenContent(
+    playerViewModel: PlayerViewModel,
+    projects: List<Project>,
+    onClickWeDoScreen: () -> Unit,
+    onClickWeAreScreen: () -> Unit,
+    contentPaddingValues: PaddingValues,
+    modifier: Modifier
+) {
+    val scrollState = rememberScrollState()
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -90,8 +120,10 @@ fun HomeScreen(
         )
 
         ExoPlayerView(
-            EndPoints.PROJECT_REELS,
-            modifier = Modifier.padding(start = 8.dp, end = 8.dp)
+            viewModel = playerViewModel,
+            mediaUrl = EndPoints.PROJECT_REELS,
+            modifier = Modifier
+                .padding(horizontal = 8.dp)
         )
 
         Row {
@@ -110,7 +142,7 @@ fun HomeScreen(
             )
         }
 
-        ProjectCardLayoutList(listProjects.dropLast(4))
+        ProjectCardLayoutList(projects.dropLast(4))
 
         ButtonNavigation(R.string.btn_more_projects) {
             onClickWeDoScreen()
@@ -146,8 +178,10 @@ fun HomeScreen(
         )
 
         ExoPlayerView(
-            EndPoints.SKETCH_REELS,
-            modifier = Modifier.padding(start = 8.dp, end = 8.dp)
+            viewModel = playerViewModel,
+            mediaUrl = EndPoints.SKETCH_REELS,
+            modifier = Modifier
+                .padding(horizontal = 8.dp)
         )
 
         BorderTexts(
@@ -155,7 +189,31 @@ fun HomeScreen(
             textRight = stringResource(R.string.sub_title9),
             modifier = modifier
         )
+    }
+}
 
+@Composable
+fun ErrorScreen(
+    message: String,
+    onRetry: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = message,
+            color = MaterialTheme.colorScheme.error,
+            style = MaterialTheme.typography.bodyMedium,
+            textAlign = TextAlign.Center
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(onClick = onRetry) {
+            Text(text = stringResource(R.string.btn_error_retry))
+        }
     }
 }
 
@@ -182,6 +240,3 @@ private fun HomeScreenPreview() {
         //HomeScreen(onClickWeDoScreen = {}, onClickWeAreScreen = {})
     }
 }
-
-
-
