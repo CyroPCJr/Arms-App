@@ -19,6 +19,7 @@ import com.example.armsapp.ui.screens.weare.WeAreScreen
 import com.example.armsapp.ui.screens.wedo.WeDoScreen
 import com.example.armsapp.ui.screens.wespeak.WeSpeakScreen
 import com.example.armsapp.ui.viewmodel.AppViewModelProvider
+import com.example.armsapp.ui.viewmodel.PlayerViewModel
 
 @Composable
 fun AppNavigationHost(
@@ -35,7 +36,9 @@ fun AppNavigationHost(
         composable(BottomBarNavItem.HomeScreen.route) {
             val homeScreenViewModel: HomeScreenViewModel =
                 viewModel(factory = AppViewModelProvider.Factory)
+            val playerViewModel: PlayerViewModel = viewModel(factory = AppViewModelProvider.Factory)
             HomeScreen(
+                playerViewModel = playerViewModel,
                 viewModel = homeScreenViewModel,
                 onClickWeDoScreen = {
                     navigateTo(navController, BottomBarNavItem.WeDoScreen.route) {

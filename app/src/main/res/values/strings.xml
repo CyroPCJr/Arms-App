@@ -16,6 +16,7 @@
     <string name="btn_check_all_projects">CONFERIR TODOS</string>
     <string name="btn_check_consult">CONSULTE</string>
     <string name="btn_lets_make_your_dream">VAMOS MATERIALIZAR SEU SONHO</string>
+    <string name="btn_error_retry">Tentar novamente</string>
 
     <string name="botton_bar_home">Principal</string>
     <string name="botton_bar_we_are">Somos</string>
