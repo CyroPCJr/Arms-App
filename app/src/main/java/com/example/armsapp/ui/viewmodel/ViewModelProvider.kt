@@ -22,6 +22,10 @@ object AppViewModelProvider {
             )
         }
 
+        initializer {
+            PlayerViewModel()
+        }
+
 //        initializer {
 //            TeamScreenViewModel(
 //                offLineArmsRepo = OfflineArmsTeamRepository(
