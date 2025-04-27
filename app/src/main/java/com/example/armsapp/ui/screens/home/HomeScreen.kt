@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -36,9 +37,9 @@ import com.example.armsapp.R
 import com.example.armsapp.domain.model.EndPoints
 import com.example.armsapp.domain.model.Project
 import com.example.armsapp.ui.components.BorderTexts
-import com.example.armsapp.ui.components.ExoPlayerView
 import com.example.armsapp.ui.components.LoadImages
 import com.example.armsapp.ui.components.ProjectCardLayoutList
+import com.example.armsapp.ui.components.VideoWithVisibilityHandler
 import com.example.armsapp.ui.state.UiState
 import com.example.armsapp.ui.theme.ArmsAppTheme
 import com.example.armsapp.ui.viewmodel.PlayerViewModel
@@ -94,6 +95,8 @@ fun HomeScreenContent(
     modifier: Modifier
 ) {
     val scrollState = rememberScrollState()
+    val context = LocalContext.current
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -119,11 +122,12 @@ fun HomeScreenContent(
             color = MaterialTheme.colorScheme.onBackground,
         )
 
-        ExoPlayerView(
+        VideoWithVisibilityHandler(
             viewModel = playerViewModel,
             mediaUrl = EndPoints.PROJECT_REELS,
-            modifier = Modifier
-                .padding(horizontal = 8.dp)
+            tag = "projectReel",
+            context = context,
+            modifier = Modifier.padding(horizontal = 8.dp)
         )
 
         Row {
@@ -177,11 +181,12 @@ fun HomeScreenContent(
             modifier = modifier
         )
 
-        ExoPlayerView(
+        VideoWithVisibilityHandler(
             viewModel = playerViewModel,
             mediaUrl = EndPoints.SKETCH_REELS,
-            modifier = Modifier
-                .padding(horizontal = 8.dp)
+            tag = "sketchReel",
+            context = context,
+            modifier = Modifier.padding(horizontal = 8.dp)
         )
 
         BorderTexts(
