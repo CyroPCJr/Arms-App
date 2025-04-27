@@ -9,6 +9,7 @@ import com.example.armsapp.data.local.repositories.OffLineArmsRepository
 import com.example.armsapp.domain.model.Project
 import com.example.armsapp.network.dto.ProjectDto
 import com.example.armsapp.ui.screens.home.HomeScreenViewModel
+import com.example.armsapp.utils.AndroidLogger
 
 object AppViewModelProvider {
 
@@ -23,7 +24,7 @@ object AppViewModelProvider {
         }
 
         initializer {
-            PlayerViewModel()
+            PlayerViewModel(logger = AndroidLogger())
         }
 
 //        initializer {
