@@ -89,40 +89,40 @@ val listArmsWeAre = listOf(
 val listArmsTeam = listOf(
     ArmsTeam(
         id = 0,
-        name = R.string.we_are_team_rogerio,
-        jobPosition = R.string.we_are_team_rogerio_job,
+        name = "ROGÉRIO FORTI",
+        jobPosition = "DIRETOR DE CRIAÇÃO",
         instagramLabel = "@studioarms",
         instagramUrl = EndPoints.INSTAGRAM,
         imageUrl = EndPoints.TEAM_ROGERIO
     ),
     ArmsTeam(
         id = 1,
-        name = R.string.we_are_team_jean,
-        jobPosition = R.string.we_are_team_jean_job,
+        name = "JEAN NOVAES",
+        jobPosition = "DIRETOR AUDIOVISUAL",
         instagramLabel = "@jeanovaes",
         instagramUrl = EndPoints.INSTAGRAM_BASE + "/jeanovaes/",
         imageUrl = EndPoints.TEAM_JEAN
     ),
     ArmsTeam(
         id = 2,
-        name = R.string.we_are_team_andrea,
-        jobPosition = R.string.we_are_team_andrea_job,
+        name = "ANDREA SIMÃO",
+        jobPosition = "ASSESSORA CONTÁBIL",
         instagramLabel = "@andreac_simao",
         instagramUrl = EndPoints.INSTAGRAM_BASE + "/andreac_simao/",
         imageUrl = EndPoints.TEAM_ANDREA
     ),
     ArmsTeam(
         id = 3,
-        name = R.string.we_are_team_mayara,
-        jobPosition = R.string.we_are_team_mayara_job,
+        name = "MAYARA FIGUEIREDO",
+        jobPosition = "ADVOGADA ESPECIALISTA EM REGISTRO DE MARCAS",
         instagramLabel = "@mayarafigueiredo.adv",
         instagramUrl = EndPoints.INSTAGRAM_BASE + "/mayarafigueiredo.adv/",
         imageUrl = EndPoints.TEAM_MAYARA
     ),
     ArmsTeam(
         id = 4,
-        name = R.string.we_are_team_sidney,
-        jobPosition = R.string.we_are_team_sidney_job,
+        name = "SÍDNEY BRETANHA",
+        jobPosition = "REDATOR, LICENCIADO EM LETRAS, ESCRITOR, DRAMATURGO E ATOR",
         instagramLabel = "@sbretanha",
         instagramUrl = EndPoints.INSTAGRAM_BASE + "/sbretanha/",
         imageUrl = EndPoints.TEAM_SIDNEY

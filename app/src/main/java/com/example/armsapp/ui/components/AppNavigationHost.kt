@@ -16,8 +16,11 @@ import com.example.armsapp.ui.screens.contact.ContactScreen
 import com.example.armsapp.ui.screens.home.HomeScreen
 import com.example.armsapp.ui.screens.home.HomeScreenViewModel
 import com.example.armsapp.ui.screens.weare.WeAreScreen
+import com.example.armsapp.ui.screens.weare.WeAreScreenViewModel
 import com.example.armsapp.ui.screens.wedo.WeDoScreen
+import com.example.armsapp.ui.screens.wedo.WeDoScreenViewModel
 import com.example.armsapp.ui.screens.wespeak.WeSpeakScreen
+import com.example.armsapp.ui.screens.wespeak.WeSpeakScreenViewModel
 import com.example.armsapp.ui.viewmodel.AppViewModelProvider
 import com.example.armsapp.ui.viewmodel.PlayerViewModel
 
@@ -55,7 +58,10 @@ fun AppNavigationHost(
         }
 
         composable(BottomBarNavItem.SpeakScreen.route) {
+            val weSpeakScreenViewModel: WeSpeakScreenViewModel =
+                viewModel(factory = AppViewModelProvider.Factory)
             WeSpeakScreen(
+                viewModel = weSpeakScreenViewModel,
                 onClickWeDoScreen = {
                     navigateTo(navController, BottomBarNavItem.WeDoScreen.route) {
                         onChangeIndexNavBarNavItem(BottomBarNavItem.WeDoScreen.id)
@@ -71,7 +77,10 @@ fun AppNavigationHost(
         }
 
         composable(BottomBarNavItem.WeDoScreen.route) {
+            val weDoScreenViewModel: WeDoScreenViewModel =
+                viewModel(factory = AppViewModelProvider.Factory)
             WeDoScreen(
+                viewModel = weDoScreenViewModel,
                 onClickWeAreScreen = {
                     navigateTo(navController, BottomBarNavItem.WeAreScreen.route) {
                         onChangeIndexNavBarNavItem(BottomBarNavItem.WeAreScreen.id)
@@ -99,7 +108,10 @@ fun AppNavigationHost(
         }
 
         composable(BottomBarNavItem.WeAreScreen.route) {
+            val weAreScreenViewModel: WeAreScreenViewModel =
+                viewModel(factory = AppViewModelProvider.Factory)
             WeAreScreen(
+                viewModel = weAreScreenViewModel,
                 onClickWeDoScreen = {
                     navigateTo(navController, BottomBarNavItem.WeDoScreen.route) {
                         onChangeIndexNavBarNavItem(BottomBarNavItem.WeDoScreen.id)

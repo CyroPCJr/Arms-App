@@ -14,11 +14,10 @@ data class ArmsTeamEntity(
     val image: String
 )
 
-//TODO: Arrumar as propriedade para String
 fun ArmsTeamEntity.toArmsTeam() = ArmsTeam(
     id = id,
-    name = name.toInt(),
-    jobPosition = jobPosition.toInt(),
+    name = name,
+    jobPosition = jobPosition,
     instagramLabel = instagramLabel,
     instagramUrl = instagramUrl,
     imageUrl = image
