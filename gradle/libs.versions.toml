@@ -18,7 +18,6 @@ kotlinPluginSerialization = "2.1.20"
 slf4j = "2.0.12"
 room = "2.7.1"
 ksp = "2.1.20-2.0.0"
-androidArchCoreTesting = "2.2.0"
 mockk = "1.14.0"
 
 [libraries]
