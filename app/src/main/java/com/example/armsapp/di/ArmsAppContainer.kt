@@ -31,7 +31,6 @@ class ArmsAppContainer(
     private val database: ArmsDatabase by lazy { dbProvider() }
     private val httpClient: HttpClient by lazy { clientProvider() }
 
-
     override val projectRepository: ArmsLocalRepository<Project, ProjectDto> by lazy {
         ProjectRepositoryImpl(dao = database.projectDao())
     }

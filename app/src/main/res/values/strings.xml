@@ -63,15 +63,4 @@ Entre os benefícios da metodologia, destacam-se: melhora da experiência dos cl
     <string name="we_are_sub_title2">SEU TIME\nEXPERT\nEM BRANDING</string>
     <string name="we_are_sub_title3">ADORAMOS OUVIR HISTÓRIAS\nE AMAMOS FAZER PARTE DELAS</string>
 
-    <string name="we_are_team_rogerio">ROGÉRIO FORTI</string>
-    <string name="we_are_team_rogerio_job">DIRETOR DE CRIAÇÃO</string>
-    <string name="we_are_team_jean">JEAN NOVAES</string>
-    <string name="we_are_team_jean_job">DIRETOR AUDIOVISUAL</string>
-    <string name="we_are_team_andrea">ANDREA SIMÃO</string>
-    <string name="we_are_team_andrea_job">ASSESSORA CONTÁBIL</string>
-    <string name="we_are_team_mayara">MAYARA FIGUEIREDO</string>
-    <string name="we_are_team_mayara_job">ADVOGADA ESPECIALISTA EM REGISTRO DE MARCAS</string>
-    <string name="we_are_team_sidney">SÍDNEY BRETANHA</string>
-    <string name="we_are_team_sidney_job">REDATOR, LICENCIADO EM LETRAS, ESCRITOR, DRAMATURGO E ATOR</string>
-
 </resources>
