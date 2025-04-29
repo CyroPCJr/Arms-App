@@ -2,13 +2,11 @@ package com.example.armsapp.ui.screens.home
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -17,7 +15,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -37,7 +34,9 @@ import com.example.armsapp.R
 import com.example.armsapp.domain.model.EndPoints
 import com.example.armsapp.domain.model.Project
 import com.example.armsapp.ui.components.BorderTexts
+import com.example.armsapp.ui.components.ErrorScreen
 import com.example.armsapp.ui.components.LoadImages
+import com.example.armsapp.ui.components.LoadingScreen
 import com.example.armsapp.ui.components.ProjectCardLayoutList
 import com.example.armsapp.ui.components.VideoWithVisibilityHandler
 import com.example.armsapp.ui.state.UiState
@@ -53,24 +52,22 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     contentPaddingValues: PaddingValues = PaddingValues(),
 ) {
-
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     when (uiState) {
         is UiState.Error -> {
             ErrorScreen(
-                message = (uiState as UiState.Error).message,
-                onRetry = viewModel::refreshIfNeeded
+                message = (uiState as UiState.Error).message
             )
-        }
-
-        is UiState.Loading -> {
-            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
+            {
+                viewModel::refreshIfNeeded
             }
         }
 
-        is UiState.Success<*> -> {
+        is UiState.Loading -> {
+            LoadingScreen()
+        }
 
+        is UiState.Success<List<Project>> -> {
             val projects = (uiState as UiState.Success).data
             HomeScreenContent(
                 playerViewModel = playerViewModel,
@@ -194,31 +191,6 @@ fun HomeScreenContent(
             textRight = stringResource(R.string.sub_title9),
             modifier = modifier
         )
-    }
-}
-
-@Composable
-fun ErrorScreen(
-    message: String,
-    onRetry: () -> Unit
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = message,
-            color = MaterialTheme.colorScheme.error,
-            style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Center
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = onRetry) {
-            Text(text = stringResource(R.string.btn_error_retry))
-        }
     }
 }
 

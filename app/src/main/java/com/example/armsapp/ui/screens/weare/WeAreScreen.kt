@@ -42,19 +42,56 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.armsapp.R
 import com.example.armsapp.data.local.listArmsTeam
 import com.example.armsapp.data.local.listArmsWeAre
+import com.example.armsapp.domain.model.ArmsTeam
 import com.example.armsapp.ui.components.BorderTexts
 import com.example.armsapp.ui.components.ButtonNavigation
+import com.example.armsapp.ui.components.ErrorScreen
 import com.example.armsapp.ui.components.LoadImages
+import com.example.armsapp.ui.components.LoadingScreen
+import com.example.armsapp.ui.state.UiState
 import com.example.armsapp.ui.theme.ArmsAppTheme
 
 @Composable
 fun WeAreScreen(
+    viewModel: WeAreScreenViewModel,
     onClickWeDoScreen: () -> Unit,
     modifier: Modifier = Modifier,
     contentPaddingValues: PaddingValues = PaddingValues(),
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    when (uiState) {
+        is UiState.Error -> {
+            ErrorScreen(message = (uiState as UiState.Error).message) {
+                viewModel::refreshIfNeeded
+            }
+        }
+
+        is UiState.Loading -> {
+            LoadingScreen()
+        }
+
+        is UiState.Success<*> -> {
+            val armsTeamList = (uiState as UiState.Success).data
+            WeAreScreenContent(
+                armsTeamList = armsTeamList,
+                modifier = modifier,
+                contentPaddingValues = contentPaddingValues,
+                onClickWeDoScreen = onClickWeDoScreen
+            )
+        }
+    }
+}
+
+@Composable
+private fun WeAreScreenContent(
+    armsTeamList: List<ArmsTeam>,
+    modifier: Modifier,
+    contentPaddingValues: PaddingValues,
+    onClickWeDoScreen: () -> Unit
 ) {
     val scrollState = rememberScrollState()
     Column(
@@ -87,8 +124,8 @@ fun WeAreScreen(
 
         listArmsWeAre.forEach { items ->
             CardInfoExpandable(stringResource(items.title), stringResource(items.description))
-
         }
+
         Text(
             text = stringResource(R.string.we_are_sub_title2),
             fontSize = 40.sp,
@@ -108,10 +145,10 @@ fun WeAreScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
-        listArmsTeam.forEach { items ->
+        armsTeamList.forEach { items ->
             LoadTeamCard(
-                name = stringResource(items.name),
-                jobPosition = stringResource(items.jobPosition),
+                name = items.name,
+                jobPosition = items.jobPosition,
                 instagramLabel = items.instagramLabel,
                 instagramUri = items.instagramUrl,
                 urlImage = items.imageUrl
@@ -129,7 +166,6 @@ fun WeAreScreen(
         )
     }
 }
-
 
 @Composable
 fun CardInfoExpandable(
@@ -242,15 +278,15 @@ private fun LoadTeamCardPreview() {
 
 }
 
-@Preview(showBackground = true)
+@Preview(name = "WeAreScrenn Content Preview", showBackground = true)
 @Composable
 private fun BrandingScreenPreview() {
     ArmsAppTheme {
-        WeAreScreen(onClickWeDoScreen = {})
+        WeAreScreenContent(armsTeamList = listArmsTeam, modifier = Modifier, PaddingValues()) {}
     }
 }
 
-@Preview(showBackground = true)
+@Preview(name = "Card Info Expandable Preview", showBackground = true)
 @Composable
 private fun CardInfoExpandablePreview() {
     ArmsAppTheme {

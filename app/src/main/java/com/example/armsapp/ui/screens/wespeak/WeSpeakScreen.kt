@@ -11,6 +11,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -19,18 +20,59 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.armsapp.R
-import com.example.armsapp.data.local.listProjects
+import com.example.armsapp.domain.model.Project
 import com.example.armsapp.ui.components.ButtonNavigation
 import com.example.armsapp.ui.components.CardLayout
+import com.example.armsapp.ui.components.ErrorScreen
+import com.example.armsapp.ui.components.LoadingScreen
+import com.example.armsapp.ui.state.UiState
 import com.example.armsapp.ui.theme.ArmsAppTheme
 
 @Composable
 fun WeSpeakScreen(
+    viewModel: WeSpeakScreenViewModel,
     modifier: Modifier = Modifier,
     onClickWeDoScreen: () -> Unit,
     onClickWeAreScreen: () -> Unit,
     contentPaddingValues: PaddingValues = PaddingValues(),
+) {
+
+    val uiState by viewModel.projectsUiState.collectAsStateWithLifecycle()
+    when (uiState) {
+        is UiState.Error -> {
+            ErrorScreen(
+                message = (uiState as UiState.Error).message
+            ) {
+                viewModel::projectsUiState
+            }
+        }
+
+        is UiState.Loading -> {
+            LoadingScreen()
+        }
+
+        is UiState.Success<List<Project>> -> {
+            val projectList = (uiState as UiState.Success<List<Project>>).data
+            WeSpeakScreenContent(
+                projectList = projectList,
+                modifier = modifier,
+                contentPaddingValues = contentPaddingValues,
+                onClickWeDoScreen = onClickWeDoScreen,
+                onClickWeAreScreen = onClickWeAreScreen
+            )
+        }
+    }
+}
+
+@Composable
+private fun WeSpeakScreenContent(
+    projectList: List<Project>,
+    modifier: Modifier,
+    contentPaddingValues: PaddingValues,
+    onClickWeDoScreen: () -> Unit,
+    onClickWeAreScreen: () -> Unit
 ) {
     val scrollState = rememberScrollState()
     Column(
@@ -53,7 +95,6 @@ fun WeSpeakScreen(
                     bottom = dimensionResource(R.dimen.padding_vertical),
                     start = 8.dp
                 )
-
         )
 
         Text(
@@ -70,7 +111,7 @@ fun WeSpeakScreen(
                 )
         )
 
-        CardLayout(listProjects[5])
+        CardLayout(projectList[5])
 
         Row(
             modifier = Modifier
@@ -112,14 +153,13 @@ fun WeSpeakScreen(
         }
 
     }
-
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewWeSpeakScreen() {
     ArmsAppTheme {
-        WeSpeakScreen(onClickWeDoScreen = {}, onClickWeAreScreen = {})
+        //WeSpeakScreen(onClickWeDoScreen = {}, onClickWeAreScreen = {})
     }
 }
 
@@ -127,6 +167,6 @@ fun PreviewWeSpeakScreen() {
 @Composable
 fun PreviewModeWeSpeakScreenDark() {
     ArmsAppTheme(darkTheme = true) {
-        WeSpeakScreen(onClickWeDoScreen = {}, onClickWeAreScreen = {})
+        //WeSpeakScreen(onClickWeDoScreen = {}, onClickWeAreScreen = {})
     }
 }

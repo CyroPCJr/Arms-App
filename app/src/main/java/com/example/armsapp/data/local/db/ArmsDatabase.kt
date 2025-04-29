@@ -12,7 +12,6 @@ import com.example.armsapp.data.local.entities.ProjectEntity
 @Database(
     entities = [ProjectEntity::class, ArmsTeamEntity::class],
     version = 1,
-    exportSchema = false
 )
 abstract class ArmsDatabase : RoomDatabase() {
 

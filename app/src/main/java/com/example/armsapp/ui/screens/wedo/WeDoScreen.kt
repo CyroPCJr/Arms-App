@@ -11,6 +11,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -19,20 +20,58 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.armsapp.R
-import com.example.armsapp.data.local.listProjects
 import com.example.armsapp.domain.model.EndPoints
+import com.example.armsapp.domain.model.Project
 import com.example.armsapp.ui.components.BorderTexts
 import com.example.armsapp.ui.components.ButtonNavigation
+import com.example.armsapp.ui.components.ErrorScreen
 import com.example.armsapp.ui.components.LoadImages
+import com.example.armsapp.ui.components.LoadingScreen
 import com.example.armsapp.ui.components.ProjectCardLayoutList
+import com.example.armsapp.ui.state.UiState
 import com.example.armsapp.ui.theme.ArmsAppTheme
 
 @Composable
 fun WeDoScreen(
+    viewModel: WeDoScreenViewModel,
     onClickWeAreScreen: () -> Unit,
     modifier: Modifier = Modifier,
     contentPaddingValues: PaddingValues = PaddingValues(),
+) {
+    val uiState by viewModel.projectsUiState.collectAsStateWithLifecycle()
+    when (uiState) {
+        is UiState.Error -> {
+            ErrorScreen(
+                message = (uiState as UiState.Error).message
+            ) {
+                viewModel::projectsUiState
+            }
+        }
+
+        is UiState.Loading -> {
+            LoadingScreen()
+        }
+
+        is UiState.Success<List<Project>> -> {
+            val projectList = (uiState as UiState.Success).data
+            WeDoScreenContent(
+                projectList = projectList,
+                modifier = modifier,
+                contentPaddingValues = contentPaddingValues,
+                onClickWeAreScreen = onClickWeAreScreen
+            )
+        }
+    }
+}
+
+@Composable
+private fun WeDoScreenContent(
+    projectList: List<Project>,
+    modifier: Modifier,
+    contentPaddingValues: PaddingValues,
+    onClickWeAreScreen: () -> Unit
 ) {
     val scrollState = rememberScrollState()
     Column(
@@ -75,7 +114,7 @@ fun WeDoScreen(
             )
         }
 
-        ProjectCardLayoutList(projectList = listProjects)
+        ProjectCardLayoutList(projectList = projectList)
 
         Text(
             text = stringResource(R.string.sub_title4),
@@ -111,18 +150,28 @@ fun WeDoScreen(
     }
 }
 
-@Preview(name = "We Do Screen Body", showBackground = true)
-@Composable
-fun PreviewWeDoScreen() {
-    ArmsAppTheme {
-        WeDoScreen(onClickWeAreScreen = {})
-    }
-}
-
 @Preview(name = "We Do Screen in Dark Mode", showBackground = false)
 @Composable
 fun PreviewWeDoScreenDark() {
     ArmsAppTheme(darkTheme = true) {
-        WeDoScreen(onClickWeAreScreen = {})
+        WeDoScreenContent(
+            projectList = _root_ide_package_.com.example.armsapp.data.local.listProjects,
+            modifier = Modifier,
+            contentPaddingValues = PaddingValues(16.dp),
+            onClickWeAreScreen = {}
+        )
+    }
+}
+
+@Preview(name = "We Do Screen Content Preview", showBackground = true)
+@Composable
+fun PreviewWeDoScreenContent() {
+    ArmsAppTheme {
+        WeDoScreenContent(
+            projectList = _root_ide_package_.com.example.armsapp.data.local.listProjects,
+            modifier = Modifier,
+            contentPaddingValues = PaddingValues(16.dp),
+            onClickWeAreScreen = {}
+        )
     }
 }
