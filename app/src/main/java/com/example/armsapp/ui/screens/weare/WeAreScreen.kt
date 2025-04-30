@@ -6,6 +6,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -155,9 +156,9 @@ private fun WeAreScreenContent(
             )
         }
 
-        ButtonNavigation(textButton = R.string.btn_lets_make_your_dream) {
-            onClickWeDoScreen()
-        }
+        ButtonNavigation(
+            textButton = R.string.btn_lets_make_your_dream,
+            onClick = { onClickWeDoScreen() })
 
         BorderTexts(
             textLeft = stringResource(R.string.sub_title8),
@@ -239,28 +240,48 @@ fun LoadTeamCard(
     modifier: Modifier = Modifier,
 ) {
     val uriHandler = LocalUriHandler.current
+
     Card(
-        shape = RoundedCornerShape(4.dp),
-        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 8.dp),
         modifier = modifier
             .fillMaxWidth()
-            .padding(all = 10.dp)
+            .padding(10.dp),
+        shape = RoundedCornerShape(8.dp),
+        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 8.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainer,
+            contentColor = MaterialTheme.colorScheme.onSurface
+        )
     ) {
-        Column(modifier = Modifier.fillMaxWidth()) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
             LoadImages(imageUrl = urlImage)
-            Spacer(modifier = Modifier.height(20.dp))
-            Text(text = name, fontSize = 24.sp, color = MaterialTheme.colorScheme.onBackground)
-            Text(text = jobPosition, fontSize = 16.sp, color = MaterialTheme.colorScheme.secondary)
+
+            Text(
+                text = name,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+
+            Text(
+                text = jobPosition,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.secondary
+            )
+
             Text(
                 text = instagramLabel,
-                fontSize = 16.sp,
-                color = MaterialTheme.colorScheme.secondary,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.clickable {
                     uriHandler.openUri(uri = instagramUri)
-                })
+                }
+            )
         }
     }
-
 }
 
 @Preview(showBackground = true)

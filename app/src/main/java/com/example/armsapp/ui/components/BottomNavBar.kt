@@ -8,7 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
-import com.example.armsapp.data.local.topLevelRoutes
+import com.example.armsapp.domain.model.BottomBarNavItem
 
 @Composable
 fun BottomNavBar(
@@ -16,30 +16,42 @@ fun BottomNavBar(
     onItemSelected: (Int) -> Unit,
     navController: NavController
 ) {
+    val items = listOf(
+        BottomBarNavItem.HomeScreen,
+        BottomBarNavItem.WeAreScreen,
+        BottomBarNavItem.WeDoScreen,
+        BottomBarNavItem.SpeakScreen,
+        BottomBarNavItem.ContactScreen
+    )
+
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.primaryContainer,
-        contentColor = MaterialTheme.colorScheme.primary,
+        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
     ) {
-        topLevelRoutes.forEachIndexed { index, topLevelRoute ->
+        items.forEachIndexed { index, route ->
+            val isSelected = selectedItemIndex == index
+            val labelText = stringResource(id = route.label)
+
             NavigationBarItem(
-                selected = selectedItemIndex == index,
+                selected = isSelected,
                 onClick = {
                     onItemSelected(index)
-                    navController.navigate(topLevelRoute.route) {
-                        popUpTo(navController.graph.startDestinationId) { saveState = true }
+                    navController.navigate(route.route) {
+                        popUpTo(navController.graph.startDestinationId) {
+                            saveState = true
+                        }
                         launchSingleTop = true
                         restoreState = true
                     }
                 },
-                label = { Text(stringResource(topLevelRoute.label)) },
                 icon = {
                     Icon(
-                        imageVector = if (selectedItemIndex == index)
-                            topLevelRoute.selectedIcon
-                        else
-                            topLevelRoute.unselectedIcon,
-                        contentDescription = stringResource(topLevelRoute.label)
+                        imageVector = if (isSelected) route.selectedIcon else route.unselectedIcon,
+                        contentDescription = labelText
                     )
+                },
+                label = {
+                    Text(text = labelText)
                 }
             )
         }

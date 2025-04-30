@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,31 +23,31 @@ import com.example.armsapp.ui.theme.ArmsAppTheme
 @Composable
 fun MainScreen() {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-    var selectTabIndex by rememberSaveable {
-        mutableIntStateOf(0)
-    }
+    var selectedTabIndex by rememberSaveable { mutableIntStateOf(0) }
     val navController = rememberNavController()
-    Surface(
-        modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
-    ) {
-        Scaffold(topBar = {
-            ArmsTopAppBar(
-                titleRes = R.string.app_name, scrollBehavior = scrollBehavior
-            )
 
-        }, bottomBar = {
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
+            ArmsTopAppBar(
+                titleRes = R.string.app_name,
+                scrollBehavior = scrollBehavior
+            )
+        },
+        bottomBar = {
             BottomNavBar(
-                selectedItemIndex = selectTabIndex,
-                onItemSelected = { selectTabIndex = it },
+                selectedItemIndex = selectedTabIndex,
+                onItemSelected = { selectedTabIndex = it },
                 navController = navController
             )
-        }) { innerPadding ->
-            AppNavigationHost(
-                navController = navController,
-                onChangeIndexNavBarNavItem = { selectTabIndex = it },
-                contentPaddingValues = innerPadding
-            )
-        }
+        },
+        containerColor = MaterialTheme.colorScheme.background
+    ) { innerPadding ->
+        AppNavigationHost(
+            navController = navController,
+            onChangeIndexNavBarNavItem = { selectedTabIndex = it },
+            contentPaddingValues = innerPadding
+        )
     }
 }
 
