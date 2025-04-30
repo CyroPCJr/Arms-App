@@ -117,9 +117,9 @@ private fun WeSpeakScreenContent(
             modifier = Modifier
                 .align(alignment = Alignment.CenterHorizontally)
         ) {
-            ButtonNavigation(textButton = R.string.btn_check_all_projects) {
-                onClickWeDoScreen()
-            }
+            ButtonNavigation(
+                textButton = R.string.btn_check_all_projects,
+                onClick = { onClickWeDoScreen() })
         }
 
         Text(
@@ -147,9 +147,9 @@ private fun WeSpeakScreenContent(
                 .align(alignment = Alignment.End)
                 .padding(end = 8.dp)
         ) {
-            ButtonNavigation(textButton = R.string.btn_click_for_more) {
-                onClickWeAreScreen()
-            }
+            ButtonNavigation(
+                textButton = R.string.btn_click_for_more,
+                onClick = { onClickWeAreScreen() })
         }
 
     }

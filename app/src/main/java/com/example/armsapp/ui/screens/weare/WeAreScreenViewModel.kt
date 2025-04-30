@@ -21,6 +21,7 @@ class WeAreScreenViewModel(private val offLineArmsRepo: OfflineArmsRepo<ArmsTeam
         refreshIfNeeded()
     }
 
+    //TODO: Qdo estiver a tabela vazia desabilitar o navbarbotton.
     fun refreshIfNeeded() {
         viewModelScope.launch {
             _uiState.value = UiState.Loading

@@ -134,9 +134,7 @@ private fun WeDoScreenContent(
                 .align(alignment = Alignment.End)
                 .padding(end = 8.dp)
         ) {
-            ButtonNavigation(R.string.btn_check_consult) {
-                onClickWeAreScreen()
-            }
+            ButtonNavigation(R.string.btn_check_consult, onClick = { onClickWeAreScreen() })
         }
 
         LoadImages(imageUrl = EndPoints.CEO_PICTURE)
