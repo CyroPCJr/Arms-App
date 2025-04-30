@@ -19,6 +19,20 @@ import com.example.armsapp.utils.AndroidLogger
 object AppViewModelProvider {
 
     val Factory = viewModelFactory {
+
+        initializer {
+            MainScreenViewModel(
+                offlineProject = OffLineArmsRepository<Project, ProjectDto>(
+                    localDataSource = armsApp().container.projectRepository,
+                    remoteDataSource = armsApp().container.projectService
+                ),
+                offlineArms = OffLineArmsRepository<ArmsTeam, ArmsTeamDto>(
+                    localDataSource = armsApp().container.armsTeamRepository,
+                    remoteDataSource = armsApp().container.armsTeamService
+                )
+            )
+        }
+
         initializer {
             HomeScreenViewModel(
                 offLineArmsRepo = OffLineArmsRepository<Project, ProjectDto>(
