@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
-class WeSpeakScreenViewModel(private val offLineArmsRepo: OfflineArmsRepo<Project>) : ViewModel() {
+class WeSpeakScreenViewModel(offLineArmsRepo: OfflineArmsRepo<Project>) : ViewModel() {
 
     val projectsUiState = offLineArmsRepo
         .getArmsRepo()

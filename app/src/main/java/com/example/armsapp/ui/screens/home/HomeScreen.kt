@@ -1,21 +1,15 @@
 package com.example.armsapp.ui.screens.home
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,17 +25,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.armsapp.R
+import com.example.armsapp.data.local.listProjects
 import com.example.armsapp.domain.model.EndPoints
 import com.example.armsapp.domain.model.Project
 import com.example.armsapp.ui.components.BorderTexts
+import com.example.armsapp.ui.components.ButtonNavigation
 import com.example.armsapp.ui.components.ErrorScreen
 import com.example.armsapp.ui.components.LoadImages
 import com.example.armsapp.ui.components.LoadingScreen
 import com.example.armsapp.ui.components.ProjectCardLayoutList
 import com.example.armsapp.ui.components.VideoWithVisibilityHandler
 import com.example.armsapp.ui.state.UiState
-import com.example.armsapp.ui.theme.ArmsAppTheme
 import com.example.armsapp.ui.viewmodel.PlayerViewModel
+import com.example.armsapp.utils.AndroidLogger
 
 @Composable
 fun HomeScreen(
@@ -52,14 +48,14 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     contentPaddingValues: PaddingValues = PaddingValues(),
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val uiState by viewModel.projectsUiStateFirstFour.collectAsStateWithLifecycle()
     when (uiState) {
         is UiState.Error -> {
             ErrorScreen(
                 message = (uiState as UiState.Error).message
             )
             {
-                viewModel::refreshIfNeeded
+                viewModel::projectsUiStateFirstFour
             }
         }
 
@@ -100,7 +96,7 @@ fun HomeScreenContent(
             .padding(contentPaddingValues)
             .padding(start = 10.dp, end = 10.dp)
             .verticalScroll(state = scrollState),
-        verticalArrangement = Arrangement.SpaceEvenly,
+        verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -127,27 +123,15 @@ fun HomeScreenContent(
             modifier = Modifier.padding(horizontal = 8.dp)
         )
 
-        Row {
-            Text(
-                text = stringResource(R.string.sub_title2),
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Light,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.weight(1f)
-            )
-            Text(
-                text = stringResource(R.string.sub_title3),
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Light,
-                color = MaterialTheme.colorScheme.onBackground,
-            )
-        }
+        BorderTexts(
+            textLeft = stringResource(R.string.sub_title2),
+            textRight = stringResource(R.string.sub_title3),
+            modifier = Modifier.fillMaxWidth()
+        )
 
-        ProjectCardLayoutList(projects.dropLast(4))
+        ProjectCardLayoutList(projects)
 
-        ButtonNavigation(R.string.btn_more_projects) {
-            onClickWeDoScreen()
-        }
+        ButtonNavigation(textButton = R.string.btn_more_projects, onClick = { onClickWeDoScreen() })
 
         Text(
             text = stringResource(R.string.sub_title4),
@@ -166,16 +150,16 @@ fun HomeScreenContent(
             modifier = Modifier.align(alignment = Alignment.End)
         )
 
-        ButtonNavigation(R.string.btn_click_for_more) {
-            onClickWeAreScreen()
-        }
+        ButtonNavigation(
+            textButton = R.string.btn_click_for_more,
+            onClick = { onClickWeAreScreen() })
 
         LoadImages(imageUrl = EndPoints.CEO_PICTURE)
 
         BorderTexts(
             textLeft = stringResource(R.string.sub_title6),
             textRight = stringResource(R.string.sub_title7),
-            modifier = modifier
+            modifier = Modifier.fillMaxWidth()
         )
 
         VideoWithVisibilityHandler(
@@ -185,35 +169,29 @@ fun HomeScreenContent(
             context = context,
             modifier = Modifier.padding(horizontal = 8.dp)
         )
+        Spacer(Modifier.height(8.dp))
 
         BorderTexts(
             textLeft = stringResource(R.string.sub_title8),
             textRight = stringResource(R.string.sub_title9),
-            modifier = modifier
-        )
-    }
-}
-
-@Composable
-private fun ButtonNavigation(
-    @StringRes textButton: Int,
-    onClick: () -> Unit,
-) {
-    Button(onClick = onClick) {
-        Text(text = stringResource(textButton))
-        Spacer(Modifier.size(ButtonDefaults.IconSpacing))
-        Icon(
-            Icons.AutoMirrored.Filled.ArrowForward,
-            contentDescription = null,
-            modifier = Modifier.size(ButtonDefaults.IconSize)
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun HomeScreenPreview() {
-    ArmsAppTheme {
-        //HomeScreen(onClickWeDoScreen = {}, onClickWeAreScreen = {})
+fun HomeScreenContentPreview() {
+    val fakePlayerViewModel = PlayerViewModel(AndroidLogger())
+
+    MaterialTheme {
+        HomeScreenContent(
+            playerViewModel = fakePlayerViewModel,
+            projects = listProjects,
+            onClickWeDoScreen = {},
+            onClickWeAreScreen = {},
+            contentPaddingValues = PaddingValues(0.dp),
+            modifier = Modifier
+        )
     }
 }
