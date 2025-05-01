@@ -5,39 +5,23 @@ import androidx.lifecycle.viewModelScope
 import com.example.armsapp.data.local.repositories.OfflineArmsRepo
 import com.example.armsapp.domain.model.ArmsTeam
 import com.example.armsapp.ui.state.UiState
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 
-class WeAreScreenViewModel(private val offLineArmsRepo: OfflineArmsRepo<ArmsTeam>) : ViewModel() {
+class WeAreScreenViewModel(offLineArmsRepo: OfflineArmsRepo<ArmsTeam>) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<UiState<List<ArmsTeam>>>(UiState.Loading)
-    val uiState: StateFlow<UiState<List<ArmsTeam>>> = _uiState.asStateFlow()
+    val armsTeamUiState = offLineArmsRepo
+        .getArmsRepo()
+        .distinctUntilChanged()
+        .map<_, UiState<List<ArmsTeam>>> { listProject -> UiState.Success(listProject) }
+        .catch { emit(UiState.Error(it.message ?: "Erro ao carregar!")) }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Companion.WhileSubscribed(5000L),
+            initialValue = UiState.Loading
+        )
 
-    init {
-        refreshIfNeeded()
-    }
-
-    fun refreshIfNeeded() {
-        viewModelScope.launch {
-            _uiState.value = UiState.Loading
-            val result = offLineArmsRepo.fetchAndSaveArmsRepo()
-
-            result.fold(
-                onSuccess = {
-                    val localArmsTeam = offLineArmsRepo.getArmsRepo()
-                        .distinctUntilChanged()
-                        .firstOrNull() ?: emptyList()
-
-                    _uiState.value = UiState.Success(localArmsTeam)
-                },
-                onFailure = { e ->
-                    _uiState.value = UiState.Error(e.message ?: "Erro ao carregar lista do time")
-                }
-            )
-        }
-    }
 }

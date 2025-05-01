@@ -3,7 +3,6 @@ package com.example.armsapp.ui.screens.wespeak
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -22,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.armsapp.R
+import com.example.armsapp.data.local.listProjects
 import com.example.armsapp.domain.model.Project
 import com.example.armsapp.ui.components.ButtonNavigation
 import com.example.armsapp.ui.components.CardLayout
@@ -75,83 +75,61 @@ private fun WeSpeakScreenContent(
     onClickWeAreScreen: () -> Unit
 ) {
     val scrollState = rememberScrollState()
+    val paddingVertical = dimensionResource(R.dimen.padding_vertical)
+
     Column(
         modifier = modifier
             .fillMaxSize()
+            .verticalScroll(scrollState)
             .padding(contentPaddingValues)
-            .verticalScroll(state = scrollState),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.Start
+            .padding(horizontal = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
             text = stringResource(R.string.we_speak_message1),
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier
-                .align(alignment = Alignment.Start)
-                .padding(
-                    top = dimensionResource(R.dimen.padding_vertical),
-                    bottom = dimensionResource(R.dimen.padding_vertical),
-                    start = 8.dp
-                )
+            modifier = Modifier.padding(top = paddingVertical)
         )
 
         Text(
             text = stringResource(R.string.we_speak_message2),
             fontSize = 14.sp,
             fontWeight = FontWeight.Light,
-            color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier
-                .align(alignment = Alignment.Start)
-                .padding(
-                    top = dimensionResource(R.dimen.padding_vertical),
-                    bottom = dimensionResource(R.dimen.padding_vertical),
-                    start = 8.dp
-                )
+            color = MaterialTheme.colorScheme.onBackground
         )
 
-        CardLayout(projectList[5])
-
-        Row(
-            modifier = Modifier
-                .align(alignment = Alignment.CenterHorizontally)
-        ) {
-            ButtonNavigation(textButton = R.string.btn_check_all_projects) {
-                onClickWeDoScreen()
-            }
+        projectList.getOrNull(5)?.let {
+            CardLayout(it)
         }
+
+        ButtonNavigation(
+            textButton = R.string.btn_check_all_projects,
+            onClick = onClickWeDoScreen,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
 
         Text(
             text = stringResource(R.string.sub_title4),
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier
-                .align(alignment = Alignment.Start)
-                .padding(start = 8.dp)
+            color = MaterialTheme.colorScheme.onBackground
         )
+
         Text(
             text = stringResource(R.string.sub_title5),
             fontSize = 14.sp,
             fontWeight = FontWeight.Light,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier
-                .align(alignment = Alignment.End)
-                .padding(end = 8.dp)
+            modifier = Modifier.align(Alignment.End)
         )
 
-
-        Row(
-            modifier = Modifier
-                .align(alignment = Alignment.End)
-                .padding(end = 8.dp)
-        ) {
-            ButtonNavigation(textButton = R.string.btn_click_for_more) {
-                onClickWeAreScreen()
-            }
-        }
-
+        ButtonNavigation(
+            textButton = R.string.btn_click_for_more,
+            onClick = onClickWeAreScreen,
+            modifier = Modifier.align(Alignment.End)
+        )
     }
 }
 
@@ -159,7 +137,12 @@ private fun WeSpeakScreenContent(
 @Composable
 fun PreviewWeSpeakScreen() {
     ArmsAppTheme {
-        //WeSpeakScreen(onClickWeDoScreen = {}, onClickWeAreScreen = {})
+        WeSpeakScreenContent(
+            projectList = listProjects,
+            modifier = Modifier,
+            contentPaddingValues = PaddingValues(),
+            onClickWeDoScreen = { },
+            onClickWeAreScreen = {})
     }
 }
 
@@ -167,6 +150,13 @@ fun PreviewWeSpeakScreen() {
 @Composable
 fun PreviewModeWeSpeakScreenDark() {
     ArmsAppTheme(darkTheme = true) {
-        //WeSpeakScreen(onClickWeDoScreen = {}, onClickWeAreScreen = {})
+        ArmsAppTheme {
+            WeSpeakScreenContent(
+                projectList = listProjects,
+                modifier = Modifier,
+                contentPaddingValues = PaddingValues(),
+                onClickWeDoScreen = { },
+                onClickWeAreScreen = {})
+        }
     }
 }

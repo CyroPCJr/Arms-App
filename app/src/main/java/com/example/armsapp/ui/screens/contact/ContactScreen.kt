@@ -5,8 +5,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
@@ -23,6 +25,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -50,130 +53,113 @@ fun ContactScreen(
     contentPaddingValues: PaddingValues = PaddingValues(),
 ) {
     val context = LocalContext.current
+    val currentEmailSent by rememberUpdatedState(emailSent)
 
-    if (emailSent) {
-        LaunchedEffect(Unit) {
+    LaunchedEffect(currentEmailSent) {
+        if (currentEmailSent) {
             Toast.makeText(context, "Email sent", Toast.LENGTH_LONG).show()
         }
     }
 
+    val uriHandler = LocalUriHandler.current
+    var email by remember { mutableStateOf("") }
     Column(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .padding(contentPaddingValues)
-            .padding(start = 10.dp, end = 10.dp),
+            .padding(horizontal = 10.dp),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Row {
-            Text(
-                text = stringResource(R.string.sub_title8),
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.weight(1f)
-            )
-            Text(
-                text = stringResource(R.string.sub_title9),
-                fontSize = 30.sp,
-                fontWeight = FontWeight.Bold,
-            )
-        }
-
-        HorizontalDivider(thickness = 1.dp, color = Color.Gray)
-
-        Column(
-            horizontalAlignment = Alignment.Start
-        ) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            // Título
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
+                Text(
+                    text = stringResource(R.string.sub_title8),
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.weight(1f)
+                )
+                Text(
+                    text = stringResource(R.string.sub_title9),
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
 
-                Column {
-                    Row {
-                        val uriHandler = LocalUriHandler.current
-                        IconButton(onClick = {
-                            uriHandler.openUri(uri = EndPoints.WHATSAPP)
-                        }) {
-                            Icon(
-                                imageVector = ImageVector.vectorResource(R.drawable.whatsapp_logo),
-                                contentDescription = null
-                            )
-                        }
-                        IconButton(onClick = {
-                            uriHandler.openUri(uri = EndPoints.INSTAGRAM)
-                        }) {
-                            Icon(
-                                imageVector = ImageVector.vectorResource(R.drawable.instagram_logo),
-                                contentDescription = null
-                            )
-                        }
+            Spacer(Modifier.height(8.dp))
+            HorizontalDivider(thickness = 1.dp, color = Color.Gray)
+            Spacer(Modifier.height(16.dp))
 
-                        IconButton(onClick = {
-                            uriHandler.openUri(uri = EndPoints.BEHANCE)
-                        }) {
-                            Icon(
-                                imageVector = ImageVector.vectorResource(R.drawable.behance_logo),
-                                contentDescription = null
-                            )
-                        }
-
-                        IconButton(onClick = {
-                            uriHandler.openUri(uri = EndPoints.TELEGRAM)
-                        }) {
-                            Icon(
-                                imageVector = ImageVector.vectorResource(R.drawable.telegram_logo),
-                                contentDescription = null
-                            )
-                        }
+            // Redes sociais
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                listOf(
+                    R.drawable.whatsapp_logo to EndPoints.WHATSAPP,
+                    R.drawable.instagram_logo to EndPoints.INSTAGRAM,
+                    R.drawable.behance_logo to EndPoints.BEHANCE,
+                    R.drawable.telegram_logo to EndPoints.TELEGRAM
+                ).forEach { (iconRes, url) ->
+                    IconButton(onClick = { uriHandler.openUri(uri = url) }) {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(iconRes),
+                            contentDescription = null
+                        )
                     }
-
-                    Text(
-                        text = stringResource(R.string.contact_all_right),
-                        color = MaterialTheme.colorScheme.onBackground
-                    )
-                    Text(
-                        text = stringResource(R.string.contact_email),
-                        color = MaterialTheme.colorScheme.onBackground
-                    )
-                    Text(
-                        text = stringResource(R.string.contact_phone),
-                        color = MaterialTheme.colorScheme.onBackground
-                    )
-
                 }
             }
+
+            Spacer(Modifier.height(16.dp))
+
+            Column {
+                Text(
+                    text = stringResource(R.string.contact_all_right),
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+                Text(
+                    text = stringResource(R.string.contact_email),
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+                Text(
+                    text = stringResource(R.string.contact_phone),
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+            }
+
+            Spacer(Modifier.height(24.dp))
 
             Text(
                 text = stringResource(R.string.contact_stay_tune),
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onBackground
             )
-            Row(
+
+            Spacer(Modifier.height(8.dp))
+
+            OutlinedTextField(
+                value = email,
+                onValueChange = { email = it },
+                singleLine = true,
+                placeholder = {
+                    Text(text = stringResource(R.string.contact_your_best_email))
+                },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Email,
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(onDone = {
+                    onClickSendEmail()
+                }),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 10.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                var email by remember { mutableStateOf("") }
-                OutlinedTextField(
-                    value = email,
-                    onValueChange = { email = it },
-                    singleLine = true,
-                    placeholder = {
-                        Text(text = stringResource(R.string.contact_your_best_email))
-                    },
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Email,
-                        imeAction = ImeAction.Done
-                    ),
-                    keyboardActions = KeyboardActions(onDone = {
-                        onClickSendEmail()
-                    }),
-                    modifier = Modifier.weight(1f)
-                )
-            }
+                    .padding(bottom = 10.dp)
+            )
         }
     }
 }

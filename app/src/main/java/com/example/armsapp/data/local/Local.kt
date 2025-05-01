@@ -3,7 +3,6 @@ package com.example.armsapp.data.local
 import com.example.armsapp.R
 import com.example.armsapp.domain.model.ArmsTeam
 import com.example.armsapp.domain.model.ArmsWeAre
-import com.example.armsapp.domain.model.BottomBarNavItem
 import com.example.armsapp.domain.model.EndPoints
 import com.example.armsapp.domain.model.Project
 
@@ -127,12 +126,4 @@ val listArmsTeam = listOf(
         instagramUrl = EndPoints.INSTAGRAM_BASE + "/sbretanha/",
         imageUrl = EndPoints.TEAM_SIDNEY
     ),
-)
-
-val topLevelRoutes = listOf(
-    BottomBarNavItem.HomeScreen,
-    BottomBarNavItem.WeDoScreen,
-    BottomBarNavItem.WeAreScreen,
-    BottomBarNavItem.SpeakScreen,
-    BottomBarNavItem.ContactScreen,
 )
