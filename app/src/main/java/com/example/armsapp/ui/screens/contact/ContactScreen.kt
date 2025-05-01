@@ -63,7 +63,6 @@ fun ContactScreen(
 
     val uriHandler = LocalUriHandler.current
     var email by remember { mutableStateOf("") }
-
     Column(
         modifier = modifier
             .fillMaxSize()
