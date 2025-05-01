@@ -11,15 +11,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.armsapp.ui.theme.ArmsAppTheme
 
 @Composable
 fun BorderTexts(
     textLeft: String,
     textRight: String,
+    modifier: Modifier = Modifier,
     modifierTextLeft: Modifier = Modifier,
     modifierTextRight: Modifier = Modifier,
-    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier
@@ -30,11 +31,13 @@ fun BorderTexts(
     ) {
         Text(
             text = textLeft,
+            fontSize = 14.sp,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = modifierTextLeft
+            modifier = modifierTextLeft.weight(1f)
         )
         Text(
             text = textRight,
+            fontSize = 14.sp,
             color = MaterialTheme.colorScheme.onBackground,
             modifier = modifierTextRight
         )

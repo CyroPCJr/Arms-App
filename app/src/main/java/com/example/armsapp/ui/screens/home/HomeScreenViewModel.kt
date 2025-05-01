@@ -5,43 +5,25 @@ import androidx.lifecycle.viewModelScope
 import com.example.armsapp.data.local.repositories.OfflineArmsRepo
 import com.example.armsapp.domain.model.Project
 import com.example.armsapp.ui.state.UiState
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 
 class HomeScreenViewModel(
-    private val offLineArmsRepo: OfflineArmsRepo<Project>
+    offLineArmsRepo: OfflineArmsRepo<Project>
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<UiState<List<Project>>>(UiState.Loading)
-    val uiState: StateFlow<UiState<List<Project>>> = _uiState.asStateFlow()
-
-    init {
-        refreshIfNeeded()
-    }
-
-    fun refreshIfNeeded() {
-        viewModelScope.launch {
-            _uiState.value = UiState.Loading
-            val result = offLineArmsRepo.fetchAndSaveArmsRepo()
-
-            result.fold(
-                onSuccess = {
-                    val localProjects = offLineArmsRepo.getArmsRepo()
-                        .distinctUntilChanged()
-                        .firstOrNull() ?: emptyList()
-
-                    _uiState.value = UiState.Success(localProjects)
-                },
-                onFailure = { e ->
-                    _uiState.value =
-                        UiState.Error(e.message ?: "Erro ao carregar lista de projetos")
-                }
-            )
-        }
-    }
+    val projectsUiStateFirstFour = offLineArmsRepo
+        .getArmsRepo()
+        .distinctUntilChanged()
+        .map<_, UiState<List<Project>>> { listProject -> UiState.Success(listProject.take(4)) }
+        .catch { emit(UiState.Error(it.message ?: "Erro ao carregar!")) }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Companion.WhileSubscribed(5000L),
+            initialValue = UiState.Loading
+        )
 
 }

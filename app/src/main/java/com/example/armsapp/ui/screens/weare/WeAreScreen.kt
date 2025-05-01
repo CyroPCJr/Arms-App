@@ -23,7 +23,6 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,7 +32,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
@@ -63,11 +61,11 @@ fun WeAreScreen(
     modifier: Modifier = Modifier,
     contentPaddingValues: PaddingValues = PaddingValues(),
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val uiState by viewModel.armsTeamUiState.collectAsStateWithLifecycle()
     when (uiState) {
         is UiState.Error -> {
             ErrorScreen(message = (uiState as UiState.Error).message) {
-                viewModel::refreshIfNeeded
+                viewModel::armsTeamUiState
             }
         }
 
@@ -95,14 +93,15 @@ private fun WeAreScreenContent(
     onClickWeDoScreen: () -> Unit
 ) {
     val scrollState = rememberScrollState()
+
     Column(
         modifier = modifier
             .fillMaxSize()
-            .verticalScroll(state = scrollState)
+            .verticalScroll(scrollState)
             .padding(contentPaddingValues)
-            .padding(start = 10.dp, end = 10.dp),
+            .padding(horizontal = 10.dp),
     ) {
-        Column {
+        Column(modifier = Modifier.padding(vertical = 16.dp)) {
             Text(
                 text = stringResource(R.string.we_are_title),
                 fontSize = 40.sp,
@@ -123,47 +122,65 @@ private fun WeAreScreenContent(
             )
         }
 
-        listArmsWeAre.forEach { items ->
-            CardInfoExpandable(stringResource(items.title), stringResource(items.description))
-        }
-
-        Text(
-            text = stringResource(R.string.we_are_sub_title2),
-            fontSize = 40.sp,
-            fontWeight = FontWeight.Black,
-            color = MaterialTheme.colorScheme.onBackground,
-            lineHeight = 42.sp,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-
-        )
-        Text(
-            text = stringResource(R.string.we_are_sub_title3),
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Light,
-            color = MaterialTheme.colorScheme.onBackground,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        armsTeamList.forEach { items ->
-            LoadTeamCard(
-                name = items.name,
-                jobPosition = items.jobPosition,
-                instagramLabel = items.instagramLabel,
-                instagramUri = items.instagramUrl,
-                urlImage = items.imageUrl
+        listArmsWeAre.forEach { item ->
+            CardInfoExpandable(
+                title = stringResource(item.title),
+                description = stringResource(item.description),
+                modifier = Modifier.padding(vertical = 4.dp)
             )
         }
 
+        Column(
+            modifier = Modifier
+                .padding(vertical = 24.dp)
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = stringResource(R.string.we_are_sub_title2),
+                fontSize = 40.sp,
+                fontWeight = FontWeight.Black,
+                color = MaterialTheme.colorScheme.onBackground,
+                lineHeight = 42.sp,
+                textAlign = TextAlign.Center,
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = stringResource(R.string.we_are_sub_title3),
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Light,
+                color = MaterialTheme.colorScheme.onBackground,
+                textAlign = TextAlign.Center,
+            )
+        }
+
+        armsTeamList.forEach { member ->
+            LoadTeamCard(
+                name = member.name,
+                jobPosition = member.jobPosition,
+                instagramLabel = member.instagramLabel,
+                instagramUri = member.instagramUrl,
+                urlImage = member.imageUrl,
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         ButtonNavigation(
             textButton = R.string.btn_lets_make_your_dream,
-            onClick = { onClickWeDoScreen() })
+            onClick = onClickWeDoScreen,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 24.dp)
+        )
 
         BorderTexts(
             textLeft = stringResource(R.string.sub_title8),
             textRight = stringResource(R.string.sub_title9),
-            modifier = modifier
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }
@@ -175,58 +192,58 @@ fun CardInfoExpandable(
     modifier: Modifier = Modifier,
 ) {
     var expanded by remember { mutableStateOf(false) }
-    val rotateState by animateFloatAsState(targetValue = if (expanded) 180f else 0f)
+    val rotation by animateFloatAsState(
+        targetValue = if (expanded) 180f else 0f,
+        label = "ExpandRotation"
+    )
+
     Card(
-        shape = RoundedCornerShape(4.dp),
-        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 8.dp),
+        shape = RoundedCornerShape(8.dp),
         modifier = modifier
-            .animateContentSize(
-                animationSpec = tween(
-                    durationMillis = 300,
-                    easing = LinearOutSlowInEasing
-                )
-            )
             .fillMaxWidth()
-            .padding(top = 4.dp)
+            .animateContentSize(
+                animationSpec = tween(durationMillis = 300, easing = LinearOutSlowInEasing)
+            )
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
-                indication = null,
-                onClick = { expanded = !expanded }
-            )
+                indication = null
+            ) {
+                expanded = !expanded
+            }
     ) {
         Column {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp, vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Text(
                     text = title,
-                    style = MaterialTheme.typography.titleSmall,
-                    modifier = Modifier
-                        .weight(weight = 6f)
-                        .padding(all = 10.dp),
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.weight(1f),
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
+                    overflow = TextOverflow.Ellipsis
                 )
 
-                IconButton(
-                    modifier = Modifier
-                        .alpha(alpha = 6f)
-                        .weight(weight = 1f)
-                        .rotate(rotateState),
-                    onClick = { expanded = !expanded },
-                ) {
-                    Icon(imageVector = Icons.Default.ArrowDropDown, contentDescription = null)
-                }
-
+                Icon(
+                    imageVector = Icons.Default.ArrowDropDown,
+                    contentDescription = null,
+                    modifier = Modifier.rotate(rotation)
+                )
             }
+
             if (expanded) {
                 Text(
                     text = description,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Light,
-                    modifier = Modifier.padding(all = 10.dp)
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontWeight = FontWeight.Light,
+                        color = MaterialTheme.colorScheme.onBackground
+                    ),
+                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
                 )
             }
         }
-
     }
 }
 
