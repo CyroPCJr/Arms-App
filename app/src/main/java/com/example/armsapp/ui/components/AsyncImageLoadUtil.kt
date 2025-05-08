@@ -20,22 +20,25 @@ fun LoadImages(
     modifier: Modifier = Modifier,
     aspectRatio: Float? = 1080f / 920f,
 ) {
-    val finalModifier = aspectRatio?.let {
-        modifier
-            .fillMaxWidth()
-            .aspectRatio(it)
-    } ?: modifier.fillMaxWidth()
+    val finalModifier =
+        aspectRatio?.let {
+            modifier
+                .fillMaxWidth()
+                .aspectRatio(it)
+        } ?: modifier.fillMaxWidth()
 
     AsyncImage(
-        model = ImageRequest.Builder(LocalContext.current)
-            .data(imageUrl)
-            .crossfade(true)
-            .build(),
+        model =
+            ImageRequest
+                .Builder(LocalContext.current)
+                .data(imageUrl)
+                .crossfade(true)
+                .build(),
         contentDescription = null,
         error = painterResource(R.drawable.ic_broken_image),
         placeholder = painterResource(R.drawable.ic_load_image),
         contentScale = ContentScale.Fit,
-        modifier = finalModifier
+        modifier = finalModifier,
     )
 }
 
@@ -45,7 +48,7 @@ fun PreviewLoadImages() {
     ArmsAppTheme {
         LoadImages(
             imageUrl = "https://via.placeholder.com/300x200", // URL fake só pra visual
-            aspectRatio = 16f / 9f
+            aspectRatio = 16f / 9f,
         )
     }
 }

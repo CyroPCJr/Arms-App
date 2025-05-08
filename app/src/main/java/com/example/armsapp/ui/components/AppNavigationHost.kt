@@ -11,7 +11,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.armsapp.domain.model.BottomBarNavItem
+import com.example.armsapp.domain.model.BottomBarNavigationItem
 import com.example.armsapp.ui.screens.contact.ContactScreen
 import com.example.armsapp.ui.screens.home.HomeScreen
 import com.example.armsapp.ui.screens.home.HomeScreenViewModel
@@ -28,15 +28,15 @@ import com.example.armsapp.ui.viewmodel.PlayerViewModel
 fun AppNavigationHost(
     navController: NavHostController,
     onChangeIndexNavBarNavItem: (Int) -> Unit,
-    contentPaddingValues: PaddingValues
+    contentPaddingValues: PaddingValues,
 ) {
     var emailSent by rememberSaveable { mutableStateOf(false) }
 
     NavHost(
         navController = navController,
-        startDestination = BottomBarNavItem.HomeScreen.route
+        startDestination = BottomBarNavigationItem.HomeScreen.route,
     ) {
-        composable(BottomBarNavItem.HomeScreen.route) {
+        composable(BottomBarNavigationItem.HomeScreen.route) {
             val homeScreenViewModel: HomeScreenViewModel =
                 viewModel(factory = AppViewModelProvider.Factory)
             val playerViewModel: PlayerViewModel = viewModel(factory = AppViewModelProvider.Factory)
@@ -44,60 +44,59 @@ fun AppNavigationHost(
                 playerViewModel = playerViewModel,
                 viewModel = homeScreenViewModel,
                 onClickWeDoScreen = {
-                    navigateTo(navController, BottomBarNavItem.WeDoScreen.route) {
-                        onChangeIndexNavBarNavItem(BottomBarNavItem.WeDoScreen.id)
+                    navigateTo(navController, BottomBarNavigationItem.WeDoScreen.route) {
+                        onChangeIndexNavBarNavItem(BottomBarNavigationItem.WeDoScreen.id)
                     }
                 },
                 onClickWeAreScreen = {
-                    navigateTo(navController, BottomBarNavItem.WeAreScreen.route) {
-                        onChangeIndexNavBarNavItem(BottomBarNavItem.WeAreScreen.id)
+                    navigateTo(navController, BottomBarNavigationItem.WeAreScreen.route) {
+                        onChangeIndexNavBarNavItem(BottomBarNavigationItem.WeAreScreen.id)
                     }
                 },
-                contentPaddingValues = contentPaddingValues
+                contentPaddingValues = contentPaddingValues,
             )
         }
 
-        composable(BottomBarNavItem.SpeakScreen.route) {
+        composable(BottomBarNavigationItem.SpeakScreen.route) {
             val weSpeakScreenViewModel: WeSpeakScreenViewModel =
                 viewModel(factory = AppViewModelProvider.Factory)
             WeSpeakScreen(
                 viewModel = weSpeakScreenViewModel,
                 onClickWeDoScreen = {
-                    navigateTo(navController, BottomBarNavItem.WeDoScreen.route) {
-                        onChangeIndexNavBarNavItem(BottomBarNavItem.WeDoScreen.id)
+                    navigateTo(navController, BottomBarNavigationItem.WeDoScreen.route) {
+                        onChangeIndexNavBarNavItem(BottomBarNavigationItem.WeDoScreen.id)
                     }
                 },
                 onClickWeAreScreen = {
-                    navigateTo(navController, BottomBarNavItem.WeAreScreen.route) {
-                        onChangeIndexNavBarNavItem(BottomBarNavItem.WeAreScreen.id)
+                    navigateTo(navController, BottomBarNavigationItem.WeAreScreen.route) {
+                        onChangeIndexNavBarNavItem(BottomBarNavigationItem.WeAreScreen.id)
                     }
                 },
-                contentPaddingValues = contentPaddingValues
+                contentPaddingValues = contentPaddingValues,
             )
         }
 
-        composable(BottomBarNavItem.WeDoScreen.route) {
+        composable(BottomBarNavigationItem.WeDoScreen.route) {
             val weDoScreenViewModel: WeDoScreenViewModel =
                 viewModel(factory = AppViewModelProvider.Factory)
             WeDoScreen(
                 viewModel = weDoScreenViewModel,
                 onClickWeAreScreen = {
-                    navigateTo(navController, BottomBarNavItem.WeAreScreen.route) {
-                        onChangeIndexNavBarNavItem(BottomBarNavItem.WeAreScreen.id)
+                    navigateTo(navController, BottomBarNavigationItem.WeAreScreen.route) {
+                        onChangeIndexNavBarNavItem(BottomBarNavigationItem.WeAreScreen.id)
                     }
                 },
-                contentPaddingValues = contentPaddingValues
+                contentPaddingValues = contentPaddingValues,
             )
         }
 
-        composable(BottomBarNavItem.ContactScreen.route) {
-
+        composable(BottomBarNavigationItem.ContactScreen.route) {
             ContactScreen(
                 emailSent = emailSent,
                 onClickSendEmail = {
                     emailSent = true
                 },
-                contentPaddingValues = contentPaddingValues
+                contentPaddingValues = contentPaddingValues,
             )
 
             LaunchedEffect(emailSent) {
@@ -107,17 +106,17 @@ fun AppNavigationHost(
             }
         }
 
-        composable(BottomBarNavItem.WeAreScreen.route) {
+        composable(BottomBarNavigationItem.WeAreScreen.route) {
             val weAreScreenViewModel: WeAreScreenViewModel =
                 viewModel(factory = AppViewModelProvider.Factory)
             WeAreScreen(
                 viewModel = weAreScreenViewModel,
                 onClickWeDoScreen = {
-                    navigateTo(navController, BottomBarNavItem.WeDoScreen.route) {
-                        onChangeIndexNavBarNavItem(BottomBarNavItem.WeDoScreen.id)
+                    navigateTo(navController, BottomBarNavigationItem.WeDoScreen.route) {
+                        onChangeIndexNavBarNavItem(BottomBarNavigationItem.WeDoScreen.id)
                     }
                 },
-                contentPaddingValues = contentPaddingValues
+                contentPaddingValues = contentPaddingValues,
             )
         }
     }
@@ -126,7 +125,7 @@ fun AppNavigationHost(
 private fun navigateTo(
     navController: NavHostController,
     route: String,
-    onSelect: () -> Unit
+    onSelect: () -> Unit,
 ) {
     onSelect()
     navController.navigate(route)

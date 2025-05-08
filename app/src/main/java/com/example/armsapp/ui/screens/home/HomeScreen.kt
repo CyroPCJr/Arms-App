@@ -52,9 +52,8 @@ fun HomeScreen(
     when (uiState) {
         is UiState.Error -> {
             ErrorScreen(
-                message = (uiState as UiState.Error).message
-            )
-            {
+                message = (uiState as UiState.Error).message,
+            ) {
                 viewModel::projectsUiStateFirstFour
             }
         }
@@ -71,11 +70,10 @@ fun HomeScreen(
                 onClickWeDoScreen = onClickWeDoScreen,
                 onClickWeAreScreen = onClickWeAreScreen,
                 contentPaddingValues = contentPaddingValues,
-                modifier = modifier
+                modifier = modifier,
             )
         }
     }
-
 }
 
 @Composable
@@ -85,19 +83,20 @@ fun HomeScreenContent(
     onClickWeDoScreen: () -> Unit,
     onClickWeAreScreen: () -> Unit,
     contentPaddingValues: PaddingValues,
-    modifier: Modifier
+    modifier: Modifier,
 ) {
     val scrollState = rememberScrollState()
     val context = LocalContext.current
 
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(contentPaddingValues)
-            .padding(start = 10.dp, end = 10.dp)
-            .verticalScroll(state = scrollState),
+        modifier =
+            modifier
+                .fillMaxSize()
+                .padding(contentPaddingValues)
+                .padding(start = 10.dp, end = 10.dp)
+                .verticalScroll(state = scrollState),
         verticalArrangement = Arrangement.spacedBy(12.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
             text = stringResource(R.string.title),
@@ -120,13 +119,13 @@ fun HomeScreenContent(
             mediaUrl = EndPoints.PROJECT_REELS,
             tag = "projectReel",
             context = context,
-            modifier = Modifier.padding(horizontal = 8.dp)
+            modifier = Modifier.padding(horizontal = 8.dp),
         )
 
         BorderTexts(
             textLeft = stringResource(R.string.sub_title2),
             textRight = stringResource(R.string.sub_title3),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
 
         ProjectCardLayoutList(projects)
@@ -140,26 +139,27 @@ fun HomeScreenContent(
             color = MaterialTheme.colorScheme.onBackground,
             lineHeight = 42.sp,
             textAlign = TextAlign.Start,
-            modifier = Modifier.align(alignment = Alignment.Start)
+            modifier = Modifier.align(alignment = Alignment.Start),
         )
         Text(
             text = stringResource(R.string.sub_title5),
             fontSize = 14.sp,
             fontWeight = FontWeight.Light,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.align(alignment = Alignment.End)
+            modifier = Modifier.align(alignment = Alignment.End),
         )
 
         ButtonNavigation(
             textButton = R.string.btn_click_for_more,
-            onClick = { onClickWeAreScreen() })
+            onClick = { onClickWeAreScreen() },
+        )
 
         LoadImages(imageUrl = EndPoints.CEO_PICTURE)
 
         BorderTexts(
             textLeft = stringResource(R.string.sub_title6),
             textRight = stringResource(R.string.sub_title7),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
 
         VideoWithVisibilityHandler(
@@ -167,14 +167,14 @@ fun HomeScreenContent(
             mediaUrl = EndPoints.SKETCH_REELS,
             tag = "sketchReel",
             context = context,
-            modifier = Modifier.padding(horizontal = 8.dp)
+            modifier = Modifier.padding(horizontal = 8.dp),
         )
         Spacer(Modifier.height(8.dp))
 
         BorderTexts(
             textLeft = stringResource(R.string.sub_title8),
             textRight = stringResource(R.string.sub_title9),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
     }
 }
@@ -191,7 +191,7 @@ fun HomeScreenContentPreview() {
             onClickWeDoScreen = {},
             onClickWeAreScreen = {},
             contentPaddingValues = PaddingValues(0.dp),
-            modifier = Modifier
+            modifier = Modifier,
         )
     }
 }

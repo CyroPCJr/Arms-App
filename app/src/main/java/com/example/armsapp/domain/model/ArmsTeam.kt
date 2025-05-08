@@ -11,11 +11,12 @@ data class ArmsTeam(
     val imageUrl: String,
 )
 
-fun ArmsTeam.toArmsTeamEntity() = ArmsTeamEntity(
-    id = id,
-    name = name,
-    jobPosition = jobPosition,
-    instagramLabel = instagramLabel,
-    instagramUrl = instagramUrl,
-    image = imageUrl
-)
+fun ArmsTeam.toArmsTeamEntity() =
+    ArmsTeamEntity(
+        id = id,
+        name = name,
+        jobPosition = jobPosition,
+        instagramLabel = instagramLabel,
+        instagramUrl = instagramUrl,
+        image = imageUrl,
+    )

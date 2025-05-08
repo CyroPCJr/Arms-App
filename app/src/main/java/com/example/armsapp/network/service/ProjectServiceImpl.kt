@@ -10,16 +10,13 @@ import io.ktor.client.request.get
 
 class ProjectServiceImpl(
     private val client: HttpClient,
-    private val logger: Logger = AndroidLogger()
+    private val logger: Logger = AndroidLogger(),
 ) : ApiService<ProjectDto> {
-
-    override suspend fun apiGetCall(): List<ProjectDto> {
-        return safeApiCall<List<ProjectDto>>(logger) {
+    override suspend fun apiGetCall(): List<ProjectDto> =
+        safeApiCall<List<ProjectDto>>(logger) {
             client.get("projects").body()
         }.getOrElse {
             logger.e("ProjectServiceImpl", "Failed to fetch projects: ${it.message}")
             emptyList<ProjectDto>()
         }
-    }
-
 }

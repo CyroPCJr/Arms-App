@@ -23,23 +23,24 @@ fun BorderTexts(
     modifierTextRight: Modifier = Modifier,
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = textLeft,
             fontSize = 14.sp,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = modifierTextLeft.weight(1f)
+            modifier = modifierTextLeft.weight(1f),
         )
         Text(
             text = textRight,
             fontSize = 14.sp,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = modifierTextRight
+            modifier = modifierTextRight,
         )
     }
 }
@@ -50,7 +51,7 @@ fun BorderTextsPreview() {
     ArmsAppTheme {
         BorderTexts(
             textLeft = "Início",
-            textRight = "Fim"
+            textRight = "Fim",
         )
     }
 }

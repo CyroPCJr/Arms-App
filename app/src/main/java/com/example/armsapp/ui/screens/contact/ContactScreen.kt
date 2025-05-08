@@ -64,30 +64,31 @@ fun ContactScreen(
     val uriHandler = LocalUriHandler.current
     var email by remember { mutableStateOf("") }
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(contentPaddingValues)
-            .padding(horizontal = 10.dp),
+        modifier =
+            modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(contentPaddingValues)
+                .padding(horizontal = 10.dp),
         verticalArrangement = Arrangement.SpaceBetween,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             // Título
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(
                     text = stringResource(R.string.sub_title8),
                     fontSize = 30.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f),
                 )
                 Text(
                     text = stringResource(R.string.sub_title9),
                     fontSize = 30.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
                 )
             }
 
@@ -98,18 +99,18 @@ fun ContactScreen(
             // Redes sociais
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 listOf(
                     R.drawable.whatsapp_logo to EndPoints.WHATSAPP,
                     R.drawable.instagram_logo to EndPoints.INSTAGRAM,
                     R.drawable.behance_logo to EndPoints.BEHANCE,
-                    R.drawable.telegram_logo to EndPoints.TELEGRAM
+                    R.drawable.telegram_logo to EndPoints.TELEGRAM,
                 ).forEach { (iconRes, url) ->
                     IconButton(onClick = { uriHandler.openUri(uri = url) }) {
                         Icon(
                             imageVector = ImageVector.vectorResource(iconRes),
-                            contentDescription = null
+                            contentDescription = null,
                         )
                     }
                 }
@@ -120,15 +121,15 @@ fun ContactScreen(
             Column {
                 Text(
                     text = stringResource(R.string.contact_all_right),
-                    color = MaterialTheme.colorScheme.onBackground
+                    color = MaterialTheme.colorScheme.onBackground,
                 )
                 Text(
                     text = stringResource(R.string.contact_email),
-                    color = MaterialTheme.colorScheme.onBackground
+                    color = MaterialTheme.colorScheme.onBackground,
                 )
                 Text(
                     text = stringResource(R.string.contact_phone),
-                    color = MaterialTheme.colorScheme.onBackground
+                    color = MaterialTheme.colorScheme.onBackground,
                 )
             }
 
@@ -137,7 +138,7 @@ fun ContactScreen(
             Text(
                 text = stringResource(R.string.contact_stay_tune),
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onBackground
+                color = MaterialTheme.colorScheme.onBackground,
             )
 
             Spacer(Modifier.height(8.dp))
@@ -149,16 +150,19 @@ fun ContactScreen(
                 placeholder = {
                     Text(text = stringResource(R.string.contact_your_best_email))
                 },
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Email,
-                    imeAction = ImeAction.Done
-                ),
-                keyboardActions = KeyboardActions(onDone = {
-                    onClickSendEmail()
-                }),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 10.dp)
+                keyboardOptions =
+                    KeyboardOptions(
+                        keyboardType = KeyboardType.Email,
+                        imeAction = ImeAction.Done,
+                    ),
+                keyboardActions =
+                    KeyboardActions(onDone = {
+                        onClickSendEmail()
+                    }),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 10.dp),
             )
         }
     }

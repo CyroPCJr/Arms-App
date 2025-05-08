@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ArmsTeamDao {
-
     @Query("SELECT * FROM armsTeam")
     fun getAll(): Flow<List<ArmsTeamEntity>>
 

@@ -9,22 +9,18 @@ import com.example.armsapp.network.dto.toProjectEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class ProjectRepositoryImpl(private val dao: ProjectDao) :
-    ArmsLocalRepository<Project, ProjectDto> {
+class ProjectRepositoryImpl(
+    private val dao: ProjectDao,
+) : ArmsLocalRepository<Project, ProjectDto> {
+    override fun getAll(): Flow<List<Project>> = dao.getAll().map { projects -> projects.map { it.toProject() } }
 
-    override fun getAll(): Flow<List<Project>> {
-        return dao.getAll().map { projects -> projects.map { it.toProject() } }
-    }
-
-    override suspend fun insertAll(remoteList: List<ProjectDto>): Result<Unit> {
-        return try {
+    override suspend fun insertAll(remoteList: List<ProjectDto>): Result<Unit> =
+        try {
             dao.insertAll(remoteList.map { it.toProjectEntity() })
             Result.success(Unit)
         } catch (e: SQLException) {
             Result.failure<Unit>(e)
         }
-    }
 
     override suspend fun hasData(): Boolean = dao.hasData()
-
 }

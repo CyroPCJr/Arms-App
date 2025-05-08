@@ -36,7 +36,8 @@ fun MainScreen() {
         is AppInitState.Error -> {
             ErrorScreen(
                 message = (uiState as AppInitState.Error).message,
-                onRetry = { viewMode::retryInit })
+                onRetry = { viewMode::retryInit },
+            )
         }
 
         is AppInitState.Loading -> {
@@ -53,22 +54,22 @@ fun MainScreen() {
                 topBar = {
                     ArmsTopAppBar(
                         titleRes = R.string.app_name,
-                        scrollBehavior = scrollBehavior
+                        scrollBehavior = scrollBehavior,
                     )
                 },
                 bottomBar = {
                     BottomNavBar(
                         selectedItemIndex = selectedTabIndex,
                         onItemSelected = { selectedTabIndex = it },
-                        navController = navController
+                        navController = navController,
                     )
                 },
-                containerColor = MaterialTheme.colorScheme.background
+                containerColor = MaterialTheme.colorScheme.background,
             ) { innerPadding ->
                 AppNavigationHost(
                     navController = navController,
                     onChangeIndexNavBarNavItem = { selectedTabIndex = it },
-                    contentPaddingValues = innerPadding
+                    contentPaddingValues = innerPadding,
                 )
             }
         }

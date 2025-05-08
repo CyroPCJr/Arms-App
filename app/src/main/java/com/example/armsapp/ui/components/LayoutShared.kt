@@ -42,43 +42,46 @@ import com.example.armsapp.ui.theme.ArmsAppTheme
 @Composable
 fun CardLayout(
     project: Project,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val uriHandler = LocalUriHandler.current
 
     Card(
-        modifier = modifier
-            .padding(horizontal = 12.dp, vertical = 8.dp),
+        modifier =
+            modifier
+                .padding(horizontal = 12.dp, vertical = 8.dp),
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 6.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface,
-            contentColor = MaterialTheme.colorScheme.onSurface
-        ),
-        onClick = { uriHandler.openUri(project.linkPage) }
+        colors =
+            CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface,
+                contentColor = MaterialTheme.colorScheme.onSurface,
+            ),
+        onClick = { uriHandler.openUri(project.linkPage) },
     ) {
         Column {
             LoadImages(
                 imageUrl = project.urlImage,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
             Spacer(modifier = Modifier.height(8.dp))
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(
                     text = project.name,
                     style = MaterialTheme.typography.bodyLarge,
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
                 )
                 Text(
                     text = project.type,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.primary,
                 )
             }
         }
@@ -91,24 +94,24 @@ fun ButtonNavigation(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     icon: ImageVector = Icons.AutoMirrored.Filled.ArrowForward,
-    contentDescription: String? = null
+    contentDescription: String? = null,
 ) {
     Button(
         onClick = onClick,
         modifier = modifier,
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp)
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
     ) {
         Text(
             text = stringResource(textButton),
             style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.onPrimary
+            color = MaterialTheme.colorScheme.onPrimary,
         )
         Spacer(modifier = Modifier.width(8.dp))
         Icon(
             imageVector = icon,
             contentDescription = contentDescription,
             modifier = Modifier.size(20.dp),
-            tint = MaterialTheme.colorScheme.onPrimary
+            tint = MaterialTheme.colorScheme.onPrimary,
         )
     }
 }
@@ -123,20 +126,21 @@ fun ProjectCardLayoutList(projectList: List<Project>) {
 @Composable
 fun ErrorScreen(
     message: String,
-    onRetry: () -> Unit
+    onRetry: () -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(16.dp),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
             text = message,
             color = MaterialTheme.colorScheme.error,
             style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = onRetry) {
@@ -149,12 +153,11 @@ fun ErrorScreen(
 fun LoadingScreen(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         CircularProgressIndicator()
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
@@ -178,7 +181,6 @@ private fun ButtonNavigationPreview() {
     ArmsAppTheme {
         ButtonNavigation(textButton = R.string.btn_more_projects, onClick = {})
     }
-
 }
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
@@ -211,7 +213,7 @@ fun PreviewWeDoScreenError() {
     ArmsAppTheme {
         ErrorScreen(
             message = "Não foi possível carregar os projetos",
-            onRetry = {}
+            onRetry = {},
         )
     }
 }

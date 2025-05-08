@@ -14,26 +14,25 @@ import com.example.armsapp.data.local.entities.ProjectEntity
     version = 1,
 )
 abstract class ArmsDatabase : RoomDatabase() {
-
     abstract fun projectDao(): ProjectDao
+
     abstract fun armsTeamDao(): ArmsTeamDao
 
     companion object {
         @Volatile
-        private var Instance: ArmsDatabase? = null
+        private var instance: ArmsDatabase? = null
 
         fun getDatabase(context: Context): ArmsDatabase {
             // if the Instance is not null, return it, otherwise create a new database instance.
-            return Instance ?: synchronized(this) {
-                Room.databaseBuilder(
-                    context,
-                    ArmsDatabase::class.java,
-                    "arms_db"
-                )
-                    .build()
-                    .also { Instance = it }
+            return instance ?: synchronized(this) {
+                Room
+                    .databaseBuilder(
+                        context,
+                        ArmsDatabase::class.java,
+                        "arms_db",
+                    ).build()
+                    .also { instance = it }
             }
         }
     }
-
 }

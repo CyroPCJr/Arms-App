@@ -13,18 +13,20 @@ data class Project(
     val type: String = "",
 )
 
-fun Project.toProjectDto() = ProjectDto(
-    id = id,
-    urlImage = urlImage,
-    linkPage = linkPage,
-    name = name,
-    type = type
-)
+fun Project.toProjectDto() =
+    ProjectDto(
+        id = id,
+        urlImage = urlImage,
+        linkPage = linkPage,
+        name = name,
+        type = type,
+    )
 
-fun Project.toProjectEntity() = ProjectEntity(
-    id = id,
-    urlImage = urlImage,
-    linkPage = linkPage,
-    name = name,
-    type = type
-)
+fun Project.toProjectEntity() =
+    ProjectEntity(
+        id = id,
+        urlImage = urlImage,
+        linkPage = linkPage,
+        name = name,
+        type = type,
+    )

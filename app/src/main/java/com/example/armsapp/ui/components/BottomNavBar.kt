@@ -8,25 +8,26 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
-import com.example.armsapp.domain.model.BottomBarNavItem
+import com.example.armsapp.domain.model.BottomBarNavigationItem
 
 @Composable
 fun BottomNavBar(
     selectedItemIndex: Int,
     onItemSelected: (Int) -> Unit,
-    navController: NavController
+    navController: NavController,
 ) {
-    val items = listOf(
-        BottomBarNavItem.HomeScreen,
-        BottomBarNavItem.WeAreScreen,
-        BottomBarNavItem.WeDoScreen,
-        BottomBarNavItem.SpeakScreen,
-        BottomBarNavItem.ContactScreen
-    )
+    val items =
+        listOf(
+            BottomBarNavigationItem.HomeScreen,
+            BottomBarNavigationItem.WeAreScreen,
+            BottomBarNavigationItem.WeDoScreen,
+            BottomBarNavigationItem.SpeakScreen,
+            BottomBarNavigationItem.ContactScreen,
+        )
 
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.primaryContainer,
-        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
     ) {
         items.forEachIndexed { index, route ->
             val isSelected = selectedItemIndex == index
@@ -47,12 +48,12 @@ fun BottomNavBar(
                 icon = {
                     Icon(
                         imageVector = if (isSelected) route.selectedIcon else route.unselectedIcon,
-                        contentDescription = labelText
+                        contentDescription = labelText,
                     )
                 },
                 label = {
                     Text(text = labelText)
-                }
+                },
             )
         }
     }

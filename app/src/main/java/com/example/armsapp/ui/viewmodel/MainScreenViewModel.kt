@@ -17,9 +17,8 @@ import kotlinx.coroutines.launch
 
 class MainScreenViewModel(
     private val offlineProject: OffLineArmsRepository<Project, ProjectDto>,
-    private val offlineArms: OffLineArmsRepository<ArmsTeam, ArmsTeamDto>
+    private val offlineArms: OffLineArmsRepository<ArmsTeam, ArmsTeamDto>,
 ) : ViewModel() {
-
     private val _appInitState = MutableStateFlow<AppInitState>(AppInitState.Loading)
     val appInitState: StateFlow<AppInitState> = _appInitState.asStateFlow()
 
@@ -34,14 +33,14 @@ class MainScreenViewModel(
             try {
                 awaitAll(
                     async { offlineProject.fetchAndSaveArmsRepo() },
-                    async { offlineArms.fetchAndSaveArmsRepo() }
+                    async { offlineArms.fetchAndSaveArmsRepo() },
                 )
                 _appInitState.value = AppInitState.Success
-
             } catch (e: Exception) {
-                _appInitState.value = AppInitState.Error(
-                    e.localizedMessage ?: "Erro ao carregar dados"
-                )
+                _appInitState.value =
+                    AppInitState.Error(
+                        e.localizedMessage ?: "Erro ao carregar dados",
+                    )
             }
         }
     }

@@ -79,7 +79,7 @@ fun WeAreScreen(
                 armsTeamList = armsTeamList,
                 modifier = modifier,
                 contentPaddingValues = contentPaddingValues,
-                onClickWeDoScreen = onClickWeDoScreen
+                onClickWeDoScreen = onClickWeDoScreen,
             )
         }
     }
@@ -90,16 +90,17 @@ private fun WeAreScreenContent(
     armsTeamList: List<ArmsTeam>,
     modifier: Modifier,
     contentPaddingValues: PaddingValues,
-    onClickWeDoScreen: () -> Unit
+    onClickWeDoScreen: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
 
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(scrollState)
-            .padding(contentPaddingValues)
-            .padding(horizontal = 10.dp),
+        modifier =
+            modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+                .padding(contentPaddingValues)
+                .padding(horizontal = 10.dp),
     ) {
         Column(modifier = Modifier.padding(vertical = 16.dp)) {
             Text(
@@ -118,7 +119,7 @@ private fun WeAreScreenContent(
                 fontWeight = FontWeight.Light,
                 color = MaterialTheme.colorScheme.onBackground,
                 textAlign = TextAlign.End,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
         }
 
@@ -126,15 +127,16 @@ private fun WeAreScreenContent(
             CardInfoExpandable(
                 title = stringResource(item.title),
                 description = stringResource(item.description),
-                modifier = Modifier.padding(vertical = 4.dp)
+                modifier = Modifier.padding(vertical = 4.dp),
             )
         }
 
         Column(
-            modifier = Modifier
-                .padding(vertical = 24.dp)
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier =
+                Modifier
+                    .padding(vertical = 24.dp)
+                    .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
                 text = stringResource(R.string.we_are_sub_title2),
@@ -163,7 +165,7 @@ private fun WeAreScreenContent(
                 instagramLabel = member.instagramLabel,
                 instagramUri = member.instagramUrl,
                 urlImage = member.imageUrl,
-                modifier = Modifier.padding(vertical = 8.dp)
+                modifier = Modifier.padding(vertical = 8.dp),
             )
         }
 
@@ -172,15 +174,16 @@ private fun WeAreScreenContent(
         ButtonNavigation(
             textButton = R.string.btn_lets_make_your_dream,
             onClick = onClickWeDoScreen,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 24.dp)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 24.dp),
         )
 
         BorderTexts(
             textLeft = stringResource(R.string.sub_title8),
             textRight = stringResource(R.string.sub_title9),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
     }
 }
@@ -194,53 +197,55 @@ fun CardInfoExpandable(
     var expanded by remember { mutableStateOf(false) }
     val rotation by animateFloatAsState(
         targetValue = if (expanded) 180f else 0f,
-        label = "ExpandRotation"
+        label = "ExpandRotation",
     )
 
     Card(
         shape = RoundedCornerShape(8.dp),
-        modifier = modifier
-            .fillMaxWidth()
-            .animateContentSize(
-                animationSpec = tween(durationMillis = 300, easing = LinearOutSlowInEasing)
-            )
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = null
-            ) {
-                expanded = !expanded
-            }
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .animateContentSize(
+                    animationSpec = tween(durationMillis = 300, easing = LinearOutSlowInEasing),
+                ).clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null,
+                ) {
+                    expanded = !expanded
+                },
     ) {
         Column {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp, vertical = 12.dp),
-                verticalAlignment = Alignment.CenterVertically
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp, vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
                     text = title,
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.weight(1f),
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
                 )
 
                 Icon(
                     imageVector = Icons.Default.ArrowDropDown,
                     contentDescription = null,
-                    modifier = Modifier.rotate(rotation)
+                    modifier = Modifier.rotate(rotation),
                 )
             }
 
             if (expanded) {
                 Text(
                     text = description,
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        fontWeight = FontWeight.Light,
-                        color = MaterialTheme.colorScheme.onBackground
-                    ),
-                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
+                    style =
+                        MaterialTheme.typography.bodyMedium.copy(
+                            fontWeight = FontWeight.Light,
+                            color = MaterialTheme.colorScheme.onBackground,
+                        ),
+                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
                 )
             }
         }
@@ -259,43 +264,47 @@ fun LoadTeamCard(
     val uriHandler = LocalUriHandler.current
 
     Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(10.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(10.dp),
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 8.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer,
-            contentColor = MaterialTheme.colorScheme.onSurface
-        )
+        colors =
+            CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainer,
+                contentColor = MaterialTheme.colorScheme.onSurface,
+            ),
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             LoadImages(imageUrl = urlImage)
 
             Text(
                 text = name,
                 style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onBackground
+                color = MaterialTheme.colorScheme.onBackground,
             )
 
             Text(
                 text = jobPosition,
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.secondary
+                color = MaterialTheme.colorScheme.secondary,
             )
 
             Text(
                 text = instagramLabel,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.clickable {
-                    uriHandler.openUri(uri = instagramUri)
-                }
+                modifier =
+                    Modifier.clickable {
+                        uriHandler.openUri(uri = instagramUri)
+                    },
             )
         }
     }
@@ -310,10 +319,9 @@ private fun LoadTeamCardPreview() {
             jobPosition = "Diretor Audiovisual",
             instagramLabel = "@jeanovaes",
             instagramUri = "www",
-            urlImage = ""
+            urlImage = "",
         )
     }
-
 }
 
 @Preview(name = "WeAreScrenn Content Preview", showBackground = true)
