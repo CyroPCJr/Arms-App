@@ -12,8 +12,9 @@ import coil3.util.DebugLogger
 import com.example.armsapp.di.ArmsAppContainer
 import com.example.armsapp.di.DependencyContainer
 
-class ArmsApplication : Application(), SingletonImageLoader.Factory {
-
+class ArmsApplication :
+    Application(),
+    SingletonImageLoader.Factory {
     lateinit var container: DependencyContainer
         private set
 
@@ -23,23 +24,24 @@ class ArmsApplication : Application(), SingletonImageLoader.Factory {
     }
 
     override fun newImageLoader(context: PlatformContext): ImageLoader {
-        val imageLoader = ImageLoader.Builder(context)
-            .memoryCachePolicy(policy = CachePolicy.ENABLED)
-            .memoryCache {
-                MemoryCache.Builder()
-                    .maxSizePercent(context = context, percent = 0.25)
-                    .build()
-            }
-            .diskCachePolicy(policy = CachePolicy.ENABLED)
-            .diskCache {
-                DiskCache.Builder()
-                    .directory(context.cacheDir.resolve(relative = "image_cache"))
-                    .maxSizePercent(percent = 0.02)
-                    .build()
-            }
-            .logger(logger = DebugLogger())
-            .build()
+        val imageLoader =
+            ImageLoader
+                .Builder(context)
+                .memoryCachePolicy(policy = CachePolicy.ENABLED)
+                .memoryCache {
+                    MemoryCache
+                        .Builder()
+                        .maxSizePercent(context = context, percent = 0.25)
+                        .build()
+                }.diskCachePolicy(policy = CachePolicy.ENABLED)
+                .diskCache {
+                    DiskCache
+                        .Builder()
+                        .directory(context.cacheDir.resolve(relative = "image_cache"))
+                        .maxSizePercent(percent = 0.02)
+                        .build()
+                }.logger(logger = DebugLogger())
+                .build()
         return imageLoader
     }
-
 }

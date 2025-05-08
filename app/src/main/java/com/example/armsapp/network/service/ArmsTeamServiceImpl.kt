@@ -10,16 +10,13 @@ import io.ktor.client.request.get
 
 class ArmsTeamServiceImpl(
     private val client: HttpClient,
-    private val logger: Logger = AndroidLogger()
+    private val logger: Logger = AndroidLogger(),
 ) : ApiService<ArmsTeamDto> {
-
-    override suspend fun apiGetCall(): List<ArmsTeamDto> {
-        return safeApiCall<List<ArmsTeamDto>>(logger) {
+    override suspend fun apiGetCall(): List<ArmsTeamDto> =
+        safeApiCall<List<ArmsTeamDto>>(logger) {
             client.get("armsTeam").body()
         }.getOrElse {
             logger.e("ArmsTeamServiceImpl", "Failed to fetch arms team: ${it.message}")
             emptyList<ArmsTeamDto>()
         }
-    }
-
 }

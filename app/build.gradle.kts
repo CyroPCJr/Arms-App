@@ -27,7 +27,7 @@ android {
             isDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
 
@@ -37,7 +37,7 @@ android {
             isDebuggable = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -46,7 +46,7 @@ android {
         it.buildConfigField(
             "String",
             "armsBaseUrl",
-            project.property("armsBaseUrl").toString()
+            project.property("armsBaseUrl").toString(),
         )
     }
 

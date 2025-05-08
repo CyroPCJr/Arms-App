@@ -15,51 +15,50 @@ import androidx.compose.material.icons.outlined.RecordVoiceOver
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.armsapp.R
 
-sealed class BottomBarNavItem(
+sealed class BottomBarNavigationItem(
     val id: Int,
     val route: String,
     @StringRes val label: Int,
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
 ) {
-
-    data object HomeScreen : BottomBarNavItem(
+    data object HomeScreen : BottomBarNavigationItem(
         id = 0,
         route = "Principal",
         label = R.string.botton_bar_home,
         selectedIcon = Icons.Filled.Home,
-        unselectedIcon = Icons.Outlined.Home
+        unselectedIcon = Icons.Outlined.Home,
     )
 
-    data object WeAreScreen : BottomBarNavItem(
+    data object WeAreScreen : BottomBarNavigationItem(
         id = 1,
         route = "Somos",
         label = R.string.botton_bar_we_are,
         selectedIcon = Icons.Filled.Person,
-        unselectedIcon = Icons.Outlined.Person
+        unselectedIcon = Icons.Outlined.Person,
     )
 
-    data object WeDoScreen : BottomBarNavItem(
+    data object WeDoScreen : BottomBarNavigationItem(
         id = 2,
         route = "Fazemos",
         label = R.string.botton_bar_we_do,
         selectedIcon = Icons.Filled.Construction,
-        unselectedIcon = Icons.Outlined.Construction
+        unselectedIcon = Icons.Outlined.Construction,
     )
 
-    data object SpeakScreen : BottomBarNavItem(
+    data object SpeakScreen : BottomBarNavigationItem(
         id = 3,
         route = "Falamos",
         label = R.string.botton_bar_speak,
         selectedIcon = Icons.Filled.RecordVoiceOver,
-        unselectedIcon = Icons.Outlined.RecordVoiceOver
+        unselectedIcon = Icons.Outlined.RecordVoiceOver,
     )
 
-    data object ContactScreen : BottomBarNavItem(
+    data object ContactScreen : BottomBarNavigationItem(
         id = 4,
         route = "Contato",
         label = R.string.botton_bar_contact,
         selectedIcon = Icons.Filled.Contacts,
-        unselectedIcon = Icons.Outlined.Contacts
+        unselectedIcon = Icons.Outlined.Contacts,
     )
 }

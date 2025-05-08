@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ProjectDao {
-
     @Query("SELECT * FROM projects")
     fun getAll(): Flow<List<ProjectEntity>>
 

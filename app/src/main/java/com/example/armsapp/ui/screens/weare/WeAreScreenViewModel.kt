@@ -11,17 +11,18 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
-class WeAreScreenViewModel(offLineArmsRepo: OfflineArmsRepo<ArmsTeam>) : ViewModel() {
-
-    val armsTeamUiState = offLineArmsRepo
-        .getArmsRepo()
-        .distinctUntilChanged()
-        .map<_, UiState<List<ArmsTeam>>> { listProject -> UiState.Success(listProject) }
-        .catch { emit(UiState.Error(it.message ?: "Erro ao carregar!")) }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.Companion.WhileSubscribed(5000L),
-            initialValue = UiState.Loading
-        )
-
+class WeAreScreenViewModel(
+    offLineArmsRepo: OfflineArmsRepo<ArmsTeam>,
+) : ViewModel() {
+    val armsTeamUiState =
+        offLineArmsRepo
+            .getArmsRepo()
+            .distinctUntilChanged()
+            .map<_, UiState<List<ArmsTeam>>> { listProject -> UiState.Success(listProject) }
+            .catch { emit(UiState.Error(it.message ?: "Erro ao carregar!")) }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.Companion.WhileSubscribed(5000L),
+                initialValue = UiState.Loading,
+            )
 }

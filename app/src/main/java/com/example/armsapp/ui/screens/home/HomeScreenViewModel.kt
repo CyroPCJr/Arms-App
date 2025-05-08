@@ -12,18 +12,17 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 class HomeScreenViewModel(
-    offLineArmsRepo: OfflineArmsRepo<Project>
+    offLineArmsRepo: OfflineArmsRepo<Project>,
 ) : ViewModel() {
-
-    val projectsUiStateFirstFour = offLineArmsRepo
-        .getArmsRepo()
-        .distinctUntilChanged()
-        .map<_, UiState<List<Project>>> { listProject -> UiState.Success(listProject.take(4)) }
-        .catch { emit(UiState.Error(it.message ?: "Erro ao carregar!")) }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.Companion.WhileSubscribed(5000L),
-            initialValue = UiState.Loading
-        )
-
+    val projectsUiStateFirstFour =
+        offLineArmsRepo
+            .getArmsRepo()
+            .distinctUntilChanged()
+            .map<_, UiState<List<Project>>> { listProject -> UiState.Success(listProject.take(4)) }
+            .catch { emit(UiState.Error(it.message ?: "Erro ao carregar!")) }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.Companion.WhileSubscribed(5000L),
+                initialValue = UiState.Loading,
+            )
 }

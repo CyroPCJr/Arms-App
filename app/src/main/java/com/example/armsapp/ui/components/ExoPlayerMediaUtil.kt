@@ -30,27 +30,28 @@ import com.example.armsapp.ui.viewmodel.PlayerViewModel
 fun ExoPlayerView(
     viewModel: PlayerViewModel,
     mediaUrl: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val player = remember { viewModel.getOrCreatePlayer(context, mediaUrl) }
 
     DisposableEffect(Unit) {
-        val observer = LifecycleEventObserver { _, event ->
-            when (event) {
-                Lifecycle.Event.ON_PAUSE -> {
-                    viewModel.saveState(mediaUrl)
-                    viewModel.pause(mediaUrl)
-                }
+        val observer =
+            LifecycleEventObserver { _, event ->
+                when (event) {
+                    Lifecycle.Event.ON_PAUSE -> {
+                        viewModel.saveState(mediaUrl)
+                        viewModel.pause(mediaUrl)
+                    }
 
-                Lifecycle.Event.ON_RESUME -> {
-                    viewModel.play(mediaUrl)
-                }
+                    Lifecycle.Event.ON_RESUME -> {
+                        viewModel.play(mediaUrl)
+                    }
 
-                else -> {}
+                    else -> {}
+                }
             }
-        }
 
         lifecycleOwner.lifecycle.addObserver(observer)
         onDispose {
@@ -69,12 +70,12 @@ fun ExoPlayerView(
                 setShowBuffering(PlayerView.SHOW_BUFFERING_WHEN_PLAYING)
             }
         },
-        modifier = modifier
-            .fillMaxWidth()
-            .height(200.dp)
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .height(200.dp),
     )
 }
-
 
 @Composable
 fun VideoWithVisibilityHandler(
@@ -82,7 +83,7 @@ fun VideoWithVisibilityHandler(
     mediaUrl: String,
     tag: String,
     context: Context,
-    modifier: Modifier
+    modifier: Modifier,
 ) {
     // Lidar com visibilidade do vídeo na tela
     val isVisible = remember { mutableStateOf(false) }
@@ -96,9 +97,9 @@ fun VideoWithVisibilityHandler(
                 viewModel.getOrCreatePlayer(context, mediaUrl)
             }
 
-            viewModel.play(tag)  // Garantir que o player comece a tocar se visível
+            viewModel.play(tag) // Garantir que o player comece a tocar se visível
         } else {
-            viewModel.pause(tag)  // Pausar quando o player sair de foco
+            viewModel.pause(tag) // Pausar quando o player sair de foco
         }
     }
 
@@ -117,6 +118,6 @@ fun VideoWithVisibilityHandler(
     ExoPlayerView(
         viewModel = viewModel,
         mediaUrl = mediaUrl,
-        modifier = modifier
+        modifier = modifier,
     )
 }

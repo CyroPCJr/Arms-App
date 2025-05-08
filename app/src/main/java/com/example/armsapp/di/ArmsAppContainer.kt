@@ -25,9 +25,8 @@ interface DependencyContainer {
 class ArmsAppContainer(
     context: Context,
     private val dbProvider: () -> ArmsDatabase = { ArmsDatabase.getDatabase(context.applicationContext) },
-    private val clientProvider: () -> HttpClient = { ArmsApiClientProvider.client }
+    private val clientProvider: () -> HttpClient = { ArmsApiClientProvider.client },
 ) : DependencyContainer {
-
     private val database: ArmsDatabase by lazy { dbProvider() }
     private val httpClient: HttpClient by lazy { clientProvider() }
 
@@ -51,13 +50,11 @@ class ArmsAppContainer(
         @Volatile
         private var instance: ArmsAppContainer? = null
 
-        fun getInstance(context: Context): ArmsAppContainer {
-            return instance ?: synchronized(this) {
+        fun getInstance(context: Context): ArmsAppContainer =
+            instance ?: synchronized(this) {
                 instance ?: ArmsAppContainer(context.applicationContext).also {
                     instance = it
                 }
             }
-        }
     }
-
 }

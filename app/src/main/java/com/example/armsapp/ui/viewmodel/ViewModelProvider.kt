@@ -17,63 +17,68 @@ import com.example.armsapp.ui.screens.wespeak.WeSpeakScreenViewModel
 import com.example.armsapp.utils.AndroidLogger
 
 object AppViewModelProvider {
+    val Factory =
+        viewModelFactory {
 
-    val Factory = viewModelFactory {
-
-        initializer {
-            MainScreenViewModel(
-                offlineProject = OffLineArmsRepository<Project, ProjectDto>(
-                    localDataSource = armsApp().container.projectRepository,
-                    remoteDataSource = armsApp().container.projectService
-                ),
-                offlineArms = OffLineArmsRepository<ArmsTeam, ArmsTeamDto>(
-                    localDataSource = armsApp().container.armsTeamRepository,
-                    remoteDataSource = armsApp().container.armsTeamService
+            initializer {
+                MainScreenViewModel(
+                    offlineProject =
+                        OffLineArmsRepository<Project, ProjectDto>(
+                            localDataSource = armsApp().container.projectRepository,
+                            remoteDataSource = armsApp().container.projectService,
+                        ),
+                    offlineArms =
+                        OffLineArmsRepository<ArmsTeam, ArmsTeamDto>(
+                            localDataSource = armsApp().container.armsTeamRepository,
+                            remoteDataSource = armsApp().container.armsTeamService,
+                        ),
                 )
-            )
-        }
+            }
 
-        initializer {
-            HomeScreenViewModel(
-                offLineArmsRepo = OffLineArmsRepository<Project, ProjectDto>(
-                    localDataSource = armsApp().container.projectRepository,
-                    remoteDataSource = armsApp().container.projectService
+            initializer {
+                HomeScreenViewModel(
+                    offLineArmsRepo =
+                        OffLineArmsRepository<Project, ProjectDto>(
+                            localDataSource = armsApp().container.projectRepository,
+                            remoteDataSource = armsApp().container.projectService,
+                        ),
                 )
-            )
-        }
+            }
 
-        initializer {
-            PlayerViewModel(logger = AndroidLogger())
-        }
+            initializer {
+                PlayerViewModel(logger = AndroidLogger())
+            }
 
-        initializer {
-            WeSpeakScreenViewModel(
-                offLineArmsRepo = OffLineArmsRepository<Project, ProjectDto>(
-                    localDataSource = armsApp().container.projectRepository,
-                    remoteDataSource = armsApp().container.projectService
+            initializer {
+                WeSpeakScreenViewModel(
+                    offLineArmsRepo =
+                        OffLineArmsRepository<Project, ProjectDto>(
+                            localDataSource = armsApp().container.projectRepository,
+                            remoteDataSource = armsApp().container.projectService,
+                        ),
                 )
-            )
-        }
+            }
 
-        initializer {
-            WeDoScreenViewModel(
-                offLineArmsRepo = OffLineArmsRepository<Project, ProjectDto>(
-                    localDataSource = armsApp().container.projectRepository,
-                    remoteDataSource = armsApp().container.projectService
+            initializer {
+                WeDoScreenViewModel(
+                    offLineArmsRepo =
+                        OffLineArmsRepository<Project, ProjectDto>(
+                            localDataSource = armsApp().container.projectRepository,
+                            remoteDataSource = armsApp().container.projectService,
+                        ),
                 )
-            )
-        }
+            }
 
-        initializer {
-            WeAreScreenViewModel(
-                offLineArmsRepo = OffLineArmsRepository<ArmsTeam, ArmsTeamDto>(
-                    localDataSource = armsApp().container.armsTeamRepository,
-                    remoteDataSource = armsApp().container.armsTeamService
+            initializer {
+                WeAreScreenViewModel(
+                    offLineArmsRepo =
+                        OffLineArmsRepository<ArmsTeam, ArmsTeamDto>(
+                            localDataSource = armsApp().container.armsTeamRepository,
+                            remoteDataSource = armsApp().container.armsTeamService,
+                        ),
                 )
-            )
+            }
         }
-    }
 }
 
-fun CreationExtras.armsApp(): ArmsApplication =
-    (this[AndroidViewModelFactory.APPLICATION_KEY] as ArmsApplication)
+fun CreationExtras.armsApp(): ArmsApplication = (this[AndroidViewModelFactory.APPLICATION_KEY] as ArmsApplication)

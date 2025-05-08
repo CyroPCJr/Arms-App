@@ -44,7 +44,7 @@ fun WeDoScreen(
     when (uiState) {
         is UiState.Error -> {
             ErrorScreen(
-                message = (uiState as UiState.Error).message
+                message = (uiState as UiState.Error).message,
             ) {
                 viewModel::projectsUiState
             }
@@ -60,7 +60,7 @@ fun WeDoScreen(
                 projectList = projectList,
                 modifier = modifier,
                 contentPaddingValues = contentPaddingValues,
-                onClickWeAreScreen = onClickWeAreScreen
+                onClickWeAreScreen = onClickWeAreScreen,
             )
         }
     }
@@ -71,46 +71,50 @@ private fun WeDoScreenContent(
     projectList: List<Project>,
     modifier: Modifier,
     contentPaddingValues: PaddingValues,
-    onClickWeAreScreen: () -> Unit
+    onClickWeAreScreen: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(contentPaddingValues)
-            .verticalScroll(state = scrollState),
+        modifier =
+            modifier
+                .fillMaxSize()
+                .padding(contentPaddingValues)
+                .verticalScroll(state = scrollState),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.Start
+        horizontalAlignment = Alignment.Start,
     ) {
         Text(
             text = stringResource(R.string.we_do_message1),
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier
-                .align(alignment = Alignment.Start)
-                .padding(
-                    top = dimensionResource(R.dimen.padding_vertical),
-                    bottom = dimensionResource(R.dimen.padding_vertical),
-                    start = 8.dp
-                )
+            modifier =
+                Modifier
+                    .align(alignment = Alignment.Start)
+                    .padding(
+                        top = dimensionResource(R.dimen.padding_vertical),
+                        bottom = dimensionResource(R.dimen.padding_vertical),
+                        start = 8.dp,
+                    ),
         )
         Row(
-            modifier = Modifier
-                .align(alignment = Alignment.End)
-                .padding(end = 8.dp)
+            modifier =
+                Modifier
+                    .align(alignment = Alignment.End)
+                    .padding(end = 8.dp),
         ) {
             Text(
                 text = stringResource(R.string.we_do_message2),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Light,
                 color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier
-                    .padding(
-                        top = dimensionResource(R.dimen.padding_vertical),
-                        bottom = dimensionResource(R.dimen.padding_vertical),
-                        start = 8.dp
-                    )
+                modifier =
+                    Modifier
+                        .padding(
+                            top = dimensionResource(R.dimen.padding_vertical),
+                            bottom = dimensionResource(R.dimen.padding_vertical),
+                            start = 8.dp,
+                        ),
             )
         }
 
@@ -118,21 +122,24 @@ private fun WeDoScreenContent(
 
         Text(
             text = stringResource(R.string.sub_title4),
-            modifier = Modifier
-                .align(alignment = Alignment.Start)
-                .padding(start = 8.dp)
+            modifier =
+                Modifier
+                    .align(alignment = Alignment.Start)
+                    .padding(start = 8.dp),
         )
         Text(
             text = stringResource(R.string.sub_title5),
-            modifier = Modifier
-                .align(alignment = Alignment.End)
-                .padding(end = 8.dp)
+            modifier =
+                Modifier
+                    .align(alignment = Alignment.End)
+                    .padding(end = 8.dp),
         )
 
         Row(
-            modifier = Modifier
-                .align(alignment = Alignment.End)
-                .padding(end = 8.dp)
+            modifier =
+                Modifier
+                    .align(alignment = Alignment.End)
+                    .padding(end = 8.dp),
         ) {
             ButtonNavigation(R.string.btn_check_consult, onClick = { onClickWeAreScreen() })
         }
@@ -142,9 +149,8 @@ private fun WeDoScreenContent(
         BorderTexts(
             textLeft = stringResource(R.string.sub_title8),
             textRight = stringResource(R.string.sub_title9),
-            modifier = modifier
+            modifier = modifier,
         )
-
     }
 }
 
@@ -156,7 +162,7 @@ fun PreviewWeDoScreenDark() {
             projectList = _root_ide_package_.com.example.armsapp.data.local.listProjects,
             modifier = Modifier,
             contentPaddingValues = PaddingValues(16.dp),
-            onClickWeAreScreen = {}
+            onClickWeAreScreen = {},
         )
     }
 }
@@ -169,7 +175,7 @@ fun PreviewWeDoScreenContent() {
             projectList = _root_ide_package_.com.example.armsapp.data.local.listProjects,
             modifier = Modifier,
             contentPaddingValues = PaddingValues(16.dp),
-            onClickWeAreScreen = {}
+            onClickWeAreScreen = {},
         )
     }
 }

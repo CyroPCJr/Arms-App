@@ -13,8 +13,9 @@ import com.example.armsapp.utils.Logger
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class PlayerViewModel(private val logger: Logger) : ViewModel() {
-
+class PlayerViewModel(
+    private val logger: Logger,
+) : ViewModel() {
     private val players = mutableMapOf<String, ExoPlayer>()
     private val currentPositions = mutableMapOf<String, Long>()
 
@@ -22,17 +23,20 @@ class PlayerViewModel(private val logger: Logger) : ViewModel() {
     val playerState: StateFlow<ExoPlayer?> = _playerState
 
     @OptIn(UnstableApi::class)
-    fun getOrCreatePlayer(context: Context, videoUrl: String): ExoPlayer {
-        return players.getOrPut(videoUrl) {
-
-            val loadControl = DefaultLoadControl.Builder()
-                .setBufferDurationsMs(
-                    15000,
-                    50000,
-                    3000,
-                    5000
-                )
-                .build()
+    fun getOrCreatePlayer(
+        context: Context,
+        videoUrl: String,
+    ): ExoPlayer =
+        players.getOrPut(videoUrl) {
+            val loadControl =
+                DefaultLoadControl
+                    .Builder()
+                    .setBufferDurationsMs(
+                        15000,
+                        50000,
+                        3000,
+                        5000,
+                    ).build()
 
             ExoPlayer.Builder(context).setLoadControl(loadControl).build().apply {
                 val mediaItem = MediaItem.fromUri(videoUrl)
@@ -40,14 +44,15 @@ class PlayerViewModel(private val logger: Logger) : ViewModel() {
                 prepare()
                 playWhenReady = false
                 repeatMode = Player.REPEAT_MODE_ONE
-                addListener(object : Player.Listener {
-                    override fun onPlayerError(error: PlaybackException) {
-                        logger.e("ExoPlayer", "Error: ${error.message}")
-                    }
-                })
+                addListener(
+                    object : Player.Listener {
+                        override fun onPlayerError(error: PlaybackException) {
+                            logger.e("ExoPlayer", "Error: ${error.message}")
+                        }
+                    },
+                )
             }
         }
-    }
 
     fun play(videoUrl: String) {
         players[videoUrl]?.play()
@@ -74,5 +79,4 @@ class PlayerViewModel(private val logger: Logger) : ViewModel() {
         players.values.forEach { it.release() }
         players.clear()
     }
-
 }

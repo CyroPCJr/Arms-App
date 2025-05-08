@@ -7,21 +7,21 @@ import kotlinx.coroutines.flow.Flow
 
 interface OfflineArmsRepo<T> {
     suspend fun fetchAndSaveArmsRepo(): Result<Unit>
+
     fun getArmsRepo(): Flow<List<T>>
 }
 
 class OffLineArmsRepository<T, U>(
     private val localDataSource: ArmsLocalRepository<T, U>,
     private val remoteDataSource: ApiService<U>,
-    private val logger: Logger = AndroidLogger()
+    private val logger: Logger = AndroidLogger(),
 ) : OfflineArmsRepo<T> {
-
     companion object {
         private const val TAG = "OffLineArmsRepository"
     }
 
-    override suspend fun fetchAndSaveArmsRepo(): Result<Unit> {
-        return if (!localDataSource.hasData()) {
+    override suspend fun fetchAndSaveArmsRepo(): Result<Unit> =
+        if (!localDataSource.hasData()) {
             try {
                 val remote = remoteDataSource.apiGetCall()
                 localDataSource.insertAll(remote)
@@ -32,8 +32,6 @@ class OffLineArmsRepository<T, U>(
         } else {
             Result.success(Unit)
         }
-    }
 
     override fun getArmsRepo(): Flow<List<T>> = localDataSource.getAll()
-
 }

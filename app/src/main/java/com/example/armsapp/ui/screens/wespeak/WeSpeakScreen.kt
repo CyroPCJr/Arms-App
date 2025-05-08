@@ -38,12 +38,11 @@ fun WeSpeakScreen(
     onClickWeAreScreen: () -> Unit,
     contentPaddingValues: PaddingValues = PaddingValues(),
 ) {
-
     val uiState by viewModel.projectsUiState.collectAsStateWithLifecycle()
     when (uiState) {
         is UiState.Error -> {
             ErrorScreen(
-                message = (uiState as UiState.Error).message
+                message = (uiState as UiState.Error).message,
             ) {
                 viewModel::projectsUiState
             }
@@ -60,7 +59,7 @@ fun WeSpeakScreen(
                 modifier = modifier,
                 contentPaddingValues = contentPaddingValues,
                 onClickWeDoScreen = onClickWeDoScreen,
-                onClickWeAreScreen = onClickWeAreScreen
+                onClickWeAreScreen = onClickWeAreScreen,
             )
         }
     }
@@ -72,32 +71,33 @@ private fun WeSpeakScreenContent(
     modifier: Modifier,
     contentPaddingValues: PaddingValues,
     onClickWeDoScreen: () -> Unit,
-    onClickWeAreScreen: () -> Unit
+    onClickWeAreScreen: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
     val paddingVertical = dimensionResource(R.dimen.padding_vertical)
 
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(scrollState)
-            .padding(contentPaddingValues)
-            .padding(horizontal = 8.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        modifier =
+            modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+                .padding(contentPaddingValues)
+                .padding(horizontal = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Text(
             text = stringResource(R.string.we_speak_message1),
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.padding(top = paddingVertical)
+            modifier = Modifier.padding(top = paddingVertical),
         )
 
         Text(
             text = stringResource(R.string.we_speak_message2),
             fontSize = 14.sp,
             fontWeight = FontWeight.Light,
-            color = MaterialTheme.colorScheme.onBackground
+            color = MaterialTheme.colorScheme.onBackground,
         )
 
         projectList.getOrNull(5)?.let {
@@ -107,14 +107,14 @@ private fun WeSpeakScreenContent(
         ButtonNavigation(
             textButton = R.string.btn_check_all_projects,
             onClick = onClickWeDoScreen,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally),
         )
 
         Text(
             text = stringResource(R.string.sub_title4),
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onBackground
+            color = MaterialTheme.colorScheme.onBackground,
         )
 
         Text(
@@ -122,13 +122,13 @@ private fun WeSpeakScreenContent(
             fontSize = 14.sp,
             fontWeight = FontWeight.Light,
             color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.align(Alignment.End)
+            modifier = Modifier.align(Alignment.End),
         )
 
         ButtonNavigation(
             textButton = R.string.btn_click_for_more,
             onClick = onClickWeAreScreen,
-            modifier = Modifier.align(Alignment.End)
+            modifier = Modifier.align(Alignment.End),
         )
     }
 }
@@ -142,7 +142,8 @@ fun PreviewWeSpeakScreen() {
             modifier = Modifier,
             contentPaddingValues = PaddingValues(),
             onClickWeDoScreen = { },
-            onClickWeAreScreen = {})
+            onClickWeAreScreen = {},
+        )
     }
 }
 
@@ -156,7 +157,8 @@ fun PreviewModeWeSpeakScreenDark() {
                 modifier = Modifier,
                 contentPaddingValues = PaddingValues(),
                 onClickWeDoScreen = { },
-                onClickWeAreScreen = {})
+                onClickWeAreScreen = {},
+            )
         }
     }
 }

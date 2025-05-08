@@ -10,15 +10,15 @@ data class ArmsTeamDto(
     val jobPosition: String,
     val instagramLabel: String,
     val instagramUrl: String,
-    val image: String
+    val image: String,
 )
 
-fun ArmsTeamDto.toArmsTeamEntity() = ArmsTeamEntity(
-    id = id,
-    name = name,
-    jobPosition = jobPosition,
-    instagramLabel = instagramLabel,
-    instagramUrl = instagramUrl,
-    image = image
-)
-
+fun ArmsTeamDto.toArmsTeamEntity() =
+    ArmsTeamEntity(
+        id = id,
+        name = name,
+        jobPosition = jobPosition,
+        instagramLabel = instagramLabel,
+        instagramUrl = instagramUrl,
+        image = image,
+    )

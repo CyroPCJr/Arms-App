@@ -10,13 +10,14 @@ data class ProjectEntity(
     val urlImage: String,
     val linkPage: String,
     val name: String,
-    val type: String = ""
+    val type: String = "",
 )
 
-fun ProjectEntity.toProject() = Project(
-    id = id,
-    urlImage = urlImage,
-    linkPage = linkPage,
-    name = name,
-    type = type
-)
+fun ProjectEntity.toProject() =
+    Project(
+        id = id,
+        urlImage = urlImage,
+        linkPage = linkPage,
+        name = name,
+        type = type,
+    )

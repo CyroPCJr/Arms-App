@@ -32,11 +32,13 @@ object ArmsApiClientProvider {
                 }
 
                 install(ContentNegotiation) {
-                    json(Json {
-                        prettyPrint = true
-                        isLenient = true
-                        ignoreUnknownKeys = true
-                    })
+                    json(
+                        Json {
+                            prettyPrint = true
+                            isLenient = true
+                            ignoreUnknownKeys = true
+                        },
+                    )
                 }
 
                 install(Logging) {
@@ -68,6 +70,4 @@ object ArmsApiClientProvider {
     val client: HttpClient by lazy {
         createClient()
     }
-
 }
-
